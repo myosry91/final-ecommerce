@@ -26,15 +26,20 @@ export default {
       borderRadius: {
         inputRadius: 62,
         buttonRadius : 62,
-        cardRadius : 20
+        cardRadius: 20
       },
       fontSize: {
         cardTitle: 20,
-        cardPrice : 24
+        cardPrice: 24,
+        cardRating: 14
       },
       padding: {
         buttonPadding: "var(--button-padding)" ,
         inputPadding: "var(--input-padding)"
+      },
+      fontFamily: {
+        cairo: ["Cairo", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       }
     },
   },
