@@ -3,6 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      container: {
+        padding: '2rem',
+        // center: true,
+      },
+      clipPath: {
+        'custom-star': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
+      },
       colors: {
         forground: "hsl(var(--forground-background))",
         forgroundColor: "hsl(var(--forground-color))",
@@ -40,8 +47,17 @@ export default {
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],
         inter: ["Inter", "sans-serif"],
-      }
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.clip-star': {
+          'clip-path': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+        },
+      })
+    },
+  ],
 };
