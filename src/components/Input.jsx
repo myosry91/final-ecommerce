@@ -1,11 +1,11 @@
-
-const Input = ({type,label}) => {
+const Input = ({ type, label }) => {
   return (
     <div>
-        <label htmlFor="">{label}</label>
-        <input type={type} />
+      {/* start job */}
+      <label htmlFor="">{label}</label>
+      <input type={type} />
     </div>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;
