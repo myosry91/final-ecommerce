@@ -134,7 +134,7 @@ function Navbar() {
                 name="search"
                 id="search"
                 placeholder="Search for products..."
-                className="block w-[400px] rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none"
+                className="block rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none"
               />
             </div>
             <IoMdClose
