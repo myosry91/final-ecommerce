@@ -32,13 +32,13 @@ const HomePage = () => {
                     </div>
                 </header>
             </div>
-                <div className='bg-forground text-forgroundColor p-5 flex gap-4 justify-between flex-wrap ' >
-                    <span className='font-cairo font-bold text-4xl ' >VERSACE</span>
-                    <span className='font-cairo font-bold text-4xl ' >ZARA</span>
-                    <span className='font-cairo font-bold text-4xl ' >GUCCI</span>
-                    <span className='font-cairo font-bold text-4xl ' >PRADA</span>
-                    <span className='font-cairo font-bold text-4xl' >CHALVIN CLEIN</span>
-                </div>
+            <div className='bg-forground text-forgroundColor p-5 flex gap-4 justify-between flex-wrap ' >
+                <span className='font-cairo font-bold text-4xl ' >VERSACE</span>
+                <span className='font-cairo font-bold text-4xl ' >ZARA</span>
+                <span className='font-cairo font-bold text-4xl ' >GUCCI</span>
+                <span className='font-cairo font-bold text-4xl ' >PRADA</span>
+                <span className='font-cairo font-bold text-4xl' >CHALVIN CLEIN</span>
+            </div>
         </section>
     )
 }

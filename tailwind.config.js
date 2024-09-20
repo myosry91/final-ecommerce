@@ -5,7 +5,10 @@ export default {
     extend: {
       container: {
         padding: '2rem',
-        // center: true,
+        center: true,
+      },
+      boxShadow: {
+        custom: '0 4px 10px rgba(0, 0, 0, 0.1);', 
       },
       clipPath: {
         'custom-star': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
