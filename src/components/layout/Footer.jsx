@@ -88,5 +88,5 @@ const Footer = () => {
     </footer>
   );
 }
-
+//jgtu
 export default Footer;
