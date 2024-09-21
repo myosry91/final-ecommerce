@@ -1,7 +1,7 @@
 
 import { MdEmail } from 'react-icons/md';
 import { BiLogoFacebook, BiX, BiLogoInstagram, BiLogoGithub } from 'react-icons/bi';
-import masterCard from "../../assets/images/apple-pay.png"
+import masterCard from "../../assets/images/Mastercard-Logo.png"
 import paypal from "../../assets/images/paypal.png"
 import GPay from "../../assets/images/googlePay.png"
 import visa from "../../assets/images/VISA-logo.png"
