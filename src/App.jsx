@@ -13,14 +13,12 @@
 //   )
 // }
 
-//
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import About from './pages/About';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
-
 
 function App() {
   return (
