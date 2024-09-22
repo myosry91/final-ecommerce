@@ -7,6 +7,7 @@ import { Autoplay } from "swiper/modules";
 import style from "./Home.module.css"
 
 const HomePage = () => {
+  //
   const brands = ["VERSACE", "ZARA", "GUCCI", "PRADA", "CHALVIN CLEIN"]
   return (
     <section className=" bg-headerBackground p-5 my-5">
