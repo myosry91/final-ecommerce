@@ -1,6 +1,6 @@
-const Button = ({ children,width }) => {
+const Button = ({ children, width, className }) => {
   return (
-    <button className={`p-buttonPadding bg-buttonBackground text-white rounded-buttonRadius  mt-5 font-inter`} style={{width:width}}>
+    <button className={`p-buttonPadding bg-buttonBackground text-white rounded-buttonRadius font-inter ${className}`} >
       {children}
     </button>
   );

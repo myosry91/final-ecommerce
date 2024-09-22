@@ -49,7 +49,13 @@ export default {
       },
       padding: {
         buttonPadding: "var(--button-padding)" ,
-        inputPadding: "var(--input-padding)"
+        inputPadding: "var(--input-padding)",
+        discountLg: "var(--discount-lg-padding)",
+        discountSm: "var(--discount-sm-padding)",
+        sizeSm: "var(--size-sm-padding)",
+        sizeLg: "var(--size-lg-padding)",
+        quantityLg: "var(--quantity-lg-padding)",
+        quantitySm: "var(--quantity-sm-padding)",
       },
       fontFamily: {
         cairo: ["Cairo", "sans-serif"],

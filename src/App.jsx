@@ -1,24 +1,10 @@
-// import './App.css'
-// import Navbar from './components/navbar/Navbar'
-// import HomePage from './pages/home/HomePage'
-// import Footer from './components/footer'
-
-// export default function App() {
-//   return (
-//     <div>
-//       <Navbar />
-//       <HomePage />
-//       {/* <Footer/> */}
-//     </div>
-//   )
-// }
-
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import About from './pages/About';
 import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/home/HomePage';
+import './App.css'
+import DetailsPage from './pages/Details/DetailsPage';
 
 
 function App() {
@@ -30,6 +16,7 @@ function App() {
          {/* pages */}
           <Route index element={<HomePage/>} />
           <Route path="about" element={<About />} />
+          <Route path='/details' element={<DetailsPage/>} />
         </Route>
       </Routes>
     </Router>
