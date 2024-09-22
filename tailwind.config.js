@@ -7,6 +7,9 @@ export default {
         padding: '2rem',
         center: true,
       },
+      gridTemplateColumns: {
+        'auto-fill': 'repeat(auto-fill, minmax(230px, 1fr))',
+      },
       boxShadow: {
         custom: '0 4px 10px rgba(0, 0, 0, 0.1);', 
       },
@@ -31,7 +34,8 @@ export default {
         discountColor : "hsl(var(--discount-color))",
         footerBackground: "hsl(var(--footer-background))",
         iconVerifiedBackground: "hsl(var(--icon-verified-background))",
-        iconStarColor: "hsl(var(--star-color))"
+        iconStarColor: "hsl(var(--star-color))",
+        whiteBtnBorderColor: "hsl(var(--white-btn-border-color))"
       },
       borderRadius: {
         inputRadius: 62,
