@@ -60,6 +60,7 @@ const HomePage = () => {
           </div>
         </header>
       </div>
+      {/* brands section */}
       <div className="bg-forground text-forgroundColor p-5 ">
         <div className={`${style.scrollWrapper} w-[250%] lg:w-[145%]`} >
           <Swiper
