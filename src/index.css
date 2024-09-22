@@ -26,4 +26,10 @@
 
     --button-padding : 16px 54px;
     --input-padding : 12px 16px;
+    --discount-lg-padding : 6px 14px;
+    --discount-sm-padding: 6px 12px;
+    --size-lg-padding: 12px 24px;
+    --size-sm-padding: 10px 20px;
+    --quantity-lg-padding: 16px 20px;
+    --quantity-sm-padding: 12px 16px;
 }

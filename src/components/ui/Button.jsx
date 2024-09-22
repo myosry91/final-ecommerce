@@ -1,7 +1,6 @@
-const Button = ({ children, width }) => {
-console.log(typeof width)
+const Button = ({ children, width, className }) => {
   return (
-    <button className={`p-buttonPadding bg-buttonBackground text-white rounded-buttonRadius  mt-5 font-inter w-full lg:w-[${String(width)}px]`} >
+    <button className={`p-buttonPadding bg-buttonBackground text-white rounded-buttonRadius font-inter ${className}`} >
       {children}
     </button>
   );
