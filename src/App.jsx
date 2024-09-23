@@ -4,7 +4,7 @@ import About from './pages/About';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/home/HomePage';
 import './App.css'
-import DetailsPage from './pages/Details/DetailsPage';
+import DetailsPage from './pages/details/DetailsPage';
 
 
 function App() {
