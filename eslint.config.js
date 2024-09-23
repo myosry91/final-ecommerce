@@ -24,7 +24,7 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
-      "react/prop-types": "off",
+      "react/prop-types": false,
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
@@ -32,7 +32,9 @@ export default [
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        { allowConstantExport: true ,
+          "no-unescaped-entities":false ,
+        },
       ],
     },
   },
