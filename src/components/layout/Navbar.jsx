@@ -19,16 +19,13 @@ function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
 
-
   const handleDropdown = () => {
     setDropdownStatus((prev) => !prev);
   };
 
-
   const handleLoginDropdown = () => {
     setLoginDropdownStatus((prev) => !prev);
   };
-
 
   const handleDrawerOpen = () => {
     setDrawerOpen((prev) => !prev);
@@ -38,25 +35,34 @@ function Navbar() {
     setSearchOpen((prev) => !prev);
   };
 
-
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropdownStatus(false);
     }
 
-    if (loginDropdownRef.current && !loginDropdownRef.current.contains(event.target)) {
+    if (
+      loginDropdownRef.current &&
+      !loginDropdownRef.current.contains(event.target)
+    ) {
       setLoginDropdownStatus(false);
     }
 
-    if (drawerOpen && drawerRef.current && !drawerRef.current.contains(event.target)) {
+    if (
+      drawerOpen &&
+      drawerRef.current &&
+      !drawerRef.current.contains(event.target)
+    ) {
       setDrawerOpen(false);
     }
 
-    if (searchOpen && searchRef.current && !searchRef.current.contains(event.target)) {
+    if (
+      searchOpen &&
+      searchRef.current &&
+      !searchRef.current.contains(event.target)
+    ) {
       setSearchOpen(false);
     }
   };
-
 
   useEffect(() => {
     window.addEventListener("mousedown", handleClickOutside);
@@ -65,61 +71,124 @@ function Navbar() {
     };
   }, [drawerOpen, searchOpen]);
 
-
   return (
     // Start Navbar
     <div className="bg-white">
       <div className="container flex justify-between items-center gap-4 py-3">
         <div className="flex items-center gap-3">
-          <span className="text-4xl md:block lg:hidden cursor-pointer" onClick={handleDrawerOpen}>
+          <span
+            className="text-4xl md:block lg:hidden cursor-pointer"
+            onClick={handleDrawerOpen}
+          >
             <MdMenu />
           </span>
-          <h1 className="flex text-[25px] lg:text-[32px] font-bold font-cairo lg:mr-[20px]">Shop.Co</h1>
+          <h1 className="flex text-[25px] lg:text-[32px] font-bold font-cairo lg:mr-[20px]">
+            Shop.Co
+          </h1>
         </div>
 
         {/* Start Links */}
         <ul className="showDropDown font-inter hidden lg:flex flex-row gap-4 items-center">
-          <li className="dropdown flex items-center relative" onClick={handleDropdown} ref={dropdownRef}>
+          <li
+            className="dropdown flex items-center relative"
+            onClick={handleDropdown}
+            ref={dropdownRef}
+          >
             <a href="#">Shop</a>
             <RiArrowDropDownLine className="text-[25px] mt-1 cursor-pointer" />
-            <ul className={dropdownStatus ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md" : "hidden"} style={{ top: 'calc(100% + 5px)' }}>
-              <li className="px-3 py-2 hover:bg-headerBackground duration-300"><a href="#">Men</a></li>
-              <li className="px-3 py-2 hover:bg-headerBackground duration-300"><a href="#">Women</a></li>
-              <li className="px-3 py-2 hover:bg-headerBackground duration-300"><a href="#">Kids</a></li>
-              <li className="px-3 py-2 hover:bg-headerBackground duration-300"><a href="#">Accessories</a></li>
-              <li className="px-3 py-2 hover:bg-headerBackground duration-300"><a href="#">Beauty</a></li>
-              <li className="px-3 py-2 hover:bg-headerBackground duration-300"><a href="#">Electronics</a></li>
+            <ul
+              className={
+                dropdownStatus
+                  ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md"
+                  : "hidden"
+              }
+              style={{ top: "calc(100% + 5px)" }}
+            >
+              <li className="px-3 py-2 hover:bg-headerBackground duration-300">
+                <a href="#">Men</a>
+              </li>
+              <li className="px-3 py-2 hover:bg-headerBackground duration-300">
+                <a href="#">Women</a>
+              </li>
+              <li className="px-3 py-2 hover:bg-headerBackground duration-300">
+                <a href="#">Kids</a>
+              </li>
+              <li className="px-3 py-2 hover:bg-headerBackground duration-300">
+                <a href="#">Accessories</a>
+              </li>
+              <li className="px-3 py-2 hover:bg-headerBackground duration-300">
+                <a href="#">Beauty</a>
+              </li>
+              <li className="px-3 py-2 hover:bg-headerBackground duration-300">
+                <a href="#">Electronics</a>
+              </li>
             </ul>
           </li>
-          <li><a href="#">On Sale</a></li>
-          <li><a href="#">New Arrivals</a></li>
-          <li><a href="#">Brands</a></li>
+          <li>
+            <a href="#">On Sale</a>
+          </li>
+          <li>
+            <a href="#">New Arrivals</a>
+          </li>
+          <li>
+            <a href="#">Brands</a>
+          </li>
         </ul>
         {/* End Links */}
 
         {/* Start Search */}
         <div className="lg:flex items-center flex-1 font-inter hidden">
           <CiSearch className="text-[20.27px] relative left-7 text-searchColor placeholder-placeholderColor" />
-          <input type="search" name="search" id="search" placeholder="Search for products..." className="block rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none flex-1" />
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search for products..."
+            className="block rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none flex-1"
+          />
         </div>
         {/* End Search */}
 
         {/* Start Icons */}
         <div className="flex items-center gap-5 text-buttonBackground font-inter">
-          <span className=" lg:hidden mr-[-8px] cursor-pointer" onClick={handleSearchOpen} >
+          <span
+            className=" lg:hidden mr-[-8px] cursor-pointer"
+            onClick={handleSearchOpen}
+          >
             <CiSearch className="text-[22px]" />
           </span>
           <span className="relative cursor-pointer">
             <FiShoppingCart className="text-[22px]" />
-            <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">10</span>
+            <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">
+              10
+            </span>
           </span>
-          <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
+          <span
+            className="cursor-pointer relative"
+            onClick={handleLoginDropdown}
+            ref={loginDropdownRef}
+          >
             <FaRegCircleUser className="text-[22px]" />
-            <ul className={loginDropdownStatus ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md z-10" : "hidden"} style={{ top: 'calc(100% + 15px)', right: 'calc(-100%)' }}>
-              <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Account</a></li>
-              <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Orders</a></li>
-              <li className="px-2 py-2  hover:bg-headerBackground duration-300 border-b border-headerBackground"><a href="#">Address</a></li>
-              <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor"><a href="#">Logout</a></li>
+            <ul
+              className={
+                loginDropdownStatus
+                  ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md z-10"
+                  : "hidden"
+              }
+              style={{ top: "calc(100% + 15px)", right: "calc(-100%)" }}
+            >
+              <li className="px-2 py-2  hover:bg-headerBackground duration-300">
+                <a href="#">Account</a>
+              </li>
+              <li className="px-2 py-2  hover:bg-headerBackground duration-300">
+                <a href="#">Orders</a>
+              </li>
+              <li className="px-2 py-2  hover:bg-headerBackground duration-300 border-b border-headerBackground">
+                <a href="#">Address</a>
+              </li>
+              <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor">
+                <a href="#">Logout</a>
+              </li>
             </ul>
           </span>
         </div>
@@ -144,17 +213,16 @@ function Navbar() {
           </div>
         )}
         {/* End Search Overlay */}
-      </div >
+      </div>
 
       {/* Start Drawer */}
       <div ref={drawerRef}>
         {drawerOpen && <Drawer onClose={() => setDrawerOpen(false)} />}
       </div>
       {/* End Drawer */}
-
-    </div >
+    </div>
     // End Navbar
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

@@ -1,5 +1,5 @@
-import Title from "../../ui/Title"
-import Cards from "../../ui/Cards"
+import Title from "../../ui/Title";
+import Cards from "../../ui/Cards";
 
 function NewArrivals() {
   return (
@@ -7,7 +7,7 @@ function NewArrivals() {
       <Title title={"New Arrivals"} />
       <Cards />
     </div>
-  )
+  );
 }
 
-export default NewArrivals
+export default NewArrivals;
