@@ -16,6 +16,7 @@ export default {
       clipPath: {
         'custom-star': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
       },
+      
       colors: {
         forground: "hsl(var(--forground-background))",
         forgroundColor: "hsl(var(--forground-color))",

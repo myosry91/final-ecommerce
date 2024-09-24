@@ -1,5 +1,5 @@
 import Title from "../../ui/Title";
-import Cards from "../../ui/Cards";
+import Cards from "./Cards";
 
 function NewArrivals() {
   return (

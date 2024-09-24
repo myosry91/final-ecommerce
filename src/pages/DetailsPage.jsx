@@ -7,15 +7,26 @@ import Button from "../components/ui/Button";
 import Carousel from "../components/componentPages/details/Carousel";
 import MainSize from "../components/ui/MainSize";
 import MainQuantity from "../components/ui/MainQuantity";
+import MainReviews from "../components/ui/MainReviews";
 import tshirt from "../assets/images/tshirt.png";
 import subTshirt from "../assets/images/subC-tshirt.png";
-import MainReviews from "../components/ui/MainReviews";
+import useWindowWidth from "../customHooks/useWindowWidth";
 
 const DetailsPage = ({ showReview = true }) => {
   const images = [tshirt, tshirt, subTshirt];
   const colors = ["#314F4A", "#31344F", "#4F4631"];
   const sizes = ["Small", "Medium", "Large", "XLarge"];
   const [check, setCheck] = useState(0);
+  const [viewAll, setViewAll] = useState(false)
+  const windowWidth = useWindowWidth()
+
+  const handleViewAll = () => {
+    setViewAll(true);
+  }
+
+  const handleShowLess = () => { 
+    setViewAll(false);
+  }
   return (
     <section>
       <div className="container">
@@ -90,8 +101,8 @@ const DetailsPage = ({ showReview = true }) => {
           </div>
         </div>
       </div>
-      <div className="container">
         {/* product review */}
+      <div className="container">
         <div className="flex justify-between px-2 items-center my-3">
           <h5 className="font-bold font-inter">
             All Reviews <span className="text-descriptionColor">(451)</span>{" "}
@@ -105,11 +116,18 @@ const DetailsPage = ({ showReview = true }) => {
             </button>
           </div>
         </div>
+        {/* list perviews */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {Array.from({ length: 5 }).map((_, index) => (
             <ReviewCard key={index} />
           ))}
         </div>
+        {windowWidth > 768 && !viewAll && (
+          <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4" onClick={handleViewAll} >View all reviews</button>
+        )}
+        {windowWidth > 768 && viewAll && (
+          <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4" onClick={handleShowLess} >View less reviews</button>
+        )}
       </div>
     </section>
   );

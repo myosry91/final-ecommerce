@@ -1,4 +1,4 @@
-import ImageOne from "../../assets/images/image-7.png";
+import ImageOne from "../../../assets/images/image-7.png";
 import Card from "../../ui/Card";
 import { useState } from "react";
 import useWindowWidth from "../../../customHooks/useWindowWidth";
