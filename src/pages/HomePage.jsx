@@ -1,7 +1,7 @@
 import headerBG from "../assets/images/headerBG.jpg";
 import Button from "../components/ui/Button";
 import Marquee from "react-fast-marquee";
-
+ 
 const HomePage = () => {
   //
   const brands = ["VERSACE", "ZARA", "GUCCI", "PRADA", "CHALVIN CLEIN"];
@@ -91,7 +91,9 @@ const HomePage = () => {
         </Marquee>
       </div>
     </section>
+    
   );
 };
 
 export default HomePage;
+

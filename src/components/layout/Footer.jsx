@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-
+      
     <div className="flex flex-col md:flex-row justify-between items-center border-t pt-10 py-10 ">
       <p className="text-sm">&copy; Shop.co © 2000-2023, All Rights Reserved</p>
       <div className="flex space-x-4 items-center mt-4 md:mt-0">
@@ -94,5 +94,6 @@ const Footer = () => {
 
   );
 };
+// ahlam 
 
 export default Footer;
