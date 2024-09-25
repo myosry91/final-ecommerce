@@ -127,11 +127,31 @@ const HomePage = () => {
               <FaArrowRight onClick={() => handleScroll("right")} />
             </div>
           </div>
+
+        </header>
+      </div>
+      {/* brands section */}
+      <div className="bg-forground text-forgroundColor p-5 ">
+        <Marquee pauseOnHover={true} speed={50}>
+          {brands.map((brand, index) => (
+            <span
+              key={index}
+              className="font-cairo font-bold text-2xl lg:text-4xl mx-10"
+            >
+              {brand}
+            </span>
+          ))}
+        </Marquee>
+      </div>
+    </section>
+
         </div>
         <CustomerReviews containerRef={containerRef} />
       </section>
     </>
+
   );
 };
 
 export default HomePage;
+
