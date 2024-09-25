@@ -7,7 +7,7 @@ const Carousel = ({ images }) => {
       <img
         src={images[active]}
         alt="tshirt"
-        className="w-full lg:w-[444px] mx-auto "
+        className="w-full lg:w-[444px]  mx-auto "
       />
       <div className="flex flex-row lg:flex-col justify-between gap-2 ">
         {images.map((image, index) => (

@@ -1,7 +1,7 @@
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { MdVerified } from "react-icons/md";
-import MainReviews from "../../ui/MainReviews";
+import MainReviews from "./MainReviews";
 
 const ReviewCard = ({name, comment, postDate, className}) => {
   return (
