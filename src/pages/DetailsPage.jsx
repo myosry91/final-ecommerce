@@ -6,7 +6,7 @@ import ReviewCard from "../components/ui/ReviewCard";
 import Carousel from "../components/componentPages/details/Carousel";
 import tshirt from "../assets/images/tshirt.png";
 import subTshirt from "../assets/images/subC-tshirt.png";
-import ProductDetails from "../components/componentPages/details/productDetails";
+import ProductDetails from "../components/componentPages/details/ProductDetails";
 import Title from "../components/ui/Title";
 import RelatedProducts from "../components/componentPages/details/RelatedProducts";
 
