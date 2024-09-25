@@ -4,7 +4,6 @@ import Button from "../components/ui/Button";
 import Marquee from "react-fast-marquee";
 import Title from "../components/ui/Title";
 import useWindowWidth from "../customHooks/useWindowWidth";
-import ReviewCard from "../components/componentPages/details/ReviewCard";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "swiper/css"
 import "swiper/css/navigation"
@@ -39,7 +38,7 @@ const HomePage = () => {
                 designed to bring out your individuality and cater to your sense
                 of style.
               </p>
-              <Button width="210">shop now</Button>
+              <Button className="lg:w-[210px] w-full">shop now</Button>
               <div className="scores flex flex-wrap gap-3 mt-6 justify-center md:justify-normal py-3">
                 <span className="  border-r-2 border-r-slate-200 px-4 font-inter ">
                   <p className="font-bold md:text-4xl text-2xl">200+</p>
