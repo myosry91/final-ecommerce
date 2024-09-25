@@ -10,16 +10,16 @@ function Card({ imageSrc, imageAlt, cardTitle, cardPrice, discount, oldPrice }) 
           alt={imageAlt}
           className="rounded-cardRadius max-w-full select-none"
         />
-        <h3 className="text-cardTitle font-cairo font-bold py-2">
+        <h3 className="text-cardTitle font-cairo font-bold py-2 lg:text-xl text-base ">
           {cardTitle}
         </h3>
         <span>
           <MainReviews rate="5.5" />
         </span>
         <span className=" text-cardPrice pt-2 font-bold flex gap-3 items-center">
-          <p className="font-bold">{cardPrice}</p>
-          <p className="line-through text-descriptionColor font-bold" >{oldPrice}</p>
-          {discount != null ? <p className="bg-discountBackground text-discountColor rounded-cardRadius p-discountSm">{ discount}</p> : ""}
+          <p className="font-bold lg:text-2xl text-lg ">{cardPrice}</p>
+          <p className="line-through text-descriptionColor font-bold lg:text-2xl text-lg" >{oldPrice}</p>
+          {discount != null ? <p className="bg-discountBackground text-discountColor rounded-cardRadius text-base p-discountSm">{ discount}</p> : ""}
         </span>
       </div>
     </div>

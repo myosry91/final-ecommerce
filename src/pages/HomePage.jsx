@@ -25,7 +25,7 @@ const HomePage = () => {
 
   return (
     <>
-      <section className=" bg-headerBackground p-5">
+      <section className=" bg-headerBackground px-5">
         <div className="container">
           <header className="grid lg:grid-cols-2 grid-cols-1 gap-10">
             {/* left side */}
@@ -117,7 +117,7 @@ const HomePage = () => {
         </div>
       </section>
       {/* customer reviews section */}
-      <section className="overflow-hidden mb-20">
+      <section className="overflow-hidden mb-20 lg:mb-40">
         <div className="container">
           <div className="flex justify-between px-2 items-center">
             <Title title="Our happy customers" />
@@ -126,27 +126,10 @@ const HomePage = () => {
               <FaArrowRight onClick={() => handleScroll("right")} />
             </div>
           </div>
-
-        </header>
-      </div>
-      {/* brands section */}
-      <div className="bg-forground text-forgroundColor p-5 ">
-        <Marquee pauseOnHover={true} speed={50}>
-          {brands.map((brand, index) => (
-            <span
-              key={index}
-              className="font-cairo font-bold text-2xl lg:text-4xl mx-10"
-            >
-              {brand}
-            </span>
-          ))}
-        </Marquee>
-      </div>
-    </section>
-
         </div>
         <CustomerReviews containerRef={containerRef} />
       </section>
+
     </>
 
   );

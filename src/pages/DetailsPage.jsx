@@ -15,7 +15,7 @@ const DetailsPage = ({ showReview = true }) => {
   const colors = ["#314F4A", "#31344F", "#4F4631"];
   const sizes = ["Small", "Medium", "Large", "XLarge"];
   const [check, setCheck] = useState(0);
-  const [viewAll, setViewAll] = useState(true)
+  const [viewAll, setViewAll] = useState(false)
 
   return (
     <section>
@@ -79,7 +79,7 @@ const DetailsPage = ({ showReview = true }) => {
         <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4 font-bold" onClick={()=>setViewAll(!viewAll)} >{ !viewAll? "Load more reviews": "Load less reviews"}</button>
       </div>
       {/* related products */}
-      <div className="container mb-9">
+      <div className="container mb-20 lg:mb-40">
         <Title title="You might also like" />
         <div>
           <RelatedProducts />
