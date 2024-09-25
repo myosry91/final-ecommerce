@@ -1,5 +1,6 @@
 import { MdEmail } from 'react-icons/md';
-import { BiLogoFacebook, BiX, BiLogoInstagram, BiLogoGithub } from 'react-icons/bi';
+import { BiLogoFacebook,BiLogoInstagram, BiLogoGithub } from 'react-icons/bi';
+import { BsTwitter } from "react-icons/bs";
 import masterCard from "../../assets/images/Mastercard-Logo.png"
 import paypal from "../../assets/images/paypal.png"
 import GPay from "../../assets/images/googlePay.png"
@@ -8,40 +9,41 @@ import ApplePay from "../../assets/images/apple-pay.png"
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 text-gray-700 pt-20 lg:p-0  mt-20">
+    <footer className="bg-footerBackground text-gray-700 pt-20 lg:p-0  mt-20">
   <div className="container mx-auto px-4 ">  
-    <div className="relative   flex flex-col md:flex-row justify-between items-center bg-black p-6 rounded-2xl mb-10 text-white transform -translate-y-1/3 sm:-translate-y-1/2 md:-translate-y-1/2 lg:-translate-y-[50%]">
-      <h2 className="text-2xl md:text-3xl font-bold w-full md:w-1/2 text-center md:text-left mx-7 ">
+    <div className="relative   flex flex-col md:flex-row justify-between items-center bg-buttonBackground p-6 rounded-2xl mb-10 text-inputBackground transform -translate-y-1/3 sm:-translate-y-1/2 md:-translate-y-1/2 lg:-translate-y-[50%]">
+      <h2 className="text-3xl md:text-3xl font-bold w-full md:w-1/2 lg:text-start md:text-left mx-7 sm:text-start mb-7 lg:mb-0">
         STAY UPTO DATE ABOUT OUR <br /> LATEST OFFERS
       </h2>
       <div className="flex flex-col gap-3 w-full md:w-1/3 mx-7">
         <div className="relative">
-          <MdEmail className="absolute text-slate-300 top-5 left-5" size={20} />
+          <MdEmail className="absolute text-slate-300 top-3 left-5 mt-1" size={20} />
           <input
             type="text"
             placeholder="Enter your email address"
-            className="bg-white px-12 py-3 rounded-[62px] w-full caret-slate-600 text-slate-600 "
+            className="bg-buttonColor px-12 py-3 rounded-[62px] w-full caret-slate-600 text-slate-600"
           />
         </div>
-        <button className="bg-white text-black px-3 py-3 rounded-[62px]">Subscribe to Newsletter</button>
+        <button className="bg-buttonColor text-buttonBackground px-3 py-3 rounded-[62px]">Subscribe to Newsletter</button>
       </div>
     </div>
 
     <div className="flex flex-col md:flex-row justify-between items-start text-sm mb-10 -mt-20">
       <div className="w-full md:w-1/5 mr-16">
-        <h3 className="font-bold text-4xl mb-3 text-black">SHOP.CO</h3>
-        <p>We have clothes that suit your style and which you're proud to wear. From women to men.</p>
-        <div className="flex mt-4 space-x-4">
-          <BiX className="rounded-full border border-slate-300 p-1 text-black" size={20} />
+        <h3 className="font-bold text-4xl mb-3 text-buttonBackground">SHOP.CO</h3>
+        <p className="text-descriptionColor md:w-auto sm:w-[358px] font-inter">
+          We have clothes that suit your style and which you're proud to wear. From women to men.</p>
+        <div className="flex mt-4 space-x-4 sm:mb-5">
+          <BsTwitter className="rounded-full border border-slate-300 p-1 text-black" size={20} />
           <BiLogoFacebook className="rounded-full bg-black border border-slate-300 p-1 text-white" size={20} />
           <BiLogoInstagram className="rounded-full border border-slate-300 p-1 text-black" size={20} />
           <BiLogoGithub className="rounded-full border border-slate-300 p-1 text-black" size={20} />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 md:grid-cols-4 md:space-x-6 w-full md:w-4/5 mb-5 ">
-        <div className="space-y-4">
-          <h3 className="font-bold text-lg mb-3">COMPANY</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 md:grid-cols-4 md:space-x-6 w-full md:w-4/5 mb-5">
+        <div className="space-y-4 ">
+          <h3 className="font-bold text-lg mb-3 text-buttonBackground">COMPANY</h3>
           <ul className="space-y-2">
             <li><a href="#">About</a></li>
             <li><a href="#">Features</a></li>
@@ -50,8 +52,8 @@ const Footer = () => {
           </ul>
         </div>
         <div className="space-y-4">
-          <h3 className="font-bold text-lg mb-3">HELP</h3>
-          <ul className="space-y-2 text-gray-500">
+          <h3 className="font-bold text-lg mb-3 text-buttonBackground">HELP</h3>
+          <ul className="space-y-2 ">
             <li><a href="#">Customer Support</a></li>
             <li><a href="#">Delivery Details</a></li>
             <li><a href="#">Terms & Conditions</a></li>
@@ -59,7 +61,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="space-y-4">
-          <h3 className="font-bold text-lg mb-3">FAQ</h3>
+          <h3 className="font-bold text-lg mb-3 text-buttonBackground">FAQ</h3>
           <ul className="space-y-2">
             <li><a href="#">Account</a></li>
             <li><a href="#">Manage Deliveries</a></li>
@@ -68,8 +70,8 @@ const Footer = () => {
           </ul>
         </div>
         <div className="space-y-4">
-          <h3 className="font-bold text-lg mb-3">RESOURCES</h3>
-          <ul className="space-y-2 text-gray-500">
+          <h3 className="font-bold text-lg mb-3 text-buttonBackground">RESOURCES</h3>
+          <ul className="space-y-2 ">
             <li><a href="#">Free eBooks</a></li>
             <li><a href="#">Development Tutorial</a></li>
             <li><a href="#">How to - Blog</a></li>
@@ -94,6 +96,5 @@ const Footer = () => {
 
   );
 };
-// ahlam 
 
 export default Footer;
