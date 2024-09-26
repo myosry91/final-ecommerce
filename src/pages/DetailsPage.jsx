@@ -18,7 +18,7 @@ const DetailsPage = ({ showReview = true }) => {
   const [check, setCheck] = useState(0);
   const [viewAll, setViewAll] = useState(false)
 
-  let current = "T-shirt" // is should be taken from api
+  let current = "T-shirt" // it should be taken from api
   return (
     <section>
       <div className="container">

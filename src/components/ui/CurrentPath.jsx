@@ -8,7 +8,7 @@ const CurrentPath = ({currentPath}) => {
           <NavLink className={"text-descriptionColor font-inter"} to={"/"} >Home <MdArrowRight className='inline' /> </NavLink>
       {currentPath.map((current, index) => {
         const textColor = index === currentPath.length - 1 ? 'text-black' : 'text-descriptionColor'
-        if (index < currentPath.length - 1) { 
+        if (index <= currentPath.length - 1) { 
           return (
             <NavLink key={index} className={`font-inter ${textColor}`} >
               {current}
