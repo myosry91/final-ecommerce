@@ -9,6 +9,7 @@ import "swiper/css"
 import "swiper/css/navigation"
 import { useRef } from "react";
 import CustomerReviews from "../components/componentPages/home/CustomerReviews";
+import Category from "../components/componentPages/home/Category";
 
 const HomePage = () => {
   //
@@ -115,6 +116,10 @@ const HomePage = () => {
         <div className="container">
           <NewArrivals />
         </div>
+      </section>
+      {/* Category section */}
+      <section>
+        <Category/>
       </section>
       {/* customer reviews section */}
       <section className="overflow-hidden mb-20 lg:mb-40">
