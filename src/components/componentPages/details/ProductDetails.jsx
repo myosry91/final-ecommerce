@@ -4,6 +4,7 @@ import MainQuantity from "../../ui/MainQuantity";
 import Button from "../../ui/Button";
 import MainSize from "../../ui/MainSize";
 import MainReviews from "../../ui/MainReviews";
+import Color from "../../ui/Color";
 
 const ProductDetails = ({ colors, sizes, check, setCheck, showReview }) => {
   return (
@@ -27,18 +28,7 @@ const ProductDetails = ({ colors, sizes, check, setCheck, showReview }) => {
       {/* product colors */}
       <div>
         <p className="text-descriptionColor mb-4">select colors</p>
-        <div className="flex gap-1">
-          {colors.map((color, index) => (
-            <div
-              key={index}
-              className={`rounded-full  w-[37px] h-[37px] flex items-center justify-center cursor-pointer`}
-              style={{ backgroundColor: color }}
-              onClick={() => setCheck(index)}
-            >
-              {check === index && <MdCheck className="text-white" />}
-            </div>
-          ))}
-        </div>
+        <Color colors={colors} />
       </div>
       <hr className="text-descriptionColor" />
       {/* product sizez */}

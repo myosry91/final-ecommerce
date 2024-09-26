@@ -3,13 +3,13 @@ import React, { useState } from "react";
 const MainSize = ({ sizes, className }) => {
   const [selectSize, setSelectSize] = useState(null);
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 flex-wrap">
       {sizes.map((size, index) => (
         <div
           key={index}
           className={`${className} ${
-            selectSize === size ? "bg-black text-white" : "bg-inputBackground"
-          }`}
+            selectSize === size ? "bg-black text-white" : "bg-inputBackground  "
+          } rounded-buttonRadius p-sizeSm lg:p-sizeLg`}
           onClick={() => setSelectSize(size)}
         >
           {size}
