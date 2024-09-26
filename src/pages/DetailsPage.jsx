@@ -9,6 +9,7 @@ import subTshirt from "../assets/images/subC-tshirt.png";
 import ProductDetails from "../components/componentPages/details/ProductDetails";
 import Title from "../components/ui/Title";
 import RelatedProducts from "../components/componentPages/details/RelatedProducts";
+import CurrentPath from "../components/ui/CurrentPath";
 
 const DetailsPage = ({ showReview = true }) => {
   const images = [tshirt, tshirt, subTshirt];
@@ -17,22 +18,12 @@ const DetailsPage = ({ showReview = true }) => {
   const [check, setCheck] = useState(0);
   const [viewAll, setViewAll] = useState(false)
 
+  let current = "T-shirt" // it should be taken from api
   return (
     <section>
       <div className="container">
         {/* product path */}
-        <div className="flex gap-3">
-          {["Home", "shop", "Men"].map((link, index) => (
-            <NavLink
-              to="/"
-              className="font-inter text-descriptionColor text-base"
-              key={index}
-            >
-              {link} <MdArrowRight className="inline" />{" "}
-            </NavLink>
-          ))}
-          <NavLink className="font-bold">T-Shirt</NavLink>
-        </div>
+        <CurrentPath currentPath={["shop","Men", current]} />
         {/* product details */}
         <div className="p-3 grid md:grid-cols-2 lg:grid-col-2 grid-cols-1 gap-10">
           {/* left side */}
