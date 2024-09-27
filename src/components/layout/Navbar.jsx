@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import Drawer from "./Drawer";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
+import Button from "../ui/Button";
+import { LuLogIn } from "react-icons/lu";
 
 function Navbar() {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -20,6 +22,8 @@ function Navbar() {
 
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
+
+  const [isLogin, setIsLogin] = useState(false);
 
 
   const handleDropdown = () => {
@@ -70,7 +74,7 @@ function Navbar() {
 
   return (
     // Start Navbar
-    <div className="bg-white">
+    <div className="bg-white shadow-md">
       <div className="container flex justify-between items-center gap-4 py-3">
         <div className="flex items-center gap-3">
           <span className="text-4xl md:block lg:hidden cursor-pointer" onClick={handleDrawerOpen}>
@@ -102,7 +106,7 @@ function Navbar() {
         {/* Start Search */}
         <div className="lg:flex items-center flex-1 font-inter hidden">
           <CiSearch className="text-[20.27px] relative left-7 text-searchColor placeholder-placeholderColor" />
-          <input type="search" name="search" id="search" placeholder="Search for products..." className="block rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none flex-1" />
+          <input type="search" name="search" id="search" placeholder="Search for products..." className="block rounded-buttonRadius bg-inputBackground py-[12px] pr-4 pl-8 border-none flex-1" />
         </div>
         {/* End Search */}
 
@@ -115,28 +119,40 @@ function Navbar() {
             <FiShoppingCart className="text-[22px]" />
             <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">10</span>
           </span>
-          <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
-            <FaRegCircleUser className="text-[22px]" />
-            <ul className={loginDropdownStatus ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md z-10" : "hidden"} style={{ top: 'calc(100% + 15px)', right: 'calc(-100%)' }}>
-              <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Account</a></li>
-              <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Orders</a></li>
-              <li className="px-2 py-2  hover:bg-headerBackground duration-300 border-b border-headerBackground"><a href="#">Address</a></li>
-              <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor"><a href="#">Logout</a></li>
-            </ul>
-          </span>
+          {
+            isLogin ? <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
+              <FaRegCircleUser className="text-[22px]" />
+              <ul className={loginDropdownStatus ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md z-10" : "hidden"} style={{ top: 'calc(100% + 15px)', right: 'calc(-100%)' }}>
+                <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Account</a></li>
+                <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Orders</a></li>
+                <li className="px-2 py-2  hover:bg-headerBackground duration-300 border-b border-headerBackground"><a href="#">Address</a></li>
+                <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor" onClick={() => {
+                  setIsLogin(false)
+                }}><a href="#">Logout</a></li>
+              </ul>
+            </span> :
+              <span onClick={() => {
+                setIsLogin(true);
+              }}>
+                {
+                  <LuLogIn className="lg:hidden text-[22px] cursor-pointer" />
+                }
+                <Button children={"Login"} className="py-[10px] px-[40px] hidden lg:block" />
+              </span>
+          }
         </div>
         {/* End Icons */}
 
         {/* Start Search Overlay */}
         {searchOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <div className="relative z-50" ref={searchRef}>
+            <div className="relative z-50  min-w-[75%]" ref={searchRef}>
               <input
                 type="search"
                 name="search"
                 id="search"
                 placeholder="Search for products..."
-                className="block rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none"
+                className="block rounded-[62px] bg-inputBackground py-[12px] pr-4 pl-8 border-none w-full"
               />
             </div>
             <IoMdClose

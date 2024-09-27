@@ -8,7 +8,7 @@ import Button from "../../ui/Button"
 
 const Filter = ({ className }) => {
     return (
-        <div className={`${className} rounded-cardRadius border border-slate-400/30 p-6`}>
+        <div className={`${className} rounded-cardRadius border border-slate-400/30 p-6 h-fit mb-8`}>
             <div className='flex justify-between items-center '>
                 <p className='font-inter text-xl font-bold' >Filters</p>
                 <span>
@@ -27,14 +27,14 @@ const Filter = ({ className }) => {
                 ))}
             </div>
             {/* price slider value */}
-            <PriceSlider/>
+            <PriceSlider />
             {/* product colors */}
             <AccordionUI title={'Colors'} >
-                <Color colors={['#F50606','#F5DD06','#F57906','#06CAF5','#063AF5','#7D06F5','#F506A4','#FFFFFF','#000000']} />
+                <Color colors={['#F50606', '#F5DD06', '#F57906', '#06CAF5', '#063AF5', '#7D06F5', '#F506A4', '#FFFFFF', '#000000']} />
             </AccordionUI>
             {/* product sizes */}
             <AccordionUI title={'Size'} >
-                <MainSize sizes={["XX-Small","X-Small", "Small", "Medium","Large", "X-large","XX-Large", "3X-Large", "4X-Large"]} />
+                <MainSize sizes={["XX-Small", "X-Small", "Small", "Medium", "Large", "X-large", "XX-Large", "3X-Large", "4X-Large"]} />
             </AccordionUI>
             <AccordionUI title={'Dress Style'} >
                 <div>
