@@ -15,6 +15,8 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
     {
       id: 2,
@@ -22,6 +24,8 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
     {
       id: 3,
@@ -29,6 +33,8 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
     {
       id: 4,
@@ -36,6 +42,8 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
     {
       id: 5,
@@ -43,6 +51,8 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
     {
       id: 6,
@@ -50,6 +60,8 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
     {
       id: 7,
@@ -57,6 +69,17 @@ function Cards() {
       cardImage: `${ImageOne}`,
       cardAlt: "Image One Alt",
       cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
+    },
+    {
+      id: 8,
+      cardTitle: "T-SHIRT WITH TAPE DETAILS",
+      cardImage: `${ImageOne}`,
+      cardAlt: "Image One Alt",
+      cardPrice: "$120",
+      oldPrice: "$260",
+      discount: "$20",
     },
   ];
 
@@ -77,25 +100,29 @@ function Cards() {
         <div className="cards grid grid-cols-auto-fill gap-x-5 gap-y-10 justify-self-center">
           {cards.length > 4 && !viewAll
             ? cards.slice(0, 4).map((card) => (
-                <div key={card.id} className="card">
-                  <Card
-                    imageSrc={card.cardImage}
-                    imageAlt={card.cardAlt}
-                    cardTitle={card.cardTitle}
-                    cardPrice={card.cardPrice}
-                  />
-                </div>
-              ))
+              <div key={card.id} className="card">
+                <Card
+                  imageSrc={card.cardImage}
+                  imageAlt={card.cardAlt}
+                  cardTitle={card.cardTitle}
+                  cardPrice={card.cardPrice}
+                  discount={card.discount}
+                  oldPrice={card.oldPrice}
+                />
+              </div>
+            ))
             : cards.map((card) => (
-                <div key={card.id} className="card">
-                  <Card
-                    imageSrc={card.cardImage}
-                    imageAlt={card.cardAlt}
-                    cardTitle={card.cardTitle}
-                    cardPrice={card.cardPrice}
-                  />
-                </div>
-              ))}
+              <div key={card.id} className="card">
+                <Card
+                  imageSrc={card.cardImage}
+                  imageAlt={card.cardAlt}
+                  cardTitle={card.cardTitle}
+                  cardPrice={card.cardPrice}
+                  discount={card.discount}
+                  oldPrice={card.oldPrice}
+                />
+              </div>
+            ))}
         </div>
       ) : (
         <Swiper
@@ -123,6 +150,8 @@ function Cards() {
                 imageAlt={card.cardAlt}
                 cardTitle={card.cardTitle}
                 cardPrice={card.cardPrice}
+                discount={card.discount}
+                oldPrice={card.oldPrice}
               />
             </SwiperSlide>
           ))}

@@ -10,10 +10,42 @@ import "swiper/css/navigation"
 import { useRef } from "react";
 import CustomerReviews from "../components/componentPages/home/CustomerReviews";
 import Category from "../components/componentPages/home/Category";
+import zaraLogo from "../assets/images/zara-logo.png";
+import versaceLogo from "../assets/images/versace.png";
+import gucci from "../assets/images/gucci-logo.png";
+import prada from "../assets/images/prada-logo.png";
+import calvin from "../assets/images/calvin.png";
+
 
 const HomePage = () => {
-  //
-  const brands = ["VERSACE", "ZARA", "GUCCI", "PRADA", "CHALVIN CLEIN"];
+
+  const brands = [
+    {
+      id: 1,
+      src: zaraLogo,
+      alt: "Zraa Logo"
+    },
+    {
+      id: 2,
+      src: versaceLogo,
+      alt: "Versace Logo"
+    },
+    {
+      id: 3,
+      src: gucci,
+      alt: "Gucci Logo"
+    },
+    {
+      id: 4,
+      src: prada,
+      alt: "Prada Logo"
+    },
+    {
+      id: 5,
+      src: calvin,
+      alt: "Calvin Logo"
+    }
+  ]
   const containerRef = useRef()
   const windowWidth = useWindowWidth()
 
@@ -28,10 +60,10 @@ const HomePage = () => {
     <>
       <section className=" bg-headerBackground px-5">
         <div className="container">
-          <header className="grid lg:grid-cols-2 grid-cols-1 gap-10">
+          <header className="grid lg:grid-cols-2 grid-cols-1 gap-10 pt-5">
             {/* left side */}
             <div className="flex flex-col gap-3  justify-center">
-              <h1 className="font-cairo font-bold  text-4xl w-[315px] md:w-[500px] ">
+              <h1 className="font-cairo font-bold  text-4xl w-[315px] md:w-[500px]">
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </h1>
               <p className="text-descriptionColor md:w-auto sm:w-[358px] font-inter">
@@ -98,31 +130,26 @@ const HomePage = () => {
           </header>
         </div>
         {/* brands section */}
-        <div className="bg-forground text-forgroundColor p-5 ">
+        <div className="bg-forground text-forgroundColor p-6 ">
           <Marquee pauseOnHover={true} speed={50}>
             {brands.map((brand, index) => (
-              <span
-                key={index}
-                className="font-cairo font-bold text-2xl lg:text-4xl mx-10"
-              >
-                {brand}
-              </span>
+              < img src={`${brand.src}`} alt={brand.alt} key={brand.id} className="mx-12" />
             ))}
           </Marquee>
         </div>
-      </section>
+      </section >
       {/* arrivals section */}
-      <section>
+      <section section >
         <div className="container">
           <NewArrivals />
         </div>
-      </section>
+      </section >
       {/* Category section */}
-      <section>
-        <Category/>
-      </section>
+      <section section >
+        <Category />
+      </section >
       {/* customer reviews section */}
-      <section className="overflow-hidden mb-20 lg:mb-40">
+      <section section className="overflow-hidden mb-20 lg:mb-40" >
         <div className="container">
           <div className="flex justify-between px-2 items-center">
             <Title title="Our happy customers" />
@@ -133,7 +160,7 @@ const HomePage = () => {
           </div>
         </div>
         <CustomerReviews containerRef={containerRef} />
-      </section>
+      </section >
 
     </>
 

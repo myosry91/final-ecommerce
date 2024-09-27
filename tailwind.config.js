@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       container: {
-        padding: '2rem',
+        padding: '1.5rem',
         center: true,
       },
       gridTemplateColumns: {
