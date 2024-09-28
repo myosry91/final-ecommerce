@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../ui/Button";
 import { LuLogIn } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -80,7 +81,7 @@ function Navbar() {
           <span className="text-4xl md:block lg:hidden cursor-pointer" onClick={handleDrawerOpen}>
             <MdMenu />
           </span>
-          <h1 className="flex text-[25px] lg:text-[32px] font-bold font-cairo lg:mr-[20px]">Shop.Co</h1>
+          <h1 className="flex text-[25px] lg:text-[32px] font-bold font-cairo lg:mr-[20px]"><Link to={"/"}>SHOP.CO</Link></h1>
         </div>
 
         {/* Start Links */}
