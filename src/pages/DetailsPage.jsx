@@ -23,7 +23,7 @@ const DetailsPage = ({ showReview = true }) => {
     <section>
       <div className="container">
         {/* product path */}
-        <CurrentPath currentPath={["shop","Men", current]} />
+        <CurrentPath currentPath={["shop", "Men", current]} />
         {/* product details */}
         <div className="p-3 grid md:grid-cols-2 lg:grid-col-2 grid-cols-1 gap-10">
           {/* left side */}
@@ -40,7 +40,7 @@ const DetailsPage = ({ showReview = true }) => {
           </div>
         </div>
       </div>
-        {/* product review */}
+      {/* product review */}
       <div className="container">
         <div className="flex justify-between px-2 items-center my-3">
           <h5 className="font-bold font-inter">
@@ -59,22 +59,19 @@ const DetailsPage = ({ showReview = true }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {viewAll ? (
             Array.from({ length: 5 }).map((_, index) => (
-              <ReviewCard key={index} comment="I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt" postDate="Posted on August 14, 2023" name="Samantha Co."/>
-          ))
+              <ReviewCard key={index} comment="I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt" postDate="Posted on August 14, 2023" name="Samantha Co." />
+            ))
           ) : (
             Array.from({ length: 5 }).slice(2).map((_, index) => (
               <ReviewCard key={index} comment="I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt" postDate="Posted on August 14, 2023" name="Samantha Co." />
-          ))
+            ))
           )}
         </div>
-        <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4 font-bold" onClick={()=>setViewAll(!viewAll)} >{ !viewAll? "Load more reviews": "Load less reviews"}</button>
+        <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4 font-bold" onClick={() => setViewAll(!viewAll)} >{!viewAll ? "Load more reviews" : "Load less reviews"}</button>
       </div>
       {/* related products */}
-      <div className="container mb-20 lg:mb-40">
-        <Title title="You might also like" />
-        <div>
-          <RelatedProducts />
-        </div>
+      <div>
+        <RelatedProducts />
       </div>
     </section>
   );
