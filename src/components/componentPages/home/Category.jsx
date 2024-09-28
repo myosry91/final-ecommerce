@@ -14,7 +14,7 @@ const Category = () => {
 
   return (
     <div className="bg-cardBackground p-8 mx-auto rounded-xl shadow-lg max-w-6xl my-20 ">
-      <h2 className="text-center text-3xl font-bold font-cairo mb-10">BROWSE BY dress STYLE</h2>
+      <h2 className="text-center text-3xl font-bold font-cairo mb-10">BROWSE BY DRESS STYLE</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 my-10 mx-auto ">
         {styles.slice(0, 2).map((style, index) => (
           <div

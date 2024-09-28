@@ -6,8 +6,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import Title from "../../ui/Title";
 
-function Cards() {
+function TopSellingCards() {
   let cards = [
     {
       id: 1,
@@ -95,7 +96,8 @@ function Cards() {
   };
 
   return (
-    <>
+    <div className="container">
+      <Title title={"Top Selling"} className={"text-center"} />
       {windowWidth > 768 ? (
         <div className="cards grid lg:grid-cols-4 md:grid-cols-3 gap-x-5 gap-y-10 justify-self-center">
           {cards.length > 4 && !viewAll
@@ -177,8 +179,8 @@ function Cards() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
-export default Cards;
+export default TopSellingCards;

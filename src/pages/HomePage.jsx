@@ -15,6 +15,7 @@ import versaceLogo from "../assets/images/versace.png";
 import gucci from "../assets/images/gucci-logo.png";
 import prada from "../assets/images/prada-logo.png";
 import calvin from "../assets/images/calvin.png";
+import TopSellingCards from "../components/componentPages/home/TopSellingCards";
 
 
 const HomePage = () => {
@@ -139,23 +140,28 @@ const HomePage = () => {
         </div>
       </section >
       {/* arrivals section */}
-      <section section >
-        <div className="container">
-          <NewArrivals />
-        </div>
+      <section >
+        <NewArrivals />
       </section >
+
+      {/* Top Selling section */}
+      <section className="mt-10">
+        <TopSellingCards />
+      </section >
+
       {/* Category section */}
-      <section section >
+      <section>
         <Category />
       </section >
+
       {/* customer reviews section */}
       <section section className="overflow-hidden mb-20 lg:mb-40" >
         <div className="container">
           <div className="flex justify-between px-2 items-center">
             <Title title="Our happy customers" />
             <div className="flex gap-4 items-center z-20 pb-8">
-              <FaArrowLeft onClick={() => handleScroll("left")} />
-              <FaArrowRight onClick={() => handleScroll("right")} />
+              <FaArrowLeft className="cursor-pointer" onClick={() => handleScroll("left")} />
+              <FaArrowRight className="cursor-pointer" onClick={() => handleScroll("right")} />
             </div>
           </div>
         </div>
