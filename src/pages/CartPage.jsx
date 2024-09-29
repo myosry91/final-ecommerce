@@ -39,16 +39,18 @@ const CartPage = () => {
   ]);
 
   return (
-
-    <div className="container mx-auto mt-10">
+    <div className="container pb-20">
       <nav className="mb-5 flex mt-4 space-x-4 items-center">
         <Link to="/" className="text-gray-500 ">Home</Link>
-        <AiFillCaretRight className='flex'/>
+        <AiFillCaretRight className='flex' />
         <span className='text-black'>Cart</span>
       </nav>
-      <div className="flex flex-col lg:flex-row gap-10">
-        <CartItems cartItems={cartItems} setCartItems={setCartItems} />
-        <OrderSummary cartItems={cartItems} />
+      <div>
+        <h2 className="text-2xl font-semibold mb-4">Your cart</h2>
+        <div className="flex flex-col lg:flex-row md:flex-col xl:flex-row items-center gap-5">
+          <CartItems cartItems={cartItems} setCartItems={setCartItems} />
+          <OrderSummary cartItems={cartItems} />
+        </div>
       </div>
     </div>
   );

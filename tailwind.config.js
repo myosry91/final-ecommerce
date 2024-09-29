@@ -46,7 +46,9 @@ export default {
       fontSize: {
         cardTitle: 20,
         cardPrice: 24,
-        cardRating: 14
+        cardRating: 14,
+        sm: 16,
+        lg: 20
       },
       padding: {
         buttonPadding: "var(--button-padding)" ,

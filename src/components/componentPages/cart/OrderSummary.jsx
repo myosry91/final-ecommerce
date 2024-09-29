@@ -8,7 +8,7 @@ const OrderSummary = ({ cartItems }) => {
   const total = subtotal - discount + deliveryFee;
 
   return (
-    <div className="w-full max-w-lg p-5 lg:h-[367px] rounded-lg shadow-md border-2 mt-12 mx-auto">
+    <div className="w-full max-w-lg p-5  rounded-lg shadow-md border-2">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-black">Order Summary</h2>
 
       <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter font-bold">
