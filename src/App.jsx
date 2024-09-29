@@ -4,6 +4,7 @@ import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
 import CategoryPage from "./pages/CategoryPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/details" element={<DetailsPage />} />
           <Route path="/category" element={<CategoryPage/>}/>
+          <Route path="/cart" element={<CartPage/>}/>
         </Route>
       </Routes>
     </Router>
