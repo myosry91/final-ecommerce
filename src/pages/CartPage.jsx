@@ -46,8 +46,8 @@ const CartPage = () => {
         <span className='text-black'>Cart</span>
       </nav>
       <div>
-        <h2 className="text-2xl font-semibold mb-4">Your cart</h2>
-        <div className="flex flex-col lg:flex-row md:flex-col xl:flex-row items-center gap-5">
+        <h2 className="text-3xl font-bold mb-4">Your cart</h2>
+        <div className="flex flex-col lg:flex-row md:flex-col xl:flex-row gap-5 justify-between items-start">
           <CartItems cartItems={cartItems} setCartItems={setCartItems} />
           <OrderSummary cartItems={cartItems} />
         </div>

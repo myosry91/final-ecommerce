@@ -1,5 +1,7 @@
 import React from 'react';
 import { BsArrowRight } from "react-icons/bs";
+import { AiFillTag } from "react-icons/ai";
+import Button from "../../ui/Button";
 
 const OrderSummary = ({ cartItems }) => {
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -8,20 +10,20 @@ const OrderSummary = ({ cartItems }) => {
   const total = subtotal - discount + deliveryFee;
 
   return (
-    <div className="w-full max-w-lg p-5  rounded-lg shadow-md border-2">
+    <div className="w-full max-w-lg p-5  rounded-lg shadow-md border-[1px] border-gray-300">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-black">Order Summary</h2>
 
-      <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter font-bold">
-        <span>Subtotal</span>
-        <span>${subtotal.toFixed(2)}</span>
+      <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter ">
+        <span className='text-descriptionColor'>Subtotal</span>
+        <span className='font-bold'>${subtotal.toFixed(2)}</span>
       </div>
-      <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter font-bold">
-        <span>Discount (-20%)</span>
-        <span className='text-red-500'>-${discount.toFixed(2)}</span>
+      <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter ">
+        <span className='text-descriptionColor'>Discount (-20%)</span>
+        <span className='text-red-500 font-bold'>-${discount.toFixed(2)}</span>
       </div>
-      <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter font-bold border-b my-5">
-        <span>Delivery Fee</span>
-        <span>${deliveryFee}</span>
+      <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter border-b my-5">
+        <span className='text-descriptionColor'>Delivery Fee</span>
+        <span className='font-bold'>${deliveryFee}</span>
       </div>
       <div className="mb-4 flex justify-between text-sm sm:text-lg font-inter font-bold my-5">
         <span>Total</span>
@@ -29,18 +31,22 @@ const OrderSummary = ({ cartItems }) => {
       </div>
 
       <div className="flex sm:hidden items-center justify-between mb-4">
+      <div className="relative w-3/4 px-2">
+        <AiFillTag className="absolute left-6 top-1/2 transform -translate-y-1/2 scale-x-[-1]  text-gray-500"  />
         <input
           type="text"
           placeholder="Add Promo code"
-          className="border p-2 rounded-lg w-3/4 mr-2"
+          className="bg-gray-200 p-2 pl-10 rounded-3xl w-full border-none"
         />
-        <button className="bg-black text-white px-4 py-2 rounded-3xl">Apply</button>
       </div>
-
-      <button className="flex items-center justify-center px-10 py-2 bg-black text-white w-full rounded-3xl text-sm sm:text-base">
-        Go to Checkout
-        <BsArrowRight className='mx-2 text-lg sm:text-xl' />
-      </button>
+        <button className=" bg-black text-white px-4 py-2 rounded-3xl hover:border-gray-300 hover:bg-transparent hover:text-inherit hover:border-[2px]">Apply</button>
+      </div>
+      <div className='text-center mt-4'>
+        <Button className="flex items-center justify-center w-full">
+          Go to Checkout
+          <BsArrowRight className='ml-2 text-lg sm:text-xl' />
+        </Button>
+      </div>
     </div>
   );
 };
