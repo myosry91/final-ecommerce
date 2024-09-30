@@ -26,7 +26,7 @@ const CartItems = ({ cartItems, setCartItems }) => {
   };
 
   return (
-    <div className="w-full flex-1 md:w-[715px] bg-white p-5 rounded-lg shadow-md overflow-auto border-2 ">
+    <div className="w-full flex-1 md:w-[715px] bg-white p-5 rounded-lg shadow-md overflow-auto border-[1px] border-gray-300 ">
       {cartItems.length === 0 ? <div className=' flex justify-center items-center font-bold text-2xl'> <p>Your cart is empty</p></div> :
         <div className="space-y-4 ">
           {cartItems.map((item, index) => (
@@ -35,7 +35,7 @@ const CartItems = ({ cartItems, setCartItems }) => {
               className={`  flex ${index === cartItems.length - 1 ? 'pb-0' : 'border-b pb-5'
                 }`}
             >
-              <img src={item.imageUrl} alt={item.name} className="w-[90px]" />
+              <img src={item.imageUrl} alt={item.name} className="w-[90px] rounded-xl" />
 
               <div className=" flex-1 pl-4 ">
 
@@ -50,7 +50,7 @@ const CartItems = ({ cartItems, setCartItems }) => {
                   </div>
                 </div>
                 <div className='flex justify-between items-center mt-5'>
-                  <p className="text-black font-bold  ">${item.price}</p>
+                  <p className="text-black font-bold font-inter text-xl ">${item.price}</p>
                   <div className="flex items-center p-1 rounded-3xl bg-gray-200   ">
                     <span onClick={() => decreaseQuantity(item.id)} className="text-gray-500 mx-2">
                       <CgMathMinus />
