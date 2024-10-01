@@ -52,3 +52,8 @@
 .swiper-button-prev{
     left: 12px;
 }
+
+/* form background */
+ .form-background {
+    background-image: url("./assets/images/formBg.jpg");
+}

@@ -5,21 +5,31 @@ import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
 import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
+import RegisterPage from "./pages/RegisterPage";
+import { Provider } from "react-redux"
+import { store } from "./redux/store"
+import { ToastContainer } from "react-toastify"
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* main layout */}
-        <Route path="/" element={<Layout />}>
-          {/* pages */}
-          <Route index element={<HomePage />} />
-          <Route path="/details" element={<DetailsPage />} />
-          <Route path="/category" element={<CategoryPage/>}/>
-          <Route path="/cart" element={<CartPage/>}/>
-        </Route>
-      </Routes>
-    </Router>
+    <>
+    <ToastContainer position="bottom-right" />
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          {/* main layout */}
+          <Route path="/" element={<Layout />}>
+            {/* pages */}
+            <Route index element={<HomePage />} />
+            <Route path="/details" element={<DetailsPage />} />
+            <Route path="/category" element={<CategoryPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </Provider>
+    </>
   );
 }
 
