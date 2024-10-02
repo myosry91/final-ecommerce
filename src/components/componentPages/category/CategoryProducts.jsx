@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import useWindowWidth from "../../../customHooks/useWindowWidth";
 import FilterImage from "../../../assets/images/filter.png"
 
-function CategoryProducts() {
+function CategoryProducts({ category }) {
+  console.log(category)
   const pageNums = [];
   for (let i = 1; i <= 10; i++) {
     pageNums.push(i);

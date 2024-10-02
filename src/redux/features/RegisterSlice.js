@@ -7,13 +7,19 @@ const api = clientApi();
 export const handleRegister = createAsyncThunk(
   "user/register",
   async (data) => {
-    try {
-      const response = await api.post("/auth/signup", data);
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      toast.error(error);
-    }
+   try {
+     const response = await api.post("/auth/signup", data);
+     
+     if (response.status === 201) toast.success("user created successfuly", {
+      className:'bg-black text-white'
+     })
+     
+    return response.data;
+   } catch (error) {
+     toast.error(error.response.data.errors[0].msg, {
+      className:'bg-black text-white'
+    })
+   }
   }
 );
 

@@ -25,18 +25,7 @@ const RegisterPage = () => {
     })
 
     const handleForm =  () => {
-        dispatch(handleRegister(formik.values)).then(data => {
-            console.log(data)
-            if (data.payload == undefined) {
-                toast.error("User is already in use", {
-                    className:'bg-black text-white'
-                })
-            } else {
-                toast.success("registered successfully", {
-                    className:'bg-black text-white'
-                })
-            }
-        })
+        dispatch(handleRegister(formik.values))
     }
 
     const formik = useFormik({
