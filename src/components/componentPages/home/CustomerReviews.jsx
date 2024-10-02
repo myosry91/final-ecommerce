@@ -17,8 +17,8 @@ const CustomerReviews = ({ containerRef, showBlur = true }) => {
             <div>
                 {windowWidth >= 780 && showBlur ? (
                     <>
-                        <div className="left-blur absolute left-0 top-0 bottom-0 w-32  z-10  bg-gradient-to-r from-slate-50/100 to-slate-50/5 backdrop-blur-[.4px]" ></div>
-                        <div className="right-blur  absolute top-0 bottom-0 right-0 w-32 h-transparent z-10  bg-gradient-to-l  from-slate-50/100 to-slate-50/5 backdrop-blur-[.4px] " ></div>
+                        <div className="left-blur absolute left-0 top-0 bottom-0 w-14  z-10   backdrop-blur-[2px]" ></div>
+                        <div className="right-blur  absolute top-0 bottom-0 right-0 w-14 h-transparent z-10   backdrop-blur-[2px] " ></div>
                     </>
                 ) : ""}
             </div>

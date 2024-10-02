@@ -22,7 +22,7 @@ function App() {
             {/* pages */}
             <Route index element={<HomePage />} />
             <Route path="/details" element={<DetailsPage />} />
-            <Route path="/category" element={<CategoryPage />} />
+            <Route path="/category/:id" element={<CategoryPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/register" element={<RegisterPage />} />
           </Route>
