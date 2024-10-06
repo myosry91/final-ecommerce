@@ -1,109 +1,115 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, TextField, Box, InputAdornment, IconButton } from "@mui/material"
-import {MdVisibility, MdVisibilityOff} from "react-icons/md"
-import Form from '../components/ui/Form'
+import { MdVisibility, MdVisibilityOff } from "react-icons/md"
 import * as Yup from "yup"
 import { useFormik } from "formik"
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { handleRegister } from '../redux/features/RegisterSlice'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import Input from '../components/ui/Input'
+import Button from '../components/ui/Button'
 // import { useSelector } from 'react-redux'
 
 
 const RegisterPage = () => {
-    const dispatch = useDispatch()
-    // const {user} = useSelector((store)=> store.register)
-    const [showPassword, setShowPassword] = useState(false)
-    const validateSchema = Yup.object({
-        firstname: Yup.string().required("Required Field"),
-        lastname: Yup.string().required("Required Field"),
-        name: Yup.string(),
-        email: Yup.string().required("Required Field").matches(/^[a-zA-Z0-9]+@gmail\.com$/, "invalid email address"),
-        password: Yup.string().required("Required Field").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, "invalid password"),
-        passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
-    })
+  const dispatch = useDispatch()
+  // const {user} = useSelector((store)=> store.register)
+  const [showPassword, setShowPassword] = useState(false)
+  const validateSchema = Yup.object({
+    firstname: Yup.string().required("Required Field"),
+    lastname: Yup.string().required("Required Field"),
+    name: Yup.string(),
+    email: Yup.string().required("Required Field").matches(/^[a-zA-Z0-9]+@gmail\.com$/, "invalid email address"),
+    password: Yup.string().required("Required Field").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, "invalid password"),
+    passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
+  })
 
-    const handleForm =  () => {
-        dispatch(handleRegister(formik.values))
-    }
+  const handleForm = () => {
+    dispatch(handleRegister(formik.values))
+  }
 
-    const formik = useFormik({
-        initialValues: {
-            firstname: '',
-            lastname: '',
-            name:'',
-            email: '',
-            password: '',
-            passwordConfirm: ''
-        },
-        validateOnChange: true,
-        validateOnBlur: true,
-        validationSchema: validateSchema,
-        onSubmit: handleForm
-    })
-    
-    useEffect(() => {
-        formik.setFieldValue('name', `${formik.values.firstname} ${formik.values.lastname}`)
-    }, [formik.values.firstname, formik.values.lastname])
-    
-    const handleClickShowPassword = (e) => {
-        
-        setShowPassword(!showPassword)
-    }
-    return (
-        <Form formTitle="Create your account" onSubmit={formik.handleSubmit}>
-            <Box component='div' sx={{ display: 'flex', justifyContent: 'space-between', gap:'10px'}} >
-                <Box component='div' sx={{width: '50%'}} >
-                    <TextField label='First name' variant='standard' id='firstname' name='firstname' className='w-full' onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                    {/* handle error validation */}
-                    {formik.touched.firstname && formik.errors.firstname ? <p className='text-red-600 font-inter text-xs font-bold mt-2' > {formik.errors.firstname} </p> : null}
-                </Box>
-                <Box component='div' sx={{flex:'1'}} >
-                    <TextField label='Last name' variant='standard' id='lastname' name='lastname' className='w-full' onChange={formik.handleChange} onBlur={formik.handleBlur}  />
-                    {formik.touched.lastname && formik.errors.lastname ? <p className='text-red-600 font-inter text-xs font-bold mt-2' > {formik.errors.lastname} </p> : null}
-                </Box>
-            </Box>
-            <Box component='div'>
-                <TextField label='Email' variant='standard' id='email' name='email' className='w-full' onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                {formik.touched.email && formik.errors.email ? <p className='text-red-600 font-inter text-xs font-bold mt-2' > {formik.errors.email} </p> : null}
-            </Box>
-            <Box component='div' sx={{position:'relative'}} >
-                <TextField label='Password' type={showPassword? "text": "password"} variant='standard' id='password' name='password' className='w-full' onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                {formik.touched.password && formik.errors.password ? <p className='text-red-600 font-inter text-xs font-bold mt-2' > {formik.errors.password} </p> : null}
-                    <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        sx={{position:'absolute', right:'0', top:10, color:'#fff'}}
-                    >
-                    {showPassword ? <MdVisibilityOff size={20} /> : <MdVisibility size={ 20} /> }
-                    </IconButton>
-            </Box>
-            <Box component='div' sx={{position:'relative'}} >
-                <TextField label='passwordConfirm' variant='standard' id='passwordConfirm' name='passwordConfirm' className='w-full' onChange={formik.handleChange} onBlur={formik.handleBlur} type={showPassword? "text": "password"} />
-                {formik.touched.passwordConfirm && formik.errors.passwordConfirm ? <p className='text-red-600 font-inter text-xs font-bold mt-2' > {formik.errors.passwordConfirm} </p> : null}
-                <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        sx={{position:'absolute', right:'0', top:10, color:'#fff'}}
-                    >
-                        {showPassword? <MdVisibilityOff size={20} /> : <MdVisibility size={20}/> }
-                    </IconButton>
-            </Box>
-            <Box component='div' >
-                <Typography component="p" sx={{ fontSize: '12px' }} >
-                    Already have an account? <NavLink to='/signin'>Sign in</NavLink>
-                </Typography>
-            </Box>
-            <Box component="div" >
-                <Typography component="p" sx={{fontSize:'12px'}} >
-                    By creating an account you agree to our <a href="#" className="text-blue-600" >Terms of Use</a> and <a href="#" className="text-blue-600" >Privacy Policy</a>.
-                </Typography>
-            </Box>
-        </Form>
+  const formik = useFormik({
+    initialValues: {
+      firstname: '',
+      lastname: '',
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: ''
+    },
+    validateOnChange: true,
+    validateOnBlur: true,
+    validationSchema: validateSchema,
+    onSubmit: handleForm
+  })
 
+  useEffect(() => {
+    formik.setFieldValue('name', `${formik.values.firstname} ${formik.values.lastname}`)
+  }, [formik.values.firstname, formik.values.lastname])
 
-    )
+  const handleClickShowPassword = (e) => {
+    setShowPassword(!showPassword)
+  }
+  return (
+    <div className='bg-inputBackground py-16'>
+      <div className="container min-h-[100vh] flex items-center justify-center">
+        <form className="w-[95%] max-w-[520px] md:w-[520px] bg-white shadow-xl mx-auto px-6 pb-10 pt-5 rounded-lg" onSubmit={formik.handleSubmit}>
+          <h2 className="mb-3 text-[28px] text-center font-cairo">Create Your Account</h2>
+          <div className='flex gap-5 '>
+            <div className="mb-5 w-full">
+              <Input type="text" placeholder="Firstname" inputLabel={"Firstname"} inputLabelId={"firstname"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.firstname} inputName={"firstname"} />
+              {formik.touched.firstname && formik.errors.firstname ? (
+                <div className="text-red-700 font-inter text-[15px]">{formik.errors.firstname}</div>
+              ) : null}
+            </div>
+            <div className="mb-5 w-full">
+              <Input type="text" placeholder="Lastname" inputLabel={"Lastname"} inputLabelId={"lastname"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.lastname} inputName={"lastname"} />
+              {formik.touched.lastname && formik.errors.lastname ? (
+                <div className="text-red-700 font-inter text-[15px]">{formik.errors.lastname}</div>
+              ) : null}
+            </div>
+          </div>
+          <div className="mb-5">
+            <Input type="email" placeholder="Email" inputLabel={"Email"} inputLabelId={"firstname"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.email} inputName={"email"} />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="text-red-700 font-inter text-[15px]">{formik.errors.email}</div>
+            ) : null}
+          </div>
+          <div className="mb-5">
+            <Input type={showPassword ? "text" : "password"} placeholder="Password" inputLabel={"Password"} inputLabelId={"password"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.password} inputName={"password"} />
+            <div aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              className='relative'>
+              {showPassword ? <MdVisibilityOff size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" }} /> : <MdVisibility size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" }} />}
+            </div>
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-red-700 font-inter text-[15px]">{formik.errors.password}</div>
+            ) : null}
+          </div>
+          <div className="mb-5">
+            <Input type={showPassword ? "text" : "password"} placeholder="Confirm Password" inputLabel={"Confirm Password"} inputLabelId={"passwordConfirm"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.passwordConfirm} inputName={"passwordConfirm"} />
+            <div aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              className='relative'>
+              {showPassword ? <MdVisibilityOff size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" }} /> : <MdVisibility size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" }} />}
+            </div>
+            {formik.touched.passwordConfirm && formik.errors.passwordConfirm ? (
+              <div className="text-red-700 font-inter text-[15px]">{formik.errors.passwordConfirm}</div>
+            ) : null}
+          </div>
+          <Button children={"Sign Up"} className="block py-[10px] mx-auto rounded-lg" />
+          <span className="flex justify-center gap-2 mt-3 text-center text-[15px]">
+            <span className='text-placeholderColor'>Already have an account?</span>
+            <Link className="underline decoration-2 text-bold text-[16px]" to={"/login"}>Sign In</Link>
+          </span>
+          <span className="block mt-2 text-center text-placeholderColor text-[13px]">
+            By creating an account you agree to our <a href="#" className="text-blue-600" >Terms of Use</a> and <a href="#" className="text-blue-600" >Privacy Policy</a>.
+          </span>
+        </form>
+      </div>
+
+    </div>
+  )
 }
 
 export default RegisterPage

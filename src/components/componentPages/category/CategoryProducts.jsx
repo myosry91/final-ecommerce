@@ -5,12 +5,16 @@ import { FaArrowRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import useWindowWidth from "../../../customHooks/useWindowWidth";
 import FilterImage from "../../../assets/images/filter.png"
+import { getProducts, setSelectedSize, selectProducts } from "../../../redux/features/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function CategoryProducts({ category }) {
   const pageNums = [];
   for (let i = 1; i <= 10; i++) {
     pageNums.push(i);
   }
+  const [activePageNumber, setActivePageNumber] = useState(1);
+  const [numOfPage, setNumOfPage] = useState([0, 4]);
 
   let cards = [
     {
@@ -195,14 +199,15 @@ function CategoryProducts({ category }) {
     },
   ];
 
-  const [activePageNumber, setActivePageNumber] = useState(1);
-  const [numOfPage, setNumOfPage] = useState([0, 4]);
-
+  const dispatch = useDispatch();
+  const { products, isLoading, error } = useSelector((state) => state?.products);
+  console.log(products?.data);
 
   useEffect(() => {
     if (activePageNumber === 1) {
       let result = [0, 4];
       setNumOfPage(result);
+      dispatch(getProducts(products));
     }
     else {
       const end = (activePageNumber + activePageNumber) * 2;
@@ -211,7 +216,7 @@ function CategoryProducts({ category }) {
       setNumOfPage(result);
     }
 
-  }, [activePageNumber]);
+  }, [activePageNumber, dispatch]);
 
 
   const windowWidth = useWindowWidth();
@@ -230,8 +235,8 @@ function CategoryProducts({ category }) {
       <div>
         <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-x-5 gap-y-10">
           {
-            cards.slice(numOfPage[0], numOfPage[1]).map((card) => (
-              <Card key={card.id} imageSrc={card.cardImage} imageAlt={card.cardAlt} cardTitle={card.cardTitle} cardPrice={card.cardPrice} discount={card.discount} oldPrice={card.oldPrice} />
+            products?.data?.slice(numOfPage[0], numOfPage[1]).map((card) => (
+              <Card key={card.id} imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} />
             ))
           }
         </div>
