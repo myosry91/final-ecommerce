@@ -9,10 +9,12 @@ export const handleRegister = createAsyncThunk(
   async (data) => {
    try {
      const response = await api.post("/auth/signup", data);
-     
-     if (response.status === 201) toast.success("user created successfuly", {
-      className:'bg-black text-white'
-     })
+     if (response.status === 201) {
+      toast.success("user created successfuly", {
+        className:'bg-black text-white'
+      })
+       window.location.href = "login"
+     }
      
     return response.data;
    } catch (error) {
@@ -38,6 +40,7 @@ const regsterSlice = createSlice({
     builder.addCase(handleRegister.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
+      console.log(action)
       state.error = null;
     });
     builder.addCase(handleRegister.rejected, (state, action) => {

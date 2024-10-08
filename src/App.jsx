@@ -10,6 +10,7 @@ import { Provider } from "react-redux"
 import { store } from "./redux/store"
 import { ToastContainer } from "react-toastify"
 import LoginPage from "./pages/LoginPage";
+import UserOrders from "./pages/UserOrders";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/category" element={<CategoryPage />} >
                 <Route path="/category/:id" element={<CategoryPage />} />
               </Route>
+              <Route path="/orders" element={<UserOrders/>} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />

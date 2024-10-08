@@ -26,7 +26,7 @@ function LoginPage() {
   }, [user, navigate]);
 
   const validationSchema = Yup.object({
-    email: Yup.string().required("Email Is Required *").matches(/^[a-zA-Z0-9]+@gmail\.com$/, "Invalid Email Address"),
+    email: Yup.string().required("Email Is Required *").matches(/^[a-zA-Z0-9]+@(gmail|yahoo)\.com$/, "Invalid Email Address"),
     password: Yup.string().required("Password Is Required *").min(8, "Password Must Be At least 8 characters"),
   });
 

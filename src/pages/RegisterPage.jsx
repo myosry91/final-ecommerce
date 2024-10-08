@@ -19,8 +19,8 @@ const RegisterPage = () => {
     firstname: Yup.string().required("Required Field"),
     lastname: Yup.string().required("Required Field"),
     name: Yup.string(),
-    email: Yup.string().required("Required Field").matches(/^[a-zA-Z0-9]+@gmail\.com$/, "invalid email address"),
-    password: Yup.string().required("Required Field").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, "invalid password"),
+    email: Yup.string().required("Required Field").matches(/^[a-zA-Z0-9]+@(gmail|yahoo)\.com$/, "invalid email address"),
+    password: Yup.string().required("Required Field").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, "Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character (!, @, #, $, %, ^, &, *)"),
     passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
   })
 

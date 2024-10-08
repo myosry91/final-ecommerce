@@ -10,6 +10,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import Button from "../ui/Button";
 import { LuLogIn } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../../redux/features/logoutSlice";
+import { useDispatch } from "react-redux";
 
 function Navbar() {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -24,9 +28,15 @@ function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
 
-  const [isLogin, setIsLogin] = useState(false);
 
+  const { user } = useSelector(store => store.login)
+  console.log(user)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  const handleLogoutUser = () => {
+    dispatch(handleLogout(user?.data?._id))
+  }
   const handleDropdown = () => {
     setDropdownStatus((prev) => !prev);
   };
@@ -121,24 +131,20 @@ function Navbar() {
             <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">10</span>
           </span>
           {
-            isLogin ? <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
+            user ? <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
               <FaRegCircleUser className="text-[22px]" />
               <ul className={loginDropdownStatus ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md z-10" : "hidden"} style={{ top: 'calc(100% + 15px)', right: 'calc(-100%)' }}>
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Account</a></li>
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300"><a href="#">Orders</a></li>
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300 border-b border-headerBackground"><a href="#">Address</a></li>
-                <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor" onClick={() => {
-                  setIsLogin(false)
-                }}><a href="#">Logout</a></li>
+                <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor" onClick={handleLogoutUser}>logout</li>
               </ul>
             </span> :
-              <span onClick={() => {
-                setIsLogin(true);
-              }}>
+              <span >
                 {
                   <LuLogIn className="lg:hidden text-[22px] cursor-pointer" />
                 }
-                <Button children={"Login"} className="py-[10px] px-[40px] hidden lg:block" />
+                <Button click={() => navigate("/login")} children={"Login"} className="py-[10px] px-[40px] hidden lg:block" />
               </span>
           }
         </div>
