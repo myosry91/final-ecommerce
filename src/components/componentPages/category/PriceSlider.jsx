@@ -9,7 +9,7 @@ function value(price) {
     return `${price}$`
 }
 const PriceSlider = () => {
-    const [price, setPrice] = useState([20, 50]);
+    const [price, setPrice] = useState([0, 1000]);
 
     const dispatch = useDispatch();
     const selectedPrice = useSelector((state) => state.products.selectedPriceRange);
@@ -34,7 +34,7 @@ const PriceSlider = () => {
                 aria-labelledby="range-slider"
                 getAriaValueText={value}
                 min={0}
-                max={500}
+                max={1000}
             />
         </AccordionUI>
     )
