@@ -1,11 +1,42 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Layout from "./components/layout/Layout";
+import HomePage from "./pages/HomePage";
+import DetailsPage from "./pages/DetailsPage";
+import CategoryPage from "./pages/CategoryPage";
+import CartPage from "./pages/CartPage";
+import RegisterPage from "./pages/RegisterPage";
+import { Provider } from "react-redux"
+import { store } from "./redux/store"
+import { ToastContainer } from "react-toastify"
+import LoginPage from "./pages/LoginPage";
+import UserOrders from "./pages/UserOrders";
 
-export default function App() {
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-      
-    </h1>
-  )
+    <>
+      <ToastContainer position="bottom-right" />
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            {/* main layout */}
+            <Route path="/" element={<Layout />}>
+              {/* pages */}
+              <Route index element={<HomePage />} />
+              <Route path="/details" element={<DetailsPage />} />
+              <Route path="/category" element={<CategoryPage />} >
+                <Route path="/category/:id" element={<CategoryPage />} />
+              </Route>
+              <Route path="/orders" element={<UserOrders/>} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </Provider>
+    </>
+  );
 }
 
+export default App;
