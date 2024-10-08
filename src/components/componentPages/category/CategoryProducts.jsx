@@ -10,10 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function CategoryProducts({ category }) {
   console.log(category)
-  const pageNums = [];
-  for (let i = 1; i <= 10; i++) {
-    pageNums.push(i);
-  }
+
   const [activePageNumber, setActivePageNumber] = useState(1);
   const [numOfPage, setNumOfPage] = useState([0, 4]);
 
@@ -39,6 +36,15 @@ function CategoryProducts({ category }) {
 
 
   const windowWidth = useWindowWidth();
+
+
+  const numOfPages = Math.ceil(products?.total / products?.limit) + 1;
+  console.log(numOfPages);
+
+  const pageNums = [];
+  for (let i = 1; i <= numOfPages; i++) {
+    pageNums.push(i);
+  }
 
   function handleFilterOpen() {
     console.log("Ahmed Elbalouty");
@@ -75,7 +81,7 @@ function CategoryProducts({ category }) {
           })}
         </div>
         <button className="rounded-[8px] text-[14px] border border-whiteBtnBorderColor py-[8px] px-[14px] flex items-center" onClick={() => {
-          !(activePageNumber === 10) && setActivePageNumber(activePageNumber + 1);
+          !(activePageNumber === numOfPages) && setActivePageNumber(activePageNumber + 1);
         }}>{windowWidth > 768 && <span className="mr-2">Next</span>}<span>{<FaArrowRight />}</span></button>
       </div>
     </div>
