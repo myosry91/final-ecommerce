@@ -11,6 +11,7 @@ import { store } from "./redux/store"
 import { ToastContainer } from "react-toastify"
 import LoginPage from "./pages/LoginPage";
 import UserOrders from "./pages/UserOrders";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/admin" element={<AdminDashboard/>} />
             </Route>
           </Routes>
         </Router>

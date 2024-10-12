@@ -7,7 +7,7 @@ import useWindowWidth from "../customHooks/useWindowWidth";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "swiper/css"
 import "swiper/css/navigation"
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import CustomerReviews from "../components/componentPages/home/CustomerReviews";
 import Category from "../components/componentPages/home/Category";
 import zaraLogo from "../assets/images/zara-logo.png";
@@ -16,37 +16,43 @@ import gucci from "../assets/images/gucci-logo.png";
 import prada from "../assets/images/prada-logo.png";
 import calvin from "../assets/images/calvin.png";
 import TopSellingCards from "../components/componentPages/home/TopSellingCards";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBrands } from "../redux/features/brandsSlice";
 
 
 const HomePage = () => {
 
-  const brands = [
-    {
-      id: 1,
-      src: zaraLogo,
-      alt: "Zraa Logo"
-    },
-    {
-      id: 2,
-      src: versaceLogo,
-      alt: "Versace Logo"
-    },
-    {
-      id: 3,
-      src: gucci,
-      alt: "Gucci Logo"
-    },
-    {
-      id: 4,
-      src: prada,
-      alt: "Prada Logo"
-    },
-    {
-      id: 5,
-      src: calvin,
-      alt: "Calvin Logo"
-    }
-  ]
+  // const brands = [
+  //   {
+  //     id: 1,
+  //     src: zaraLogo,
+  //     alt: "Zraa Logo"
+  //   },
+  //   {
+  //     id: 2,
+  //     src: versaceLogo,
+  //     alt: "Versace Logo"
+  //   },
+  //   {
+  //     id: 3,
+  //     src: gucci,
+  //     alt: "Gucci Logo"
+  //   },
+  //   {
+  //     id: 4,
+  //     src: prada,
+  //     alt: "Prada Logo"
+  //   },
+  //   {
+  //     id: 5,
+  //     src: calvin,
+  //     alt: "Calvin Logo"
+  //   }
+  // ]
+  const dispatch = useDispatch()
+  const { brands } = useSelector((store) => store.brands)
+  console.log(brands)
+
   const containerRef = useRef()
   const windowWidth = useWindowWidth()
 
@@ -57,6 +63,10 @@ const HomePage = () => {
     }
   }
 
+  useEffect(() => {
+    dispatch(fetchBrands())
+  }, [])
+  
   return (
     <>
       <section className=" bg-headerBackground px-5">
@@ -133,8 +143,8 @@ const HomePage = () => {
         {/* brands section */}
         <div className="bg-forground text-forgroundColor p-6 ">
           <Marquee pauseOnHover={true} speed={50}>
-            {brands.map((brand, index) => (
-              < img src={`${brand.src}`} alt={brand.alt} key={brand.id} className="mx-12" />
+            {brands.map((brand) => (
+              < img src={`${brand.logo}`} alt={brand.name} key={brand._id} className="mx-12" />
             ))}
           </Marquee>
         </div>

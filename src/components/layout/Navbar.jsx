@@ -30,7 +30,6 @@ function Navbar() {
 
 
   const { user } = useSelector(store => store.login)
-  console.log(user)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
