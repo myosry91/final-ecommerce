@@ -3,12 +3,16 @@ import registerReducer from "./features/RegisterSlice"
 import loginReducer from "./features/loginSlice"
 import categoriesReducer from "./features/CategoriesSlice"
 import getProducts from "./features/productsSlice"
+import brandsReducer from "./features/brandsSlice"
+import adminDashboardReducer from "./features/adminDashboardSlice"
 
 export const store = configureStore({
     reducer: {
         register: registerReducer,
         login: loginReducer,
         categories: categoriesReducer,
-        products: getProducts
+        products: getProducts,
+        brands: brandsReducer,
+        admin: adminDashboardReducer
     },
 })
