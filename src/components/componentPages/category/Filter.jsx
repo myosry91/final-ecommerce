@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom'
 import { getProducts } from "../../../redux/features/productsSlice";
 
 
-const Filter = ({ className }) => {
+const Filter = ({ className, isFilterOpen, setIsFilterOpen }) => {
     const dispatch = useDispatch();
     const selectedSize = useSelector((state) => state.products.selectedSize);
     const selectedPrice = useSelector((state) => state.products.selectedPriceRange);
@@ -31,6 +31,11 @@ const Filter = ({ className }) => {
 
         // Update the URL with the selected filters using setSearchParams
         setSearchParams(queryParams);
+        if (isFilterOpen) {
+            setIsFilterOpen(false);
+        } else {
+            return
+        }
     }
 
     return (

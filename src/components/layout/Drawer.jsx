@@ -26,16 +26,16 @@ function Drawer({ onClose }) {
             <RiArrowDropDownLine className="text-[25px] mt-1 cursor-pointer" />
           </span>
           <ul className={showDropdown ? "flex flex-col pb-5 max-h-fit transition-max-height duration-300" : "overflow-hidden max-h-0"}>
-            <li><a href="#" className="block hover:bg-headerBackground duration-300 py-2 px-4 border-b border-headerBackground">Men</a></li>
-            <li><a href="#" className="block hover:bg-headerBackground duration-300 py-2 px-4 border-b border-headerBackground">Women</a></li>
-            <li><a href="#" className="block hover:bg-headerBackground duration-300 py-2 px-4 border-b border-headerBackground">Kids</a></li>
-            <li><a href="#" className="block hover:bg-headerBackground duration-300 py-2 px-4">Accessories</a></li>
+            <li><Link to="/category/men" className="block hover:bg-headerBackground duration-300 py-2 px-4 border-b border-headerBackground">Men</Link></li>
+            <li><Link to="/category/women" className="block hover:bg-headerBackground duration-300 py-2 px-4 border-b border-headerBackground">Women</Link></li>
+            <li><Link to="/category/kids" className="block hover:bg-headerBackground duration-300 py-2 px-4 border-b border-headerBackground">Kids</Link></li>
+            <li><Link to="/category/accessories" className="block hover:bg-headerBackground duration-300 py-2 px-4">Accessories</Link></li>
           </ul>
         </a>
         </li>
-        <li><a href="#" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">On Sale</a></li>
-        <li><a href="#" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">New Arrivals</a></li>
-        <li><a href="#" className="block hover:bg-headerBackground duration-300 p-2">Brands</a></li>
+        <li><a href="#" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">Products</a></li>
+        <li><Link to="/category" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">Best Offers</Link></li>
+        <li><Link to="/" className="block hover:bg-headerBackground duration-300 p-2">Brands</Link></li>
       </ul>
     </>
   )
