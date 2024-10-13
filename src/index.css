@@ -54,6 +54,9 @@
 }
 
 /* form background */
- .form-background {
+.form-background {
     background-image: url("./assets/images/formBg.jpg");
+}
+.active{
+    font-weight: bold;
 }
