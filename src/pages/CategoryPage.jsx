@@ -11,20 +11,16 @@ const CategoryPage = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
     const { category } = useSelector((store) => store.categories)
-    
+
     useEffect(() => {
         dispatch(fetchCategory(id))
     }, [])
-    
+
     return (
         <section>
             <div className="container">
                 <CurrentPath currentPath={["Category"]} />
-                <div className='my-5 grid lg:grid-cols-[275px,1fr] md:grid-cols-[275px,1fr] grid-cols-1 gap-5'>
-                    <Filter className='lg:block md:block hidden' />
-                    {/* list category's product */}
-                    <CategoryProducts category={category} />
-                </div>
+                <CategoryProducts category={category} />
             </div>
         </section>
     )

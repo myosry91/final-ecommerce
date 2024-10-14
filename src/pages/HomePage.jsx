@@ -37,7 +37,7 @@ const HomePage = () => {
     dispatch(fetchBrands())
     dispatch(getProducts())
   }, [])
-  
+
   return (
     <>
       <section className=" bg-headerBackground px-5">
@@ -45,7 +45,7 @@ const HomePage = () => {
           <header className="grid lg:grid-cols-2 grid-cols-1 gap-10 pt-5">
             {/* left side */}
             <div className="flex flex-col gap-3  justify-center">
-              <h1 className="font-cairo font-bold  text-4xl w-[315px] md:w-[500px]">
+              <h1 className="font-cairo font-bold mt-10 text-4xl w-[315px] md:w-[500px]">
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </h1>
               <p className="text-descriptionColor md:w-auto sm:w-[358px] font-inter">
