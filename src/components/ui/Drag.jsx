@@ -7,19 +7,19 @@ const Drag = ({ containerRef, children }) => {
         // for large scrren mouse drag
         slider.addEventListener("mousedown", (e) => {
             isDown = true
-            slider.classList.add("active")
+            slider.classList.add("drag")
             startX = e.pageX - slider.offsetLeft
             scrollLeft = slider.scrollLeft
         })
 
         slider.addEventListener("mouseleave", () => {
             isDown = false
-            slider.classList.remove("active")
+            slider.classList.remove("drag")
         })
 
         slider.addEventListener("mouseup", () => {
             isDown = false
-            slider.classList.remove("active")
+            slider.classList.remove("drag")
         })
 
         slider.addEventListener("mousemove", (e) => {
@@ -33,14 +33,14 @@ const Drag = ({ containerRef, children }) => {
         // for mobile drag touch
         slider.addEventListener("touchstart", (e) => {
             isDown = true
-            slider.classList.add("active")
+            slider.classList.add("drag")
             startX = e.touches[0].pageX - slider.offsetLeft
             scrollLeft = slider.scrollLeft
         })
 
         slider.addEventListener("touchend", () => {
             isDown = false
-            slider.classList.remove("active")
+            slider.classList.remove("drag")
         })
 
         slider.addEventListener("touchmove", (e) => {

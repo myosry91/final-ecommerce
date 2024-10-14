@@ -21,7 +21,6 @@ const HomePage = () => {
   const dispatch = useDispatch()
   const { brands } = useSelector((store) => store.brands)
   const {products} = useSelector((store)=> store.products)
-  console.log(products)
 
   const containerRef = useRef()
   const windowWidth = useWindowWidth()
