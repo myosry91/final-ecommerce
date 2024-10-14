@@ -5,8 +5,20 @@ import Button from "../../ui/Button";
 import MainSize from "../../ui/MainSize";
 import MainReviews from "../../ui/MainReviews";
 import Color from "../../ui/Color";
+import { useDispatch } from "react-redux"; 
+import { useNavigate } from "react-router-dom"; 
+// import { AddToCart } from "../../../redux/features/cartsSlice"; 
 
 const ProductDetails = ({ colors, sizes, check, setCheck, showReview }) => {
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
+
+  const handleAddToCart = (id) => {
+    
+    // dispatch(AddToCart(id));
+    // navigate("/cartPage"); 
+  };
+
   return (
     <div className="flex flex-col gap-y-3">
       <h3 className="font-cairo font-bold">One Life Graphic T-shirt</h3>
@@ -16,7 +28,7 @@ const ProductDetails = ({ colors, sizes, check, setCheck, showReview }) => {
       <div className="flex gap-2 items-center">
         <h4> $260 </h4>
         <h4 className="text-gray-400 line-through"> $200 </h4>
-        <p className="bg-discountBackground text-discountColor  lg:p-discountLg rounded-buttonRadius p-discountSm">
+        <p className="bg-discountBackground text-discountColor lg:p-discountLg rounded-buttonRadius p-discountSm">
           -40%
         </p>
       </div>
@@ -31,7 +43,7 @@ const ProductDetails = ({ colors, sizes, check, setCheck, showReview }) => {
         <Color colors={colors} />
       </div>
       <hr className="text-descriptionColor" />
-      {/* product sizez */}
+      {/* product sizes */}
       <div>
         <p className="mb-4 text-descriptionColor">choose sizes</p>
         <MainSize
@@ -42,7 +54,7 @@ const ProductDetails = ({ colors, sizes, check, setCheck, showReview }) => {
       {/* product quantity */}
       <div className="flex gap-3 my-6">
         <MainQuantity quantity={1} />
-        <Button className="lg:w-[400px] md:w-[200px] w-[236px]">
+        <Button className="lg:w-[400px] md:w-[200px] w-[236px]" >
           Add to cart
         </Button>
       </div>

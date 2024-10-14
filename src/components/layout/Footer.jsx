@@ -29,8 +29,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-start text-sm mb-10 -mt-20">
-          <div className="w-full md:w-1/5 mr-16">
+        <div className="flex flex-col md:flex-row justify-between items-start text-sm mb-10 -mt-20  ">
+          <div className="w-full md:w-1/5 mr-16 ">
             <h3 className="font-bold text-4xl mb-3 text-buttonBackground"><Link to={"/"}>SHOP.CO</Link></h3>
             <p className="text-descriptionColor md:w-auto sm:w-[358px] font-inter">
               We have clothes that suit your style and which you're proud to wear. From women to men.</p>
