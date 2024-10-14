@@ -2,16 +2,19 @@ import { MdStarRate } from "react-icons/md";
 import MainReviews from "./MainReviews";
 import { lazy } from "react";
 // API gives a product object that contains data
-function Card({ imageSrc, imageAlt, cardTitle, cardPrice, discount, oldPrice }) {
+function Card({ imageSrc, imageAlt, cardTitle, cardPrice, discount, oldPrice, className }) {
   return (
-    <div>
+    <div >
       <div className="flex flex-col ">
+        <div className="w-40">
         <img
           src={imageSrc}
           alt={imageAlt}
           loading="lazy"
-          className="rounded-cardRadius max-w-full select-none"
+          className={`rounded-cardRadius max-w-full select-none object-contain`}
+          
         />
+        </div>
         <h3 className="text-cardTitle font-cairo font-bold py-2 lg:text-xl text-base ">
           {cardTitle}
         </h3>

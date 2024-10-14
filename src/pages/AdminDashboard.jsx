@@ -1,36 +1,32 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeOrderStatus, fetchOrders, ordersStatus, setSearchOrder, setPage, deleteOrder, countOrders } from '../redux/features/adminDashboardSlice'
+import { changeOrderStatus, fetchOrders, setSearchOrder, deleteOrder, countOrders } from '../redux/features/adminDashboardSlice'
 import DashboardSidebar from '../components/componentPages/dashboard/DashboardSidebar'
 import OrderTable from '../components/componentPages/dashboard/OrderTable'
 import OrderStatusSummary from '../components/componentPages/dashboard/OrderStatusSummary'
 import { AiFillCaretRight } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import Pagination from '../components/componentPages/dashboard/Pagination'
 
 const AdminDashboard = () => {
     const dispatch = useDispatch()
-    const { orders, completed, searchResult, canceled, processing, currentPage, total , limit, totalPages} = useSelector((store) => store.admin)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const { orders, completed, searchResult, canceled, processing, currentPage, totalPages} = useSelector((store) => store.admin)
     const [isDirty, setIsDirty] = useState(false)
 
     useEffect(() => {
+        dispatch(fetchOrders({currentPage: currentPage}))
+        // dispatch(ordersStatus(orders))
+    }, [dispatch, currentPage])
+    
+    useEffect(() => {
         dispatch(countOrders())
-        dispatch(fetchOrders({ currentPage }))
-        dispatch(ordersStatus(orders))
-    }, [])
-
-    console.log(total)
-
-    // const totalPages = useMemo(() => {
-    //     return Math.ceil(total / limit )
-    // },[total])
+        dispatch(fetchOrders())
+    },[])
 
     const handleChangeOrderStatus = (id, status) => {
         let newStatus = { status: status }
-        dispatch(changeOrderStatus({ id, status: newStatus })).then(() => {
-            dispatch(fetchOrders())
-            dispatch(ordersStatus(orders))
-        })
+        dispatch(changeOrderStatus({ id, status: newStatus }))
     }
 
     const handleSearchOrder = useCallback((e) => {
@@ -40,7 +36,8 @@ const AdminDashboard = () => {
     }, [dispatch])
 
     const handleChangePage = (newPage) => {
-        dispatch(setPage(newPage))
+        // setSearchParams({page: newPage})
+        dispatch(fetchOrders({ currentPage: newPage }));
     }
 
     const handleDeleteOrder = (id) => {

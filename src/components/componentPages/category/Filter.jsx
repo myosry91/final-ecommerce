@@ -8,35 +8,37 @@ import Button from "../../ui/Button"
 import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { getProducts } from "../../../redux/features/productsSlice";
+import { fetchCategory } from '../../../redux/features/CategoriesSlice'
 
 
-const Filter = ({ className, isFilterOpen, setIsFilterOpen }) => {
-    const dispatch = useDispatch();
-    const selectedSize = useSelector((state) => state.products.selectedSize);
-    const selectedPrice = useSelector((state) => state.products.selectedPriceRange);
+const Filter = ({ className, onFilterClick }) => {
+    // const dispatch = useDispatch();
+    // // const selectedSize = useSelector((state) => state.categories.selectedSize);
+    // // const selectedPrice = useSelector((state) => state.categories.selectedPriceRange);
+    // const {selectedSize, selectedPriceRange, category} = useSelector((state)=> state.categories) 
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    useEffect(() => {
-        console.log(searchParams);
-    })
-    const handleFilterClick = () => {
-        const queryParams = {};
-        if (selectedSize) queryParams.size = selectedSize;
-        if (selectedPrice !== null) {
-            queryParams.minPrice = selectedPrice[0];
-            queryParams.maxPrice = selectedPrice[1];
-        }
-        // Dispatch the getProducts action with the selected filters
-        dispatch(getProducts(queryParams));
+    // const [searchParams, setSearchParams] = useSearchParams();
+    // // useEffect(() => {
+    // //     console.log(searchParams);
+    // // })
+    // const handleFilterClick = () => {
+    //     const queryParams = {};
+    //     if (selectedSize) queryParams.size = selectedSize;
+    //     if (selectedPriceRange !== null) {
+    //         queryParams.minPrice = selectedPriceRange[0];
+    //         queryParams.maxPrice = selectedPriceRange[1];
+    //     }
+    //     // Dispatch the getProducts action with the selected filters
+    //     dispatch(fetchCategory(queryParams));
 
-        // Update the URL with the selected filters using setSearchParams
-        setSearchParams(queryParams);
-        if (isFilterOpen) {
-            setIsFilterOpen(false);
-        } else {
-            return
-        }
-    }
+    //     // Update the URL with the selected filters using setSearchParams
+    //     setSearchParams(queryParams);
+    //     if (isFilterOpen) {
+    //         setIsFilterOpen(false);
+    //     } else {
+    //         return
+    //     }
+    // }
 
     return (
         <div className={`${className} rounded-cardRadius border border-slate-400/30 p-6 h-fit mb-8`}>
@@ -78,7 +80,7 @@ const Filter = ({ className, isFilterOpen, setIsFilterOpen }) => {
                 </div>
             </AccordionUI>
             <button className={'p-buttonPadding bg-buttonBackground border-[2px] border-buttonBackground hover:bg-transparent hover:text-inherit hover:border-[2px] hover:border-gray-300  text-white rounded-buttonRadius duration-200 font-inter w-full my-5'}
-                onClick={handleFilterClick}>Apply Filter</button>
+                onClick={onFilterClick}>Apply Filter</button>
             {/* <Button className={'w-full my-5'} click={handleFilterClick}>Apply Filter</Button> */}
         </div>
     )

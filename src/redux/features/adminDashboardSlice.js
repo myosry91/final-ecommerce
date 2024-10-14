@@ -5,8 +5,9 @@ const api = clientApi();
 
 export const fetchOrders = createAsyncThunk(
   "fetch/orders",
-  async ({page = 1}) => {
-    const { data } = await api.get(`/orders?page=${page}&limit=5`);
+  async (page = 1) => {
+    const { currentPage } = page;
+    const { data } = await api.get(`/orders?page=${currentPage}&limit=5`);
     return data;
   }
 );
@@ -14,7 +15,7 @@ export const fetchOrders = createAsyncThunk(
 export const countOrders = createAsyncThunk("get/countOrders", async () => {
   const { data } = await api.get("/orders/get/count");
   return data;
-})
+});
 
 export const changeOrderStatus = createAsyncThunk(
   "admin/update",
@@ -26,15 +27,15 @@ export const changeOrderStatus = createAsyncThunk(
 
 export const deleteOrder = createAsyncThunk("admin/deleteOrder", async (id) => {
   const response = await api.delete(`/orders/${id}`);
-  return response.data.data._id;
-})
+  return response.data;
+});
 
 const adminDashboardSlice = createSlice({
   name: "adminDashboard",
   initialState: {
     isLoading: false,
     orders: [],
-    total:0,
+    total: 0,
     limit: 5,
     currentPage: 1,
     totalPages: 0,
@@ -46,21 +47,6 @@ const adminDashboardSlice = createSlice({
     error: null,
   },
   reducers: {
-    ordersStatus: (state, {payload : orders}) => {
-      console.log(orders)
-      state.completed = orders.filter(
-        (order) => order.status === "complete"
-      ).length;
-      state.pending = orders.filter(
-        (order) => order.status === "pending"
-      ).length;
-      state.canceled = orders.filter(
-        (order) => order.status === "canceled"
-      ).length;
-      state.processing = orders.filter(
-        (order) => order.status === "processing"
-      ).length;
-    },
     setSearchOrder: (state, action) => {
       state.searchResult = [];
       state.searchResult = state.orders.filter(
@@ -70,10 +56,6 @@ const adminDashboardSlice = createSlice({
           order.status.includes(action.payload)
       );
     },
-    setPage: (state, action) => {
-      state.currentPage = action.payload;
-    },
-
   },
   extraReducers: (builder) => {
     // handle countOrders lifecycle
@@ -82,15 +64,29 @@ const adminDashboardSlice = createSlice({
       state.isLoading = false;
       state.total = action.payload.orderCount;
       state.error = null;
-      // state.totalPages = Math.ceil(state.total / state.limit); // infinity loop
+      state.totalPages = Math.ceil(state.total / state.limit);
     });
-    
+
     builder.addCase(fetchOrders.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
       state.isLoading = false;
+      const { currentPage } = action.meta.arg;
+      state.currentPage = currentPage;
       state.orders = action.payload.data;
+      state.completed = state.orders.filter(
+        (order) => order.status === "complete"
+      ).length;
+      state.pending = state.orders.filter(
+        (order) => order.status === "pending"
+      ).length;
+      state.canceled = state.orders.filter(
+        (order) => order.status === "canceled"
+      ).length;
+      state.processing = state.orders.filter(
+        (order) => order.status === "processing"
+      ).length;
       state.error = null;
     });
     builder.addCase(fetchOrders.rejected, (state, action) => {
@@ -98,7 +94,6 @@ const adminDashboardSlice = createSlice({
       state.error = action.error.message;
       state.orders = [];
     });
-
 
     // handle changeOrderStatus lifecycle
     builder.addCase(changeOrderStatus.pending, (state) => {
@@ -116,17 +111,14 @@ const adminDashboardSlice = createSlice({
     builder.addCase(changeOrderStatus.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
-      console.log(action.error);
     });
 
-    // 
+    //
     // handle deleteOrder lifecycle
     builder.addCase(deleteOrder.fulfilled, (state, action) => {
       state.isLoading = false;
-      const {id} = action.meta.arg
-      console.log(id);
       state.orders = state.orders.filter(
-        (order) => order._id !== id
+        (order) => order._id !== action.meta.arg
       );
       state.error = null;
     });
@@ -139,5 +131,5 @@ const adminDashboardSlice = createSlice({
 });
 
 export default adminDashboardSlice.reducer;
-export const { ordersStatus, setSearchOrder, setPage, setCurrentPage, setItemsPerPage } =
+export const {  setSearchOrder, setCurrentPage, setItemsPerPage } =
   adminDashboardSlice.actions;

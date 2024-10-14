@@ -20,7 +20,7 @@ const Category = () => {
       <h2 className="text-center text-3xl font-bold font-cairo mb-10">BROWSE BY DRESS STYLE</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10 mx-auto">
         {categories.map((category) => (
-          <Link to={`category/${category._id}`} key={category._id} >
+          <Link to={`category/${category.id}`} key={category._id} >
             <div
             className={`relative overflow-hidden rounded-3xl shadow-md h-full`}
           >

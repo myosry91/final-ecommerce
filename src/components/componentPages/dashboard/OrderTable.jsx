@@ -63,7 +63,7 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
               </td>
               <td className="px-10 py-6 flex gap-1 ">
                 <FaRegEye className='text-green-500 ' />
-                {order.status === "pending" || order.status === 'canceled' || order.status === 'complete' ? "" : <TiDelete color='red' className='cursor-pointer' onClick={() => onDeleteOrder(order._id)} />}
+                {order.status === "pending" || order.status === 'canceled' || order.status === 'complete' ? "" : <TiDelete color='red' className='cursor-pointer' onClick={() => onDeleteOrder(order.id)} />}
               </td>
             </tr>
           ))}
