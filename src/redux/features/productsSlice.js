@@ -6,7 +6,7 @@ const api = clientApi();
 // Create async thunk to get products
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async ({ size = null, color = null, minPrice = null , maxPrice = null }, { rejectWithValue }) => {
+  async ({ size , color, minPrice , maxPrice }= {}, { rejectWithValue }) => {
     try {
       let url = "/products"; // Base URL for products
       const params = [];
@@ -33,7 +33,7 @@ export const getProducts = createAsyncThunk(
       }
       const response = await api.get(url);
       if (response.status === 200) {
-        return response.data; // Return products data
+        return response.data?.data; // Return products data
       }
     } catch (error) {
       return rejectWithValue(error.response?.data?.errors[0]?.msg || "Unknown error");

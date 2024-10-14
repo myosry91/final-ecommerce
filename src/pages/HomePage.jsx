@@ -10,48 +10,17 @@ import "swiper/css/navigation"
 import { useEffect, useRef } from "react";
 import CustomerReviews from "../components/componentPages/home/CustomerReviews";
 import Category from "../components/componentPages/home/Category";
-import zaraLogo from "../assets/images/zara-logo.png";
-import versaceLogo from "../assets/images/versace.png";
-import gucci from "../assets/images/gucci-logo.png";
-import prada from "../assets/images/prada-logo.png";
-import calvin from "../assets/images/calvin.png";
 import TopSellingCards from "../components/componentPages/home/TopSellingCards";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBrands } from "../redux/features/brandsSlice";
+import { getProducts } from "../redux/features/productsSlice";
 
 
 const HomePage = () => {
 
-  // const brands = [
-  //   {
-  //     id: 1,
-  //     src: zaraLogo,
-  //     alt: "Zraa Logo"
-  //   },
-  //   {
-  //     id: 2,
-  //     src: versaceLogo,
-  //     alt: "Versace Logo"
-  //   },
-  //   {
-  //     id: 3,
-  //     src: gucci,
-  //     alt: "Gucci Logo"
-  //   },
-  //   {
-  //     id: 4,
-  //     src: prada,
-  //     alt: "Prada Logo"
-  //   },
-  //   {
-  //     id: 5,
-  //     src: calvin,
-  //     alt: "Calvin Logo"
-  //   }
-  // ]
   const dispatch = useDispatch()
   const { brands } = useSelector((store) => store.brands)
-  console.log(brands)
+  const {products} = useSelector((store)=> store.products)
 
   const containerRef = useRef()
   const windowWidth = useWindowWidth()
@@ -65,8 +34,9 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchBrands())
+    dispatch(getProducts())
   }, [])
-  
+
   return (
     <>
       <section className=" bg-headerBackground px-5">
@@ -74,7 +44,7 @@ const HomePage = () => {
           <header className="grid lg:grid-cols-2 grid-cols-1 gap-10 pt-5">
             {/* left side */}
             <div className="flex flex-col gap-3  justify-center">
-              <h1 className="font-cairo font-bold  text-4xl w-[315px] md:w-[500px]">
+              <h1 className="font-cairo font-bold mt-10 text-4xl w-[315px] md:w-[500px]">
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </h1>
               <p className="text-descriptionColor md:w-auto sm:w-[358px] font-inter">
@@ -165,7 +135,7 @@ const HomePage = () => {
       </section >
 
       {/* customer reviews section */}
-      <section section className="overflow-hidden mb-20 lg:mb-40" >
+      <section className="overflow-hidden mb-20 lg:mb-40" >
         <div className="container">
           <div className="flex justify-between px-2 items-center">
             <Title title="Our happy customers" />

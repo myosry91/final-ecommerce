@@ -52,7 +52,7 @@ function LoginPage() {
 
   return (
     <div className="bg-inputBackground py-16">
-      <div className="container min-h-[100vh] flex items-center justify-center">
+      <div className="container flex items-center justify-center">
         <form className="w-[95%] max-w-[480px] md:w-[480px] bg-white shadow-xl mx-auto px-6 pb-10 pt-5 rounded-lg" onSubmit={formik.handleSubmit}>
           <h2 className="mb-3 text-[30px] text-center font-cairo">Login</h2>
           <div className="mb-5">

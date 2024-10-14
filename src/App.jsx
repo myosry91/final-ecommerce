@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify"
 import LoginPage from "./pages/LoginPage";
 import UserOrders from "./pages/UserOrders";
 import AdminDashboard from "./pages/AdminDashboard";
+import BestOffers from "./pages/BestOffers";
 
 function App() {
   return (
@@ -28,11 +29,12 @@ function App() {
               <Route path="/category" element={<CategoryPage />} >
                 <Route path="/category/:id" element={<CategoryPage />} />
               </Route>
-              <Route path="/orders" element={<UserOrders/>} />
+              <Route path="/orders" element={<UserOrders />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/admin" element={<AdminDashboard/>} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/offer" element={<BestOffers />} />
             </Route>
           </Routes>
         </Router>
