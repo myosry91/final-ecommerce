@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Filter from "./Filter";
 import { fetchCategories } from "../../../redux/features/CategoriesSlice";
 
-function CategoryProducts({ category, onFilterClick,isFilterOpen,setIsFilterOpen }) {
+function CategoryProducts({ category, onFilterClick, isFilterOpen, setIsFilterOpen }) {
 
   const [activePageNumber, setActivePageNumber] = useState(1);
   const [numOfPage, setNumOfPage] = useState([0, 4]);
@@ -20,7 +20,7 @@ function CategoryProducts({ category, onFilterClick,isFilterOpen,setIsFilterOpen
   const categories = products.filter((product) => product.category.name === category.name)
   console.log(products)
   const windowWidth = useWindowWidth();
-  const numOfPages = Math.ceil(categories.length / 5) + 1;
+  const numOfPages = Math.ceil(products.length / 5) + 1;
   const pageNums = [];
 
   // Handle click outside to close filter
@@ -57,7 +57,6 @@ function CategoryProducts({ category, onFilterClick,isFilterOpen,setIsFilterOpen
   function handleFilterOpen() {
     setIsFilterOpen(!isFilterOpen);
   }
-
   return (
     <>
       <div className="my-5 grid lg:grid-cols-[275px,1fr] md:grid-cols-[275px,1fr] grid-cols-1 gap-5 realtive">
@@ -72,14 +71,14 @@ function CategoryProducts({ category, onFilterClick,isFilterOpen,setIsFilterOpen
         }
         <div className="lg:mb-12">
           <div className="flex items-center justify-between mb-3 px-2 gap-6">
-            <h2 className="lg:text-[32px] text-[24px] font-bold">{ category.name}</h2>
+            <h2 className="lg:text-[32px] text-[24px] font-bold">{category.name}</h2>
             {/* <p className="text-placeholderColor">Showing 1-10 of 100 Products sort by: Most Popular</p> */}
             <img src={FilterImage} alt="filter-icon" className={"cursor-pointer md:hidden"} onClick={handleFilterOpen} width="32" height="32" />
           </div>
           <div>
             <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-x-5 gap-y-10">
               {
-                 categories?.map((card) => (
+                products?.slice(numOfPage[0], numOfPage[1]).map((card) => (
                   <Card key={card.id} imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} />
                 ))
               }
