@@ -1,41 +1,40 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { MdArrowRight } from "react-icons/md";
+import { useEffect, useState } from "react";
+import {useParams } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import ReviewCard from "../components/ui/ReviewCard";
 import Carousel from "../components/componentPages/details/Carousel";
-import tshirt from "../assets/images/tshirt.png";
-import subTshirt from "../assets/images/subC-tshirt.png";
 import ProductDetails from "../components/componentPages/details/ProductDetails";
-import Title from "../components/ui/Title";
 import RelatedProducts from "../components/componentPages/details/RelatedProducts";
 import CurrentPath from "../components/ui/CurrentPath";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../redux/features/productsSlice";
 
-const DetailsPage = ({ showReview = true }) => {
-  const images = [tshirt, tshirt, subTshirt];
-  const colors = ["#314F4A", "#31344F", "#4F4631"];
-  const sizes = ["Small", "Medium", "Large", "XLarge"];
+const DetailsPage = () => {
   const [check, setCheck] = useState(0);
   const [viewAll, setViewAll] = useState(false)
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const {product} = useSelector((store)=> store.products)
+  console.log(product)
 
-  let current = "T-shirt" // it should be taken from api
+  useEffect(() => {
+    dispatch(getProduct(id))
+  },[])
+  
+
   return (
     <section>
       <div className="container">
         {/* product path */}
-        <CurrentPath currentPath={["shop", "Men", current]} />
+        <CurrentPath currentPath={["shop", "Men", product.title]} />
         {/* product details */}
         <div className="p-3 grid md:grid-cols-2 lg:grid-col-2 grid-cols-1 gap-10">
           {/* left side */}
-          <Carousel images={images} />
+          <Carousel images={product.images} />
           {/* right side */}
           <div>
             <ProductDetails
-              colors={colors}
-              sizes={sizes}
-              check={check}
-              setCheck={setCheck}
-              showReview={showReview}
+              product = {product}
             />
           </div>
         </div>

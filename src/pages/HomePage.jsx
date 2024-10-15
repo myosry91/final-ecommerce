@@ -121,7 +121,7 @@ const HomePage = () => {
       </section >
       {/* arrivals section */}
       <section >
-        <NewArrivals />
+        <NewArrivals products={products} />
       </section >
 
       {/* Top Selling section */}

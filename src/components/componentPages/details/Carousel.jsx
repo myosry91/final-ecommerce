@@ -7,12 +7,13 @@ const Carousel = ({ images }) => {
       <img
         src={images[active]}
         alt="tshirt"
-        className="w-full lg:w-[444px] mx-auto "
+        className=" mx-auto "
+        height={75}
       />
-      <div className="flex flex-row lg:flex-col justify-between gap-2 ">
+      <div className="flex flex-row lg:flex-col gap-2 ">
         {images.map((image, index) => (
           <div
-            className={`lg:w-[152px]  w-[111px] ${active === index ? "opacity-50 border border-slate-900" : ""
+            className={`lg:w-[111px]  w-[111px] ${active === index ? "opacity-50 border border-slate-900" : ""
               } cursor-pointer rounded-cardRadius `}
             key={index}
           >
