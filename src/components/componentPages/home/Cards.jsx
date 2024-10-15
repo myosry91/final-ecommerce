@@ -6,83 +6,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Cards() {
-  let cards = [
-    {
-      id: 1,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 2,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 3,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 4,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 5,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 6,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 7,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 8,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-  ];
-
+  
+  const { products } = useSelector((store) => store.products)
   const [viewAll, setViewAll] = useState(false);
   const windowWidth = useWindowWidth();
 
@@ -98,29 +27,34 @@ function Cards() {
     <>
       {windowWidth > 768 ? (
         <div className="cards grid lg:grid-cols-4 md:grid-cols-3 gap-x-5 gap-y-10 justify-self-center">
-          {cards.length > 4 && !viewAll
-            ? cards.slice(0, 4).map((card) => (
+          {products.length > 4 && !viewAll
+            ? products.slice(0, 4).map((card) => (
               <div key={card.id} className="card">
+                <Link to={`/products/${card._id}`}>
                 <Card
-                  imageSrc={card.cardImage}
-                  imageAlt={card.cardAlt}
-                  cardTitle={card.cardTitle}
-                  cardPrice={card.cardPrice}
-                  discount={card.discount}
-                  oldPrice={card.oldPrice}
+                  imageSrc={card.imgCover}
+                  imageAlt={card.name}
+                  cardTitle={card.title}
+                  price={card.price}
+                    priceAfterDsicount={card.priceAfterDiscount}
+                    rate={card.ratingsAverage}
                 />
+                </Link>
               </div>
             ))
-            : cards.map((card) => (
+            : products.map((card) => (
               <div key={card.id} className="card">
+                <Link to={`/products/${card._id}`}>
                 <Card
-                  imageSrc={card.cardImage}
-                  imageAlt={card.cardAlt}
-                  cardTitle={card.cardTitle}
-                  cardPrice={card.cardPrice}
-                  discount={card.discount}
-                  oldPrice={card.oldPrice}
+                  imageSrc={card.imgCover}
+                  imageAlt={card.name}
+                  cardTitle={card.title}
+                  price={card.price}
+                    priceAfterDsicount={card.priceAfterDiscount}
+                    rate={card.ratingsAverage}
+                    
                 />
+                </Link>
               </div>
             ))}
         </div>
@@ -143,21 +77,24 @@ function Cards() {
             },
           }}
         >
-          {cards.map((card) => (
+          {products.map((card) => (
             <SwiperSlide key={card.id}>
-              <Card
-                imageSrc={card.cardImage}
-                imageAlt={card.cardAlt}
-                cardTitle={card.cardTitle}
-                cardPrice={card.cardPrice}
-                discount={card.discount}
-                oldPrice={card.oldPrice}
-              />
+              <Link to={`/products/${card._id}`}>
+                <Card
+                  imageSrc={card.imgCover}
+                  imageAlt={card.name}
+                  cardTitle={card.title}
+                  price={card.price}
+                  priceAfterDsicount={card.priceAfterDiscount}
+                  rate={card.ratingsAverage}
+
+                />
+                </Link>
             </SwiperSlide>
           ))}
         </Swiper>
       )}
-      {windowWidth > 768 && cards.length > 4 && !viewAll && (
+      {windowWidth > 768 && products.length > 4 && !viewAll && (
         <div className="flex justify-center pb-3 pt-10">
           <button
             className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius"
@@ -167,7 +104,7 @@ function Cards() {
           </button>
         </div>
       )}
-      {windowWidth > 768 && cards.length > 4 && viewAll && (
+      {windowWidth > 768 && products.length > 4 && viewAll && (
         <div className="flex justify-center pb-3 pt-10">
           <button
             className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius"

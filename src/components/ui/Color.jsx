@@ -5,7 +5,7 @@ const Color = ({ colors }) => {
     const [check, setCheck] = useState(0)
     return (
         <div className="flex gap-2 flex-wrap ">
-            {colors.map((color, index) => (
+            {colors?.map((color, index) => (
                 <div
                     key={index}
                     className={`rounded-full border border-slate-400/30 w-[37px] h-[37px] flex items-center justify-center cursor-pointer`}

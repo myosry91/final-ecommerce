@@ -41,11 +41,17 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getProduct = createAsyncThunk("get/productId", async (id) => {
+  const response = await api.get(`/products/${id}`);
+  return response.data?.data
+})
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     isLoading: false,
     products: [], // Store products data
+    product: {},
     error: null,
     selectedSize: null, // State to store the selected size
     selectedPriceRange: null, // State to store the selected size
@@ -78,6 +84,24 @@ const productsSlice = createSlice({
       state.error = action.payload; // Store the error message
       state.products = []; // Clear products on error
     });
+
+    builder.addCase(getProduct.pending, (state) => { 
+      state.isLoading = true; // Set loading state to true
+    })
+
+    builder.addCase(getProduct.fulfilled, (state, action) => {
+      state.isLoading = false
+      const {id} = action.meta.arg
+      state.product = action.payload
+      state.error = null
+    });
+
+    builder.addCase(getProduct.rejected, (state, action) => { 
+      state.isLoading = false
+      state.error = action.error.message
+      console.log(action.error.message)
+      state.product = {}
+    })
   },
 });
 
