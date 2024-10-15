@@ -5,6 +5,8 @@ import categoriesReducer from "./features/CategoriesSlice"
 import getProducts from "./features/productsSlice"
 import brandsReducer from "./features/brandsSlice"
 import adminDashboardReducer from "./features/adminDashboardSlice"
+import cartReducer from "./features/cartsSlice"
+ 
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +15,7 @@ export const store = configureStore({
         categories: categoriesReducer,
         products: getProducts,
         brands: brandsReducer,
-        admin: adminDashboardReducer
+        admin: adminDashboardReducer,
+        cart: cartReducer
     },
 })

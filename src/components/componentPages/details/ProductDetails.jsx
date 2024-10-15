@@ -4,6 +4,9 @@ import Button from "../../ui/Button";
 import MainSize from "../../ui/MainSize";
 import MainReviews from "../../ui/MainReviews";
 import Color from "../../ui/Color";
+import { useDispatch } from "react-redux"; 
+import { useNavigate } from "react-router-dom"; 
+// import { AddToCart } from "../../../redux/features/cartsSlice"; 
 
 const ProductDetails = ({product}) => {
   return (
@@ -29,7 +32,7 @@ const ProductDetails = ({product}) => {
         <Color colors={product.colors} />
       </div>
       <hr className="text-descriptionColor" />
-      {/* product sizez */}
+      {/* product sizes */}
       <div>
         <p className="mb-4 text-descriptionColor">choose sizes</p>
         <MainSize
