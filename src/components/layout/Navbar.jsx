@@ -107,7 +107,7 @@ function Navbar() {
           </li>
           <li><NavLink to="/category">Products</NavLink></li>
           <li><NavLink to="/offer">Best Offers</NavLink></li>
-          <li><NavLink to="/">Brands</NavLink></li>
+          {/* <li><NavLink to="/">Brands</NavLink></li> */}
         </ul>
         {/* End Links */}
 

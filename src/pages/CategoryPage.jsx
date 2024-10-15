@@ -18,7 +18,7 @@ const CategoryPage = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const queryParams = {};
-    
+
     const handleFilterClick = () => {
         if (selectedSize) queryParams.size = selectedSize;
         if (selectedPriceRange !== null) {
@@ -52,7 +52,7 @@ const CategoryPage = () => {
                     isFilterOpen={isFilterOpen}
                     setIsFilterOpen={setIsFilterOpen}
                     onFilterClick={handleFilterClick}
-                    category={category} />
+                    category={products} />
             </div>
         </section>
     )
