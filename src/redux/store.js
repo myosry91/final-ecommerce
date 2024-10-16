@@ -8,6 +8,8 @@ import brandsReducer from "./features/brandsSlice"
 import adminDashboardReducer from "./features/adminDashboardSlice"
 import cartReducer from "./features/cartsSlice"
 
+
+
 export const store = configureStore({
     reducer: {
         register: registerReducer,
@@ -17,6 +19,6 @@ export const store = configureStore({
         product: productReducer ,
         brands: brandsReducer,
         admin: adminDashboardReducer,
-        cart: cartReducer
+        // cart: cartReducer
     },
 })
