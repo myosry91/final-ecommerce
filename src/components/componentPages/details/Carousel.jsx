@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-const Carousel = ({ images }) => {
+const Carousel = ({ images = [] }) => {
   const [active, setActive] = useState(0);
   return (
     <div className="flex lg:flex-row-reverse flex-col gap-3">
       <img
         src={images[active]}
         alt="tshirt"
-        className=" mx-auto "
-        height={75}
+        className=" mx-auto max-h-[400px]"
+        loading="lazy"
       />
       <div className="flex flex-row lg:flex-col gap-2 ">
         {images.map((image, index) => (
@@ -20,8 +20,9 @@ const Carousel = ({ images }) => {
             {" "}
             <img
               src={image}
-              className="rounded-cardRadius"
+              className="rounded-cardRadius w-full h-[120px]"
               alt="tshirt"
+              loading="lazy"
               onClick={() => setActive(index)}
             />{" "}
           </div>

@@ -8,10 +8,10 @@ import Button from "../../ui/Button"
 import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { getProducts } from "../../../redux/features/productsSlice";
-import { fetchCategory } from '../../../redux/features/CategoriesSlice'
+import { fetchCategory } from '../../../redux/features/allProductsSlice'
 
 
-const Filter = ({ className, onFilterClick }) => {
+const FilterProducts = ({ className, onFilterClick }) => {
     // const dispatch = useDispatch();
     // // const selectedSize = useSelector((state) => state.categories.selectedSize);
     // // const selectedPrice = useSelector((state) => state.categories.selectedPriceRange);
@@ -86,4 +86,4 @@ const Filter = ({ className, onFilterClick }) => {
     )
 }
 
-export default Filter
+export default FilterProducts

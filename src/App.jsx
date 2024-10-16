@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
-import DetailsPage from "./pages/DetailsPage";
-import CategoryPage from "./pages/CategoryPage";
+import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Provider } from "react-redux"
@@ -13,6 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import UserOrders from "./pages/UserOrders";
 import AdminDashboard from "./pages/AdminDashboard";
 import BestOffers from "./pages/BestOffers";
+import DetailsPage from "./pages/DetailsPage";
 
 function App() {
   return (
@@ -25,12 +25,8 @@ function App() {
             <Route path="/" element={<Layout />}>
               {/* pages */}
               <Route index element={<HomePage />} />
-              <Route path="/products" element={<DetailsPage />}>
-                <Route path="/products/:id" element={<DetailsPage/>} />
-              </Route>
-              <Route path="/category" element={<CategoryPage />} >
-                <Route path="/category/:id" element={<CategoryPage />} />
-              </Route>
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/products/:id" element={<DetailsPage />} />
               <Route path="/orders" element={<UserOrders />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/register" element={<RegisterPage />} />
