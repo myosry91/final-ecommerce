@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import ReviewCard from "../components/ui/ReviewCard";
 import Carousel from "../components/componentPages/details/Carousel";
@@ -7,20 +7,22 @@ import ProductDetails from "../components/componentPages/details/ProductDetails"
 import RelatedProducts from "../components/componentPages/details/RelatedProducts";
 import CurrentPath from "../components/ui/CurrentPath";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "../redux/features/productsSlice";
+import { getProduct } from "../redux/features/oneProductSlice";
 
 const DetailsPage = () => {
   const [check, setCheck] = useState(0);
   const [viewAll, setViewAll] = useState(false)
   const { id } = useParams()
   const dispatch = useDispatch()
-  const {product} = useSelector((store)=> store.products)
-  console.log(product)
+  const { product } = useSelector((store) => store.product)
+  console.log("one Product", product)
 
   useEffect(() => {
-    dispatch(getProduct(id))
-  },[])
-  
+    if (id) {
+      dispatch(getProduct(id));
+    }
+  }, [id, dispatch]);
+
 
   return (
     <section>
@@ -34,7 +36,7 @@ const DetailsPage = () => {
           {/* right side */}
           <div>
             <ProductDetails
-              product = {product}
+              product={product}
             />
           </div>
         </div>

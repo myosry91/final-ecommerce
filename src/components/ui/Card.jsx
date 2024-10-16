@@ -7,8 +7,8 @@ function Card({ imageSrc, imageAlt, cardTitle, cardPrice, oldPrice, discount, cl
 
   return (
     <div >
-      <div className="flex flex-col ">
-        <div className="w-40 h-[200px]">
+      <div className="flex flex-col">
+        <div className="w-full">
           <img
             src={imageSrc}
             alt={imageAlt}
@@ -17,7 +17,7 @@ function Card({ imageSrc, imageAlt, cardTitle, cardPrice, oldPrice, discount, cl
           />
         </div>
         <h3 className="text-cardTitle font-cairo font-bold py-2 lg:text-xl text-base ">
-          {cardTitle.slice(0, 18)}...
+          {cardTitle.slice(0, 14)}...
         </h3>
         <span>
           <MainReviews rate={rate} />

@@ -7,21 +7,23 @@ import useWindowWidth from "../../../customHooks/useWindowWidth";
 import FilterImage from "../../../assets/images/filter.png"
 import { getProducts, setSelectedSize, selectProducts } from "../../../redux/features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Filter from "./Filter";
-import { fetchCategories } from "../../../redux/features/CategoriesSlice";
+import FilterProducts from "./FilterProducts";
+import { fetchCategories } from "../../../redux/features/allProductsSlice";
+import { useNavigate } from "react-router-dom";
+import DetailsPage from "../../../pages/DetailsPage";
 
-function CategoryProducts({ category, onFilterClick, isFilterOpen, setIsFilterOpen }) {
+function AllProducts({ category, onFilterClick, isFilterOpen, setIsFilterOpen }) {
 
   const [activePageNumber, setActivePageNumber] = useState(1);
   const [numOfPage, setNumOfPage] = useState([0, 4]);
   const filterRef = useRef(null);
   const dispatch = useDispatch();
   const { products } = useSelector((store) => store.products)
-  const categories = products.filter((product) => product.category.name === category.name)
   console.log(products)
   const windowWidth = useWindowWidth();
   const numOfPages = Math.ceil(products.length / 5) + 1;
   const pageNums = [];
+  const navigate = useNavigate();
 
   // Handle click outside to close filter
   const handleClickOutside = (e) => {
@@ -57,15 +59,19 @@ function CategoryProducts({ category, onFilterClick, isFilterOpen, setIsFilterOp
   function handleFilterOpen() {
     setIsFilterOpen(!isFilterOpen);
   }
+
+  function onCardClick(id) {
+    navigate(`/products/${id}`)
+  }
   return (
     <>
       <div className="my-5 grid lg:grid-cols-[275px,1fr] md:grid-cols-[275px,1fr] grid-cols-1 gap-5 realtive">
-        <Filter className='lg:block md:block hidden' onFilterClick={onFilterClick} />
+        <FilterProducts className='lg:block md:block hidden' onFilterClick={onFilterClick} />
         {
           isFilterOpen &&
           <div className="fixed top-0 left-0 w-full bg-black/50 z-40 flex items-center justify-center">
             <div ref={filterRef} className="w-[80%] max-w-[350px] relative top-5">
-              <Filter isFilterOpen={isFilterOpen} setIsFilterOpen={setIsFilterOpen} className={"bg-white"} />
+              <FilterProducts isFilterOpen={isFilterOpen} setIsFilterOpen={setIsFilterOpen} className={"bg-white"} />
             </div>
           </div>
         }
@@ -78,9 +84,14 @@ function CategoryProducts({ category, onFilterClick, isFilterOpen, setIsFilterOp
           <div>
             <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-x-5 gap-y-10">
               {
-                products?.slice(numOfPage[0], numOfPage[1]).map((card) => (
-                  <Card key={card.id} imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} />
-                ))
+                products?.slice(numOfPage[0], numOfPage[1]).map((card) => {
+                  return (
+                    <div key={card._id} onClick={() => { onCardClick(card._id) }} className="cursor-pointer">
+                      <Card imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} rate={card.ratingsAverage} />
+                    </div>
+                    // <Card key={card.id} imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} />
+                  )
+                })
               }
             </div>
           </div>
@@ -103,9 +114,10 @@ function CategoryProducts({ category, onFilterClick, isFilterOpen, setIsFilterOp
             }}>{windowWidth > 768 && <span className="mr-2">Next</span>}<span>{<FaArrowRight />}</span></button>
           </div>
         </div>
+        {/* <DetailsPage /> */}
       </div>
     </>
   )
 }
 
-export default CategoryProducts;
+export default AllProducts;
