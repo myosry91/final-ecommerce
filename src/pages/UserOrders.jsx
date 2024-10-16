@@ -4,6 +4,7 @@ import Title from '../components/ui/Title'
 import Order from '../components/componentPages/userOrders/Order'
 import OrderSummary from '../components/componentPages/cart/OrderSummary'
 import tshirt from "../assets/images/tshirt.png"
+import DashboardSidebar from "../components/componentPages/dashboard/DashboardSidebar"
 
 const UserOrders = () => {
     const [status, setStatus] = useState("Pending")
