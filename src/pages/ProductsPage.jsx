@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CurrentPath from '../components/ui/CurrentPath'
 import AllProducts from '../components/componentPages/products/AllProducts'
-import { fetchCategory } from '../redux/features/allProductsSlice'
+import { fetchCategory } from '../redux/features/categorySlice'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useParams, useSearchParams } from 'react-router-dom'
@@ -10,16 +10,16 @@ import { getProducts } from '../redux/features/productsSlice'
 const ProductsPage = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
-    // const selectedSize = useSelector((state) => state.categories.selectedSize);
-    // const selectedPrice = useSelector((state) => state.categories.selectedPriceRange);
     const { category } = useSelector((state) => state.categories)
-    const { selectedPriceRange, selectedSize, products } = useSelector((state) => state.products)
+    const { selectedPriceRange, selectedSize, selectedColor, products, selectedCategory } = useSelector((state) => state.products)
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const queryParams = {};
 
     const handleFilterClick = () => {
         if (selectedSize) queryParams.size = selectedSize;
+        if (selectedColor) queryParams.color = selectedColor;
+        if (selectedCategory) queryParams.category = selectedCategory;
         if (selectedPriceRange !== null) {
             queryParams.minPrice = selectedPriceRange[0];
             queryParams.maxPrice = selectedPriceRange[1];

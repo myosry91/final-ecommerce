@@ -4,11 +4,11 @@ import PriceSlider from './PriceSlider'
 import AccordionUI from '../../ui/AccordionUI'
 import Color from '../../ui/Color'
 import MainSize from '../../ui/MainSize'
-import Button from "../../ui/Button"
 import { useDispatch, useSelector } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
-import { getProducts } from "../../../redux/features/productsSlice";
-import { fetchCategory } from '../../../redux/features/allProductsSlice'
+import { clearSelectedCategory, setSelectedCategory } from "../../../redux/features/productsSlice";
+import { fetchCategories } from '../../../redux/features/categorySlice';
+
+
 
 
 const FilterProducts = ({ className, onFilterClick }) => {
@@ -39,6 +39,21 @@ const FilterProducts = ({ className, onFilterClick }) => {
     //         return
     //     }
     // }
+    const { categories } = useSelector(store => store.categories);
+    const selectedCategory = useSelector((state) => state.products.selectedCategory);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+    }, [dispatch])
+
+    const handleCategoryClick = (id) => {
+        if (id === selectedCategory) {
+            dispatch(clearSelectedCategory());
+        } else {
+            dispatch(setSelectedCategory(id));
+        }
+    };
 
     return (
         <div className={`${className} rounded-cardRadius border border-slate-400/30 p-6 h-fit mb-8`}>
@@ -52,37 +67,44 @@ const FilterProducts = ({ className, onFilterClick }) => {
             </div>
             <hr className='text-slate-400/30 my-6' />
             <div>
-                {Array.from({ length: 5 }).map((_, index) => (
-                    <span key={index} className='text-descriptionColor flex justify-between my-3'>
-                        <p  >"T-shirt"</p>
-                        <MdArrowRight />
-                    </span>
-                ))}
+                {
+                    categories.map((category) => {
+                        return (
+                            <>
+                                <div key={category._id} className={`flex justify-between py-3 font-semibold text-xl px-4 cursor-pointer hover:bg-[#f0eeed] rounded-md ${selectedCategory === category._id && "bg-[#f0eeed] rounded-md"}`}
+                                    onClick={() => handleCategoryClick(category._id)}>
+                                    <p>{category.name}</p>
+                                    {/* <MdArrowRight /> */}
+                                </div>
+                            </>
+                        )
+                    })
+                }
             </div>
             {/* price slider value */}
             <PriceSlider />
             {/* product colors */}
             <AccordionUI title={'Colors'} >
-                <Color colors={['#F50606', '#F5DD06', '#F57906', '#06CAF5', '#063AF5', '#7D06F5', '#F506A4', '#FFFFFF', '#000000']} />
+                <Color colors={['red', 'green', 'black', 'gold', 'blue', 'navy']} />
             </AccordionUI>
             {/* product sizes */}
             <AccordionUI title={'Size'} >
-                <MainSize sizes={["XX-Small", "X-Small", "Small", "Medium", "Large", "X-large", "XX-Large", "3X-Large", "4X-Large"]} />
+                <MainSize sizes={["XX-Small", "X-Small", "Small", "Medium", "Large", "X-large", "XX-Large"]} />
             </AccordionUI>
-            <AccordionUI title={'Dress Style'} >
+            {/* <AccordionUI title={'Dress Style'} >
                 <div>
                     {Array.from({ length: 5 }).map((_, index) => (
                         <span key={index} className='text-descriptionColor flex justify-between my-3'>
-                            <p  >Casual</p>
+                            <p>Casual</p>
                             <MdArrowRight />
                         </span>
                     ))}
                 </div>
-            </AccordionUI>
+            </AccordionUI> */}
             <button className={'p-buttonPadding bg-buttonBackground border-[2px] border-buttonBackground hover:bg-transparent hover:text-inherit hover:border-[2px] hover:border-gray-300  text-white rounded-buttonRadius duration-200 font-inter w-full my-5'}
                 onClick={onFilterClick}>Apply Filter</button>
             {/* <Button className={'w-full my-5'} click={handleFilterClick}>Apply Filter</Button> */}
-        </div>
+        </div >
     )
 }
 
