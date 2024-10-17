@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 function Drawer({ onClose }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -33,9 +34,8 @@ function Drawer({ onClose }) {
           </ul>
         </a>
         </li>
-        <li><a href="#" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">Products</a></li>
-        <li><Link to="/category" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">Best Offers</Link></li>
-        <li><Link to="/" className="block hover:bg-headerBackground duration-300 p-2">Brands</Link></li>
+        <li><Link to="/products" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">Products</Link></li>
+        <li><Link to="/offer" className="block hover:bg-headerBackground duration-300 p-2 border-b border-headerBackground">Best Offers</Link></li>
       </ul>
     </>
   )

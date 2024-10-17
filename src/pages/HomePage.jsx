@@ -20,7 +20,7 @@ const HomePage = () => {
 
   const dispatch = useDispatch()
   const { brands } = useSelector((store) => store.brands)
-  const {products} = useSelector((store)=> store.products)
+  const { products } = useSelector((store) => store.products)
 
   const containerRef = useRef()
   const windowWidth = useWindowWidth()

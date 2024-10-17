@@ -13,6 +13,7 @@ import UserOrders from "./pages/UserOrders";
 import AdminDashboard from "./pages/AdminDashboard";
 import BestOffers from "./pages/BestOffers";
 import DetailsPage from "./pages/DetailsPage";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (

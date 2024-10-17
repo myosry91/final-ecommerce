@@ -6,7 +6,7 @@ const api = clientApi();
 // Create async thunk to get products
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async ({ size , color, minPrice , maxPrice }= {}, { rejectWithValue }) => {
+  async ({ size , color, minPrice , maxPrice, category }= {}, { rejectWithValue }) => {
     try {
       let url = "/products"; // Base URL for products
       const params = [];
@@ -17,20 +17,21 @@ export const getProducts = createAsyncThunk(
       if (color) {
         params.push(`color=${color}`);
       }
+      if (category) {
+        params.push(`category=${category}`);
+      }
+      
       if (minPrice) {
         params.push(`minPrice=${minPrice}`);
       }
       if (maxPrice) {
         params.push(`maxPrice=${maxPrice}`);
       }
-      // if (Array.isArray(price) && price.length === 2) {
-      //   params.push(`minPrice=${price[0]}`);
-      //   params.push(`maxPrice=${price[1]}`);
-      // }
-
+      
       if (params.length) {
         url += `?${params.join('&')}`;
       }
+
       const response = await api.get(url);
       if (response.status === 200) {
         return response.data?.data; // Return products data
@@ -41,32 +42,41 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-export const getProduct = createAsyncThunk("get/productId", async (id) => {
-  const response = await api.get(`/products/${id}`);
-  return response.data?.data
-})
-
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     isLoading: false,
     products: [], // Store products data
     error: null,
-    selectedSize: null, // State to store the selected size
-    selectedPriceRange: null, // State to store the selected size
+    selectedSize: null, 
+    selectedColor: null, 
+    selectedCategory: null, 
+    selectedPriceRange: null, 
   },
   reducers: {
     setSelectedSize: (state, action) => {
-      state.selectedSize = action.payload; // Update selected size
+      state.selectedSize = action.payload;
     },
     clearSelectedSize: (state) => {
-      state.selectedSize = null; // Clear selected size
+      state.selectedSize = null; 
+    },
+    setSelectedColor: (state, action) => {
+      state.selectedColor = action.payload; 
+    },
+    clearSelectedColor: (state) => {
+      state.selectedColor = null; 
+    },
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
+    clearSelectedCategory: (state) => {
+      state.selectedCategory = null; 
     },
     setSelectedPriceRange: (state, action) => {
-      state.selectedPriceRange = action.payload; // Update selected size
+      state.selectedPriceRange = action.payload; 
     },
     clearSelectedPriceRange: (state) => {
-      state.selectedPriceRange = null; // Clear selected size
+      state.selectedPriceRange = null; 
     },
   },
   extraReducers: (builder) => {
@@ -83,28 +93,12 @@ const productsSlice = createSlice({
       state.error = action.payload; // Store the error message
       state.products = []; // Clear products on error
     });
-
-    builder.addCase(getProduct.pending, (state) => { 
-      state.isLoading = true; // Set loading state to true
-    })
-
-    builder.addCase(getProduct.fulfilled, (state, action) => {
-      state.isLoading = false
-      const {id} = action.meta.arg
-      state.error = null
-    });
-
-    builder.addCase(getProduct.rejected, (state, action) => { 
-      state.isLoading = false
-      state.error = action.error.message
-      console.log(action.error.message)
-    })
   },
 });
 
 
 // Export actions
-export const { setSelectedSize, clearSelectedSize, setSelectedPriceRange, clearSelectedPriceRange } = productsSlice.actions;
+export const { setSelectedSize, clearSelectedSize, setSelectedPriceRange, clearSelectedPriceRange,setSelectedColor, clearSelectedColor,setSelectedCategory, clearSelectedCategory } = productsSlice.actions;
 
 // Export selectors
 export const selectProducts = (state) => state.products.products;
