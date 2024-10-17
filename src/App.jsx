@@ -28,11 +28,8 @@ function App() {
             <Route path="/" element={<Layout />}>
               {/* pages */}
               <Route index element={<HomePage />} />
-              <Route path="/products" element={<ProtectedRouting><DetailsPage /></ProtectedRouting>}>
+              <Route path="/products" element={<ProtectedRouting><ProductsPage /></ProtectedRouting>}>
                 <Route path="/products/:id" element={<DetailsPage/>} />
-              </Route>
-              <Route path="/category" element={<ProtectedRouting><CategoryPage /></ProtectedRouting>} >
-                <Route path="/category/:id" element={<CategoryPage />} />
               </Route>
               <Route path="/orders" element={<ProtectedRouting><UserOrders /></ProtectedRouting>} />
               <Route path="/cart" element={<ProtectedRouting><CartPage /></ProtectedRouting>} />
