@@ -26,7 +26,7 @@ function Cards() {
   return (
     <>
       {windowWidth > 768 ? (
-        <div className="cards grid lg:grid-cols-4 md:grid-cols-3 gap-x-5 gap-y-10 justify-self-center">
+        <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-x-5 gap-y-10 justify-center">
           {products.length > 4 && !viewAll
             ? products.slice(0, 4).map((card) => (
               <div key={card.id} className="card">
@@ -36,7 +36,11 @@ function Cards() {
                     imageAlt={card.name}
                     cardTitle={card.title}
                     price={card.price}
+<<<<<<< HEAD
                     priceAfterDiscount={card.priceAfterDiscount}
+=======
+                    priceAfterDsicount={card.priceAfterDiscount}
+>>>>>>> 857003a2be0d0750776871de51784a16d0557880
                     rate={card.ratingsAverage}
                   />
                 </Link>
@@ -50,7 +54,11 @@ function Cards() {
                     imageAlt={card.name}
                     cardTitle={card.title}
                     price={card.price}
+<<<<<<< HEAD
                     priceAfterDiscount={card.priceAfterDiscount}
+=======
+                    priceAfterDsicount={card.priceAfterDiscount}
+>>>>>>> 857003a2be0d0750776871de51784a16d0557880
                     rate={card.ratingsAverage}
 
                   />

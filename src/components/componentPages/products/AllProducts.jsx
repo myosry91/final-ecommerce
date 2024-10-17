@@ -8,9 +8,7 @@ import FilterImage from "../../../assets/images/filter.png"
 import { getProducts, setSelectedSize, selectProducts } from "../../../redux/features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import FilterProducts from "./FilterProducts";
-import { fetchCategories } from "../../../redux/features/allProductsSlice";
 import { useNavigate } from "react-router-dom";
-import DetailsPage from "../../../pages/DetailsPage";
 
 function AllProducts({ category, onFilterClick, isFilterOpen, setIsFilterOpen }) {
 
@@ -19,11 +17,11 @@ function AllProducts({ category, onFilterClick, isFilterOpen, setIsFilterOpen })
   const filterRef = useRef(null);
   const dispatch = useDispatch();
   const { products } = useSelector((store) => store.products)
-  console.log(products)
   const windowWidth = useWindowWidth();
-  const numOfPages = Math.ceil(products.length / 5) + 1;
+  const numOfPages = Math.ceil(products.length / 4);
   const pageNums = [];
   const navigate = useNavigate();
+
 
   // Handle click outside to close filter
   const handleClickOutside = (e) => {
@@ -114,7 +112,6 @@ function AllProducts({ category, onFilterClick, isFilterOpen, setIsFilterOpen })
             }}>{windowWidth > 768 && <span className="mr-2">Next</span>}<span>{<FaArrowRight />}</span></button>
           </div>
         </div>
-        {/* <DetailsPage /> */}
       </div>
     </>
   )

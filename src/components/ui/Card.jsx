@@ -11,7 +11,7 @@ function Card({ imageSrc, imageAlt, cardTitle,price, priceAfterDiscount, classNa
             src={imageSrc}
             alt={imageAlt}
             loading="lazy"
-            className={`rounded-cardRadius max-w-full select-none object-contain max-h-[100%]`}
+            className={`rounded-cardRadius max-w-full w-full select-none object-contain max-h-[100%]`}
           />
         </div>
         <h3 className="text-cardTitle font-cairo font-bold py-2 lg:text-xl text-base ">
