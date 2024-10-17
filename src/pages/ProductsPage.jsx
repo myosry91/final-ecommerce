@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Filter from '../components/componentPages/category/Filter'
 import CurrentPath from '../components/ui/CurrentPath'
-import CategoryProducts from '../components/componentPages/category/CategoryProducts'
-import { fetchCategory } from '../redux/features/CategoriesSlice'
+import AllProducts from '../components/componentPages/products/AllProducts'
+import { fetchCategory } from '../redux/features/allProductsSlice'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { getProducts } from '../redux/features/productsSlice'
 
-const CategoryPage = () => {
+const ProductsPage = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
     // const selectedSize = useSelector((state) => state.categories.selectedSize);
@@ -46,9 +45,8 @@ const CategoryPage = () => {
         <section>
             <div className="container">
                 <CurrentPath
-
                     currentPath={[category.name]} />
-                <CategoryProducts
+                <AllProducts
                     isFilterOpen={isFilterOpen}
                     setIsFilterOpen={setIsFilterOpen}
                     onFilterClick={handleFilterClick}
@@ -58,4 +56,4 @@ const CategoryPage = () => {
     )
 }
 
-export default CategoryPage
+export default ProductsPage

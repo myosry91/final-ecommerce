@@ -4,14 +4,14 @@ import Button from "../../ui/Button";
 import MainSize from "../../ui/MainSize";
 import MainReviews from "../../ui/MainReviews";
 import Color from "../../ui/Color";
-import { useDispatch } from "react-redux"; 
-import { useNavigate } from "react-router-dom"; 
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { AddToCart } from "../../../redux/features/cartsSlice"; 
 
-const ProductDetails = ({product}) => {
+const ProductDetails = ({ product }) => {
   return (
     <div className="flex flex-col gap-y-3">
-      <h3 className="font-cairo font-bold">{ product.title}</h3>
+      <h3 className="font-cairo font-bold">{product.title}</h3>
       {/* product reviews */}
       <div><MainReviews rate={product.ratingsAverage} /></div>
       {/* product price */}

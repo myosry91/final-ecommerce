@@ -115,7 +115,7 @@ function Navbar() {
               <li className="px-3 py-2 hover:bg-headerBackground duration-300"><Link to="/category/accessories">Accessories</Link></li>
             </ul>
           </li>
-          <li><NavLink to="/category">Products</NavLink></li>
+          <li><NavLink to="/products">Products</NavLink></li>
           <li><NavLink to="/offer">Best Offers</NavLink></li>
           {role === "admin" && <li><NavLink to="/admin">Dasboard</NavLink></li>}
           {/* <li><NavLink to="/">Brands</NavLink></li> */}

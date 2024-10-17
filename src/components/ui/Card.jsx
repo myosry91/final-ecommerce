@@ -5,8 +5,8 @@ import { lazy, memo } from "react";
 function Card({ imageSrc, imageAlt, cardTitle,price, priceAfterDiscount, className, rate }) {
   return (
     <div >
-      <div className="flex flex-col ">
-        <div className="w-40 h-[200px]">
+      <div className="flex flex-col">
+        <div className="w-full">
           <img
             src={imageSrc}
             alt={imageAlt}

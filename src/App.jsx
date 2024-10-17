@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
-import DetailsPage from "./pages/DetailsPage";
-import CategoryPage from "./pages/CategoryPage";
+import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Provider, useSelector } from "react-redux"
