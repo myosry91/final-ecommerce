@@ -3,12 +3,16 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      // gridTemplateColumns: {
+      //   'auto-fill': 'repeat(auto-fill, minmax(230px, 1fr))',
+      // },
       container: {
         padding: '1.5rem',
         center: true,
       },
       gridTemplateColumns: {
         'auto-fill': 'repeat(auto-fill, minmax(230px, 1fr))',
+        'custom': "repeat(300, auto-fill)"
       },
       boxShadow: {
         custom: '0 4px 10px rgba(0, 0, 0, 0.1);', 

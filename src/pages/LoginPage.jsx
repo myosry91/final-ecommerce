@@ -27,7 +27,7 @@ function LoginPage() {
 
   const validationSchema = Yup.object({
     email: Yup.string().required("Email Is Required *").matches(/^[a-zA-Z0-9]+@(gmail|yahoo)\.com$/, "Invalid Email Address"),
-    password: Yup.string().required("Password Is Required *").min(8, "Password Must Be At least 8 characters"),
+    password: Yup.string().required("Password Is Required *").min(6, "Password Must Be At least 6 characters"),
   });
 
   const formik = useFormik({
@@ -71,7 +71,7 @@ function LoginPage() {
               <div className="text-red-700 font-inter text-[15px]">{formik.errors.password}</div>
             ) : null}
           </div>
-          <Button children={"Login"} className="block py-[10px] mx-auto rounded-lg" />
+          <Button children={"Login"} isLoading={isLoading} className="block py-[10px] mx-auto rounded-lg" />
           <span className="flex justify-center gap-2 mt-3 text-center text-[15px]">
             <span className="text-placeholderColor">Create Your Account</span>
             <button className="cursor-pointer underline decoration-2 text-bold text-[16px]" onClick={() => {
