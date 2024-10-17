@@ -14,6 +14,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { handleLogout } from "../../redux/features/logoutSlice";
 import { useDispatch } from "react-redux";
+import { getLoggedUser } from "../../redux/features/loginSlice";
+
 
 function Navbar() {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -29,12 +31,20 @@ function Navbar() {
   const searchRef = useRef(null);
 
 
-  const { user } = useSelector(store => store.login)
+  const { user, role, users, isLoading, isSubmitted } = useSelector(store => store.login)
+  const isLogged = !!localStorage.getItem("role") 
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  console.log(user)
+
+  useEffect(() => {
+    if(isSubmitted)  dispatch(getLoggedUser())
+  },[isSubmitted])
+  
   const handleLogoutUser = () => {
-    dispatch(handleLogout(user?.data?._id))
+    dispatch(handleLogout())
   }
   const handleDropdown = () => {
     setDropdownStatus((prev) => !prev);
@@ -107,6 +117,7 @@ function Navbar() {
           </li>
           <li><NavLink to="/category">Products</NavLink></li>
           <li><NavLink to="/offer">Best Offers</NavLink></li>
+          {role === "admin" && <li><NavLink to="/admin">Dasboard</NavLink></li>}
           {/* <li><NavLink to="/">Brands</NavLink></li> */}
         </ul>
         {/* End Links */}
@@ -130,7 +141,7 @@ function Navbar() {
             <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">10</span>
           </span>
           {
-            user ? <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
+            isLogged ? <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
               <FaRegCircleUser className="text-[22px]" />
               <ul className={loginDropdownStatus ? "show-dropdown flex flex-col py-3 px-2 bg-white absolute w-[150px] shadow-custom rounded-md z-10" : "hidden"} style={{ top: 'calc(100% + 15px)', right: 'calc(-100%)' }}>
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300"><Link to="/">Account</Link></li>

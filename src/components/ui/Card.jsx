@@ -1,10 +1,8 @@
 import { MdStarRate } from "react-icons/md";
 import MainReviews from "./MainReviews";
-import { lazy } from "react";
+import { lazy, memo } from "react";
 // API gives a product object that contains data
-function Card({ imageSrc, imageAlt, cardTitle, cardPrice, oldPrice, discount, className, rate }) {
-  console.log("priceee", cardPrice);
-
+function Card({ imageSrc, imageAlt, cardTitle,price, priceAfterDiscount, className, rate }) {
   return (
     <div >
       <div className="flex flex-col ">
@@ -17,19 +15,19 @@ function Card({ imageSrc, imageAlt, cardTitle, cardPrice, oldPrice, discount, cl
           />
         </div>
         <h3 className="text-cardTitle font-cairo font-bold py-2 lg:text-xl text-base ">
-          {cardTitle.slice(0, 18)}...
+          {cardTitle.slice(0, 18)}
         </h3>
         <span>
           <MainReviews rate={rate} />
         </span>
         <span className=" text-cardPrice pt-2 font-bold flex gap-3 items-center">
-          <p className="font-bold lg:text-2xl text-lg ">{cardPrice}</p>
-          <p className="line-through text-descriptionColor font-bold lg:text-2xl text-lg" >{oldPrice}</p>
-          <p className="bg-discountBackground text-discountColor rounded-cardRadius text-base p-discountSm">{discount}</p>
+          <p className="font-bold lg:text-2xl text-lg ">{priceAfterDiscount}</p>
+          <p className="line-through text-descriptionColor font-bold lg:text-2xl text-lg" >{price}</p>
+          {priceAfterDiscount > 0 && <p className="bg-discountBackground text-discountColor rounded-cardRadius text-base p-discountSm">{ Math.ceil(((price - priceAfterDiscount) / price) *100)}% </p> }
         </span>
       </div>
     </div>
   );
 }
 
-export default Card;
+export default memo(Card);

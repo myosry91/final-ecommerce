@@ -15,12 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBrands } from "../redux/features/brandsSlice";
 import { getProducts } from "../redux/features/productsSlice";
 
-
 const HomePage = () => {
 
   const dispatch = useDispatch()
   const { brands } = useSelector((store) => store.brands)
-  const {products} = useSelector((store)=> store.products)
+  const { products } = useSelector((store) => store.products)
+  const { isLoading } = useSelector((store) => store.login)
+
 
   const containerRef = useRef()
   const windowWidth = useWindowWidth()
@@ -147,7 +148,6 @@ const HomePage = () => {
         </div>
         <CustomerReviews containerRef={containerRef} />
       </section >
-
     </>
 
   );

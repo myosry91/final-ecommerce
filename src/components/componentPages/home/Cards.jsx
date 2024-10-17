@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Cards() {
-  
+
   const { products } = useSelector((store) => store.products)
   const [viewAll, setViewAll] = useState(false);
   const windowWidth = useWindowWidth();
@@ -31,29 +31,29 @@ function Cards() {
             ? products.slice(0, 4).map((card) => (
               <div key={card.id} className="card">
                 <Link to={`/products/${card._id}`}>
-                <Card
-                  imageSrc={card.imgCover}
-                  imageAlt={card.name}
-                  cardTitle={card.title}
-                  price={card.price}
-                    priceAfterDsicount={card.priceAfterDiscount}
+                  <Card
+                    imageSrc={card.imgCover}
+                    imageAlt={card.name}
+                    cardTitle={card.title}
+                    price={card.price}
+                    priceAfterDiscount={card.priceAfterDiscount}
                     rate={card.ratingsAverage}
-                />
+                  />
                 </Link>
               </div>
             ))
             : products.map((card) => (
               <div key={card.id} className="card">
                 <Link to={`/products/${card._id}`}>
-                <Card
-                  imageSrc={card.imgCover}
-                  imageAlt={card.name}
-                  cardTitle={card.title}
-                  price={card.price}
-                    priceAfterDsicount={card.priceAfterDiscount}
+                  <Card
+                    imageSrc={card.imgCover}
+                    imageAlt={card.name}
+                    cardTitle={card.title}
+                    price={card.price}
+                    priceAfterDiscount={card.priceAfterDiscount}
                     rate={card.ratingsAverage}
-                    
-                />
+
+                  />
                 </Link>
               </div>
             ))}
@@ -85,11 +85,11 @@ function Cards() {
                   imageAlt={card.name}
                   cardTitle={card.title}
                   price={card.price}
-                  priceAfterDsicount={card.priceAfterDiscount}
+                  priceAfterDiscount={card.priceAfterDiscount}
                   rate={card.ratingsAverage}
 
                 />
-                </Link>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

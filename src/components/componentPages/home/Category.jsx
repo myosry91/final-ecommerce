@@ -19,17 +19,15 @@ const Category = () => {
     <div className="bg-cardBackground p-8 mx-auto rounded-xl shadow-lg max-w-6xl my-20 ">
       <h2 className="text-center text-3xl font-bold font-cairo mb-10">BROWSE BY DRESS STYLE</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10 mx-auto">
-        {categories.map((category) => (
+        {categories.map((category) => ( 
           <Link to={`category/${category.id}`} key={category._id} >
-            <div
-            className={`relative overflow-hidden rounded-3xl shadow-md h-full`}
-          >
-              <img
-              src={category.image}
-              alt={category.name}
-              className=" w-full object-cover-full h-full rounded-t-md transition-transform duration-300 "
-            />
-          </div>
+            <div className='relative h-full'>
+            <img
+            src={category.image}
+            alt={category.name}
+            className=" object-contain  h-full rounded-t-md "
+          />
+            </div>
           </Link>
         ))}
       </div>
