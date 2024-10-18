@@ -5,19 +5,20 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import RegisterPage from "./pages/RegisterPage";
-import { Provider, useSelector } from "react-redux"
-import { store } from "./redux/store"
-import { ToastContainer } from "react-toastify"
+import { Provider, useSelector } from "react-redux";
+import { store } from "./redux/store";
+import { ToastContainer } from "react-toastify";
 import LoginPage from "./pages/LoginPage";
 import UserOrders from "./pages/UserOrders";
 import AdminDashboard from "./pages/AdminDashboard";
 import BestOffers from "./pages/BestOffers";
 import ProtectedRouting from "./authorization/ProtectedRouting";
+import DetailsPage from "./pages/DetailsPage";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
+  const role = useSelector((store) => store.login);
 
-  const role = useSelector((store) => store.login)
-  
   return (
     <>
       <ToastContainer position="bottom-right" />
@@ -28,15 +29,51 @@ function App() {
             <Route path="/" element={<Layout />}>
               {/* pages */}
               <Route index element={<HomePage />} />
-              <Route path="/products" element={<ProtectedRouting><ProductsPage /></ProtectedRouting>}>
-                <Route path="/products/:id" element={<DetailsPage/>} />
-              </Route>
-              <Route path="/orders" element={<ProtectedRouting><UserOrders /></ProtectedRouting>} />
-              <Route path="/cart" element={<ProtectedRouting><CartPage /></ProtectedRouting>} />
+              <Route
+                path="/products"
+                element={
+                  <ProtectedRouting>
+                    <ProductsPage />
+                  </ProtectedRouting>
+                }
+              />
+              <Route path="/products/:id" element={<DetailsPage />} />
+
+              <Route path="/category/:id" element={<CategoryPage />} />
+              <Route
+                path="/orders"
+                element={
+                  <ProtectedRouting>
+                    <UserOrders />
+                  </ProtectedRouting>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRouting>
+                    <CartPage />
+                  </ProtectedRouting>
+                }
+              />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
-               <Route path="/admin" element={<ProtectedRouting><AdminDashboard /></ProtectedRouting>} />
-              <Route path="/offer" element={<ProtectedRouting><BestOffers /></ProtectedRouting>} />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRouting>
+                    <AdminDashboard />
+                  </ProtectedRouting>
+                }
+              />
+              <Route
+                path="/offer"
+                element={
+                  <ProtectedRouting>
+                    <BestOffers />
+                  </ProtectedRouting>
+                }
+              />
             </Route>
           </Routes>
         </Router>
