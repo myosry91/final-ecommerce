@@ -36,11 +36,8 @@ function Cards() {
                     imageAlt={card.name}
                     cardTitle={card.title}
                     price={card.price}
-<<<<<<< HEAD
                     priceAfterDiscount={card.priceAfterDiscount}
-=======
-                    priceAfterDsicount={card.priceAfterDiscount}
->>>>>>> 857003a2be0d0750776871de51784a16d0557880
+
                     rate={card.ratingsAverage}
                   />
                 </Link>
@@ -54,11 +51,7 @@ function Cards() {
                     imageAlt={card.name}
                     cardTitle={card.title}
                     price={card.price}
-<<<<<<< HEAD
                     priceAfterDiscount={card.priceAfterDiscount}
-=======
-                    priceAfterDsicount={card.priceAfterDiscount}
->>>>>>> 857003a2be0d0750776871de51784a16d0557880
                     rate={card.ratingsAverage}
 
                   />
