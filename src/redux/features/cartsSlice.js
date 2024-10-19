@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import clientApi from "../../services/api/clientApi";
+import { toast } from "react-toastify";
 
 const api = clientApi();
 
@@ -11,19 +12,23 @@ export const fetchOrders = createAsyncThunk("fetch/orders", async () => {
 export const AddToCart = createAsyncThunk(
   "fetch/cart",
   async (quantity, productId, userId) => {
+    
     const response = await api.post(`/orders`, {
-      body: {
-        orderItems: [
-          {
-            quantity: quantity,
-            product: productId,
-          },
-        ],
-        user: "670e2e1d58277efbe52cabd1",
-      },
+      orderItems: [
+        {
+          quantity: quantity,
+          product: "6710eafc7d569c1ada15d160",
+        },
+      ],
+      user: "670e2e1d58277efbe52cabd1",
     });
     console.log(response);
-    // return response.data?.data
+    if (response.status === 201) {
+      toast.success("Order added successfully!", {
+        className: "bg-black text-white",
+      });
+    }
+    return response.data?.data;
   }
 );
 

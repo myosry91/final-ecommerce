@@ -9,6 +9,8 @@ export const handleLogout = createAsyncThunk("user/logout", async (id) => {
     console.log(response)
     if (response.status === 200) {
         // <Navigate to={'/login'} replace={true} />
+        localStorage.removeItem("role")
+        window.location.href = '/login'
     }
     return response.data.data
 })
@@ -28,7 +30,7 @@ const logoutSlice = createSlice({
             .addCase(handleLogout.fulfilled, (state) => {
                 console.log("fulfilled")
                 state.isLoading = false
-                localStorage.removeItem("role")
+                // localStorage.removeItem("role")
             })
             .addCase(handleLogout.rejected, (state, action) => {
                 state.isLoading = false
