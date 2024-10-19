@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MainQuantity from "../../ui/MainQuantity";
 import Button from "../../ui/Button";
 import MainSize from "../../ui/MainSize";
@@ -7,21 +7,26 @@ import Color from "../../ui/Color";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { AddToCart } from "../../../redux/features/cartsSlice"; 
+import { AddToCart } from "../../../redux/features/cartsSlice";
 import { getLoggedUser } from "../../../redux/features/loginSlice";
 
 const ProductDetails = ({ product }) => {
   const dispatch = useDispatch();
-  const {user} = useSelector((store)=> store.login)
-  console.log(user)
+  const { user } = useSelector((store) => store.login);
+  console.log("user", user);
+  const [count, setCount] = useState(1);
+  // console.log("count", count);
+  // console.log("product", product);
   useEffect(() => {
-  dispatch(getLoggedUser())
-},[])
+    dispatch(getLoggedUser());
+  }, []);
   return (
     <div className="flex flex-col gap-y-3">
       <h3 className="font-cairo font-bold">{product.title}</h3>
       {/* product reviews */}
-      <div><MainReviews rate={product.ratingsAverage} /></div>
+      <div>
+        <MainReviews rate={product.ratingsAverage} />
+      </div>
       {/* product price */}
       <div className="flex gap-2 items-center">
         <h4> {product.priceAfterDiscount} </h4>
@@ -30,9 +35,7 @@ const ProductDetails = ({ product }) => {
           -40%
         </p>
       </div>
-      <p className="text-descriptionColor">
-        {product.description}
-      </p>
+      <p className="text-descriptionColor">{product.description}</p>
       <hr className="text-descriptionColor" />
       {/* product colors */}
       <div>
@@ -53,11 +56,21 @@ const ProductDetails = ({ product }) => {
         <div
           className={`flex justify-evenly items-center gap-1 rounded-buttonRadius bg-inputBackground p-quantitySm lg:p-quantityLg flex-1`}
         >
-          <FaPlus className="cursor-pointer" />
-          <span>1</span>
-          <FaMinus className="cursor-pointer" />
+          <button
+            onClick={() => setCount((pre) => pre + 1)}
+          >
+            <FaPlus className="cursor-pointer" />
+          </button>
+
+          <span>{count}</span>
+          <button onClick={() => count !== 1 && setCount((pre) => pre - 1)}>
+            <FaMinus className="cursor-pointer" />
+          </button>
         </div>
-        <Button className="lg:w-[400px] md:w-[200px] w-[236px]" click={()=> dispatch(AddToCart(product.quantity, product._id, user._d))} >
+        <Button
+          className="lg:w-[400px] md:w-[200px] w-[236px]"
+          click={() => dispatch(AddToCart(count, product?._id, user?._id))}
+        >
           Add to cart
         </Button>
       </div>
