@@ -15,7 +15,6 @@ const DetailsPage = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { product } = useSelector((store) => store.product)
-  console.log("one Product", product)
 
   useEffect(() => {
     if (id) {
