@@ -1,53 +1,65 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MainQuantity from "../../ui/MainQuantity";
 import Button from "../../ui/Button";
 import MainSize from "../../ui/MainSize";
 import MainReviews from "../../ui/MainReviews";
 import Color from "../../ui/Color";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { AddToCart } from "../../../redux/features/cartsSlice";
-import { getLoggedUser } from "../../../redux/features/loginSlice";
+import { useGetUserQuery } from "../../../redux/RTK/loginApi";
+import { useAddToCartMutation } from "../../../redux/RTK/cartApi";
+import { ToastError, ToastSuccess } from "../../ui/Toast";
+import { useGetOrdersQuery } from "../../../redux/RTK/adminDashboardApi";
 
 const ProductDetails = ({ product }) => {
-  const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.login);
-  console.log("user", user);
+  const { data:user } = useGetUserQuery()
   const [count, setCount] = useState(1);
-  // console.log("count", count);
-  // console.log("product", product);
-  useEffect(() => {
-    dispatch(getLoggedUser());
-  }, []);
+  const isUserExist = !!localStorage.getItem("role")
+  const [addToCart] = useAddToCartMutation()
+  const {refetch} = useGetOrdersQuery()
+
+  async function handleAddToCart() {
+    const quantity = Number(count)
+    try {
+      await addToCart({ count: quantity, productId: product?._id, userId: "670e2e1d58277efbe52cabd1" }).unwrap()
+      if (!isUserExist) {
+        ToastError("You Must Login Before Add To Your Cart") 
+      } else { 
+        ToastSuccess("Order has been added ")
+        refetch()
+      }
+    } catch (error) {
+      console.log(error?.errors[0].msg)
+    }
+  }
+
   return (
     <div className="flex flex-col gap-y-3">
-      <h3 className="font-cairo font-bold">{product.title}</h3>
+      <h3 className="font-cairo font-bold">{product?.title}</h3>
       {/* product reviews */}
       <div>
-        <MainReviews rate={product.ratingsAverage} />
+        <MainReviews rate={product?.ratingsAverage} />
       </div>
       {/* product price */}
       <div className="flex gap-2 items-center">
-        <h4> {product.priceAfterDiscount} </h4>
-        <h4 className="text-gray-400 line-through"> {product.price} </h4>
+        <h4> {product?.priceAfterDiscount} </h4>
+        <h4 className="text-gray-400 line-through"> {product?.price} </h4>
         <p className="bg-discountBackground text-discountColor  lg:p-discountLg rounded-buttonRadius p-discountSm">
           -40%
         </p>
       </div>
-      <p className="text-descriptionColor">{product.description}</p>
+      <p className="text-descriptionColor">{product?.description}</p>
       <hr className="text-descriptionColor" />
       {/* product colors */}
       <div>
         <p className="text-descriptionColor mb-4">select colors</p>
-        <Color colors={product.colors} />
+        <Color colors={product?.colors} />
       </div>
       <hr className="text-descriptionColor" />
       {/* product sizes */}
       <div>
         <p className="mb-4 text-descriptionColor">choose sizes</p>
         <MainSize
-          sizes={[product.size]}
+          sizes={[product?.size]}
           className={`rounded-buttonRadius p-sizeSm lg:p-sizeLg `}
         />
       </div>
@@ -69,7 +81,7 @@ const ProductDetails = ({ product }) => {
         </div>
         <Button
           className="lg:w-[400px] md:w-[200px] w-[236px]"
-          click={() => dispatch(AddToCart(count, product?._id, user?._id))}
+          click={() => handleAddToCart((Number(count), product?._id))}
         >
           Add to cart
         </Button>

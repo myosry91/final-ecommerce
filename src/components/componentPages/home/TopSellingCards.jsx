@@ -7,83 +7,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Title from "../../ui/Title";
+import { Link } from "react-router-dom";
 
-function TopSellingCards() {
-  let cards = [
-    {
-      id: 1,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 2,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 3,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 4,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 5,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 6,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 7,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-    {
-      id: 8,
-      cardTitle: "T-SHIRT WITH TAPE DETAILS",
-      cardImage: `${ImageOne}`,
-      cardAlt: "Image One Alt",
-      cardPrice: "$120",
-      oldPrice: "$260",
-      discount: "$20",
-    },
-  ];
-
+function TopSellingCards({ products }) {
+  const productsWithHigherRate = products?.filter((product) => product.ratingsAverage > 3)
   const [viewAll, setViewAll] = useState(false);
   const windowWidth = useWindowWidth();
 
@@ -99,32 +26,35 @@ function TopSellingCards() {
     <div className="container">
       <Title title={"Top Selling"} className={"text-center"} />
       {windowWidth > 768 ? (
-        <div className="cards grid lg:grid-cols-4 md:grid-cols-3 gap-x-5 gap-y-10 justify-self-center">
-          {cards.length > 4 && !viewAll
-            ? cards.slice(0, 4).map((card) => (
-              <div key={card.id} className="card">
-                <Card
-                  imageSrc={card.cardImage}
-                  imageAlt={card.cardAlt}
-                  cardTitle={card.cardTitle}
-                  cardPrice={card.cardPrice}
-                  discount={card.discount}
-                  oldPrice={card.oldPrice}
-                />
+        <div className="cards grid lg:grid-cols-4 md:grid-cols-3 gap-x-5 gap-y-10 justify-self-center ">
+          {productsWithHigherRate?.length <= 3 && !viewAll ?
+            productsWithHigherRate.map((prod) => (
+              <div key={prod.id} className="card">
+                <Link to={`/products/${prod._id}`}>
+                  <Card
+                    imageSrc={prod.imgCover}
+                    imageAlt={prod.title}
+                    cardTitle={prod.title}
+                    price={prod.price}
+                    priceAfterDiscount={prod.priceAfterDiscount}
+                  />
+                </Link>
+              </div>
+            )) :
+            productsWithHigherRate?.slice(3).map((prod) => (
+              <div key={prod.id} className="card">
+                <Link to={`/products/${prod._id}`}>
+                  <Card
+                    imageSrc={prod.imgCover}
+                    imageAlt={prod.title}
+                    cardTitle={prod.title}
+                    price={prod.price}
+                    priceAfterDiscount={prod.priceAfterDiscount}
+                  />
+                </Link>
               </div>
             ))
-            : cards.map((card) => (
-              <div key={card.id} className="card">
-                <Card
-                  imageSrc={card.cardImage}
-                  imageAlt={card.cardAlt}
-                  cardTitle={card.cardTitle}
-                  cardPrice={card.cardPrice}
-                  discount={card.discount}
-                  oldPrice={card.oldPrice}
-                />
-              </div>
-            ))}
+          }
         </div>
       ) : (
         <Swiper
@@ -145,21 +75,20 @@ function TopSellingCards() {
             },
           }}
         >
-          {cards.map((card) => (
+          {products?.map((card) => (
             <SwiperSlide key={card.id}>
               <Card
-                imageSrc={card.cardImage}
-                imageAlt={card.cardAlt}
-                cardTitle={card.cardTitle}
-                cardPrice={card.cardPrice}
-                discount={card.discount}
-                oldPrice={card.oldPrice}
+                imageSrc={card.imgCover}
+                imageAlt={card.title}
+                cardTitle={card.title}
+                price={card.price}
+                priceAfterDiscount={card.priceAfterDiscount}
               />
             </SwiperSlide>
           ))}
         </Swiper>
       )}
-      {windowWidth > 768 && cards.length > 4 && !viewAll && (
+      {windowWidth > 768 && productsWithHigherRate?.length > 4 && !viewAll && (
         <div className="flex justify-center pb-3 pt-10">
           <button
             className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius"
@@ -169,7 +98,7 @@ function TopSellingCards() {
           </button>
         </div>
       )}
-      {windowWidth > 768 && cards.length > 4 && viewAll && (
+      {windowWidth > 768 && productsWithHigherRate?.length > 4 && viewAll && (
         <div className="flex justify-center pb-3 pt-10">
           <button
             className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius"
@@ -178,7 +107,10 @@ function TopSellingCards() {
             Show Less
           </button>
         </div>
-      )}
+      )
+      }
+
+
     </div>
   );
 }

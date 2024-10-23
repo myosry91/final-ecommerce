@@ -1,29 +1,34 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Button from "../components/ui/Button"
 import Input from "../components/ui/Input"
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { handleLogin } from "../redux/features/loginSlice";
+import {  useState } from "react";
+import { useLoginMutation } from "../redux/RTK/loginApi";
+import { toast } from "react-toastify";
+import { ToastSuccess } from "../components/ui/Toast";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [login, {isLoading , isSuccess}] = useLoginMutation()
 
-  const { isLoading, error, user } = useSelector((state) => state.login);
+  const handleClickShowPassword = (e) => {
+    setShowPassword(!showPassword)
+  }
 
-  // if (user) {
-  //   navigate("/");
-  // }
-  useEffect(() => {
-    if (user) {
-      navigate("/");  // Redirect to home page when user is logged in
+  const handleLogin = async (data) => {
+    try {
+      const result = await login({ data }).unwrap() // return promise
+      const { role } = result
+      localStorage.setItem('role', role)
+      ToastSuccess("User added successfully")      
+      navigate('/')
+    } catch (error) {
+      console.log(error)
     }
-  }, [user, navigate]);
+  }
 
   const validationSchema = Yup.object({
     email: Yup.string().required("Email Is Required *").matches(/^[a-zA-Z0-9]+@(gmail|yahoo)\.com$/, "Invalid Email Address"),
@@ -36,19 +41,14 @@ function LoginPage() {
       password: ""
     },
     validationSchema: validationSchema,
-    // onSubmit: values => {
-    //   alert(JSON.stringify(values, null, 2));
-    // },
+    
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: values => {
-      dispatch(handleLogin(values));
+    onSubmit: async (values) => {
+      await handleLogin(values)
     },
   });
 
-  const handleClickShowPassword = (e) => {
-    setShowPassword(!showPassword)
-  }
 
   return (
     <div className="bg-inputBackground py-16">
@@ -71,12 +71,13 @@ function LoginPage() {
               <div className="text-red-700 font-inter text-[15px]">{formik.errors.password}</div>
             ) : null}
           </div>
-          <Button children={"Login"} isLoading={isLoading} className="block py-[10px] mx-auto rounded-lg" />
+          <Button children={"Login"} isLoading={isLoading} className="block py-[10px] mx-auto rounded-lg" type={'sumbit'} />
           <span className="flex justify-center gap-2 mt-3 text-center text-[15px]">
             <span className="text-placeholderColor">Create Your Account</span>
-            <button className="cursor-pointer underline decoration-2 text-bold text-[16px]" onClick={() => {
-              navigate("/register")
-            }}>Sign Up</button>
+            <button
+              onClick={() => navigate("/register")}
+              className="cursor-pointer underline decoration-2 text-bold text-[16px]"
+              >Sign Up</button>
           </span>
         </form>
       </div>

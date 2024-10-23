@@ -1,26 +1,20 @@
 import React, { useState } from 'react'
-import { FaAngleUp } from 'react-icons/fa'
 import { Slider } from '@mui/material'
 import AccordionUI from '../../ui/AccordionUI'
-import { useDispatch, useSelector } from 'react-redux'
-import { clearSelectedPriceRange, setSelectedPriceRange } from '../../../redux/features/productsSlice'
 
 function value(price) {
     return `${price}$`
 }
-const PriceSlider = () => {
+const PriceSlider = ({selectedPriceRange, setSelectedPriceRange}) => {
     const [price, setPrice] = useState([0, 1000]);
 
-    const dispatch = useDispatch();
-    const selectedPrice = useSelector((state) => state.products.selectedPriceRange);
-
     const handleChangeOnPrice = (event, price) => {
-        if (price === selectedPrice) {
+        if (price === selectedPriceRange) {
             // If the selected size is clicked again, clear the selection
-            dispatch(clearSelectedPriceRange());
+            setSelectedPriceRange(null)
         } else {
             // Otherwise, set the new size
-            dispatch(setSelectedPriceRange(price));
+            setSelectedPriceRange(price)
             setPrice(price);
         }
     }

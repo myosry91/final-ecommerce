@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { FaCheckCircle, FaRegEye } from 'react-icons/fa'
 import { TiDelete } from "react-icons/ti";
-import { useDispatch } from 'react-redux'
+import LoaderSpinner from '../../ui/LoaderSpinner';
 
-const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSearchOrder, onDeleteOrder , isDirty}) => {
+const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSearchOrder, onDeleteOrder, isDirty, isLoading }) => {
+  
   return (
     <div className="overflow-x-auto">
       <h2 className='text-2xl font-bold mb-4'>All orders</h2>
@@ -14,16 +15,16 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
         className="border border-gray-300 rounded p-2 mb-4 w-full"
         onChange={(e) => onSearchOrder(e)}
       />
-      {searchResult.length == 0 && isDirty == true && <p className='text-red-600 absolute end-3 top-3 font-bold text-xs ' >not exist</p>}
+      {searchResult?.length == 0 && isDirty == true && <p className='text-red-600 absolute end-3 top-3 font-bold text-xs ' >not exist</p>}
       </div>
-      <table className="min-w-full table-auto">
+      <table className="table-auto">
         <thead>
           <tr>
             <th className="px-4 py-4">
               <input
                 className="h-5 w-5 border-2 border-gray-500 rounded"
                 type="checkbox"
-                checked={completed === orders.length}
+                checked={completed === orders?.length}
                 readOnly
               />
             </th>
@@ -36,7 +37,7 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
           </tr>
         </thead>
         <tbody>
-          {(searchResult.length == 0 ? orders : searchResult).map(order => (
+          {isLoading ? <LoaderSpinner/> : (searchResult.length > 0 ? searchResult : orders)?.map(order => (
             <tr key={order.id} className="border-b border-slate-100 text-center">
               <td className="px-4 py-4">
                 <input
@@ -44,7 +45,7 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
                   checked={order.status === "complete"}
                   disabled={order.status === 'canceled'}
                   className="h-5 w-5 border-2 border-gray-500 rounded"
-                  onClick={() => onChangeOrderStatus(order._id, "complete")}
+                  onClick={() => onChangeOrderStatus(order.id, "complete")}
                   readOnly
                 />
               </td>

@@ -1,48 +1,110 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { changeOrderStatus, fetchOrders, setSearchOrder, deleteOrder, countOrders } from '../redux/features/adminDashboardSlice'
+import React, { useCallback, useEffect, useState } from 'react'
 import DashboardSidebar from '../components/componentPages/dashboard/DashboardSidebar'
 import OrderTable from '../components/componentPages/dashboard/OrderTable'
 import OrderStatusSummary from '../components/componentPages/dashboard/OrderStatusSummary'
 import { AiFillCaretRight } from 'react-icons/ai'
 import { Link, useSearchParams } from 'react-router-dom'
 import Pagination from '../components/componentPages/dashboard/Pagination'
+import { useChangeOrderStatusMutation, useCountOrdersQuery, useDeleteOrderMutation, useGetOrdersQuery } from '../redux/RTK/adminDashboardApi'
 
 const AdminDashboard = () => {
-    const dispatch = useDispatch()
+    // const currentPage = 1;
+    const [limit, setLimit] = useState(5)
     const [searchParams, setSearchParams] = useSearchParams()
-    const { orders, completed, searchResult, canceled, processing, currentPage, totalPages} = useSelector((store) => store.admin)
+    const [shouldFetch, setShouldFetch] = useState(true)
+    const [searchResult, setSearchResult] = useState([])
     const [isDirty, setIsDirty] = useState(false)
+    const [isSearch, setIsSearch] = useState(false)
+    const currentPage = searchParams.get("page")
+    let queryParams = { currentPage: Number(currentPage), limit: limit }
+
+    const { data: total } = useCountOrdersQuery()
+    const [setStatus, { data }] = useChangeOrderStatusMutation()
+    const { data: orders, refetch, isLoading } = useGetOrdersQuery(queryParams, {
+        skip: !shouldFetch,
+        refetchOnMountOrArgChange: true
+    })
+    const [updatedOrders, setUpdatedOrders] = useState(orders)
+    const [deleteOrder] = useDeleteOrderMutation()
+
+    const totalPages = Math.ceil(total?.orderCount / 5)
+    const completed = 0, processing = 0, canceled = 0;
+
+    const [orderStatus, setOrderStatus] = useState({
+        completed: 0,
+        processing: 0,
+        canceled: 0,
+        pending:0
+    })
 
     useEffect(() => {
-        dispatch(fetchOrders({currentPage: currentPage}))
-        // dispatch(ordersStatus(orders))
-    }, [dispatch, currentPage])
-    
+        if (orders) {
+            const completedCount = orders.filter(order => order.status.toLowerCase() === "complete").length;
+            const processingCount = orders.filter(order => order.status.toLowerCase() === "processing").length;
+            const canceledCount = orders.filter(order => order.status.toLowerCase() === "canceled").length;
+            const pendingCount = orders.filter(order => order.status.toLowerCase() === "pending").length;
+
+            // Update the orderStatus state
+            setOrderStatus({
+                completed: completedCount,
+                processing: processingCount,
+                canceled: canceledCount,
+                pending: pendingCount
+            });
+
+            setUpdatedOrders(orders)
+            refetch()
+        }
+    }, [orders, updatedOrders])
+
     useEffect(() => {
-        dispatch(countOrders())
-        dispatch(fetchOrders())
+        setUpdatedOrders(updatedOrders)
     },[])
-
-    const handleChangeOrderStatus = (id, status) => {
+    
+    const handleChangeOrderStatus = async (id, status) => {
         let newStatus = { status: status }
-        dispatch(changeOrderStatus({ id, status: newStatus }))
+        const updatedOrder = orders?.map((order) => order.id === id ? { ...order, status: newStatus.status } : order)
+        setUpdatedOrders(updatedOrder)
+        try {
+            await setStatus({ id, status: newStatus }).unwrap()
+            setShouldFetch(true)
+            refetch()
+        } catch (error) {
+            console.log("Failed to update order status")
+        }
     }
 
     const handleSearchOrder = useCallback((e) => {
-        let orderTirm = e.target.value.trim()
+        setIsSearch(true)
+        let orderTerm = e.target.value.trim().toLowerCase()
+        setLimit(!!orderTerm ? 16 : 5)
         setIsDirty(true)
-        dispatch(setSearchOrder(orderTirm == '' ? '' : orderTirm))
-    }, [dispatch])
+        let filterResult = orders?.filter((order) => {
+            return (
+                order.status.toLowerCase().includes(orderTerm) ||
+                order.number == orderTerm
+                // order.user.name.includes(orderTerm)
+            )
+        })
+
+        setSearchResult(filterResult)
+    }, [orders, limit])
 
     const handleChangePage = (newPage) => {
-        // setSearchParams({page: newPage})
-        dispatch(fetchOrders({ currentPage: newPage }));
+        setSearchParams({ page: newPage })
     }
 
-    const handleDeleteOrder = (id) => {
-        dispatch(deleteOrder(id))
+    const handleDeleteOrder = async (id) => {
+        const newOrders = orders?.filter((order) => order.id !== id)
+        setUpdatedOrders(newOrders)
+        try {
+            await deleteOrder(id).unwrap()
+            
+        } catch (error) {
+            console.log("Failed to delete order")
+        }
     }
+
     return (
         <div className="container mx-auto mt-10">
             <nav className="mb-5 flex mt-4 space-x-4 items-center">
@@ -55,21 +117,20 @@ const AdminDashboard = () => {
                 <div className="flex-1 p-4">
                     {/* handle life cycle when mounting */}
                     <OrderStatusSummary
-                        completed={completed}
-                        canceled={canceled}
-                        processing={processing}
+                        orderStatus={orderStatus}
                     />
                     <OrderTable
-                        orders={orders}
+                        orders={updatedOrders}
                         completed={completed}
                         searchResult={searchResult}
                         onChangeOrderStatus={handleChangeOrderStatus}
                         onSearchOrder={handleSearchOrder}
                         onDeleteOrder={handleDeleteOrder}
                         isDirty={isDirty}
+                        isLoading={isLoading}
                     />
                     <Pagination
-                        currentPage={currentPage}
+                        currentPage={Number(currentPage)}
                         totalPages={totalPages}
                         onPageChange={handleChangePage}
                     />

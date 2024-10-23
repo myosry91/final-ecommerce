@@ -6,22 +6,22 @@ const Carousel = ({ images = [] }) => {
     <div className="flex lg:flex-row-reverse flex-col gap-3">
       <img
         src={images[active]}
-        alt="tshirt"
-        className=" mx-auto max-h-[400px]"
+        alt={`image${active}`}
+        className=" mx-auto max-w-[300px] max-h-[300px]"
         loading="lazy"
       />
       <div className="flex flex-row lg:flex-col gap-2 ">
         {images.map((image, index) => (
           <div
-            className={`lg:w-[111px]  w-[111px] ${active === index ? "opacity-50 border border-slate-900" : ""
+            className={` ${active === index ? "opacity-50 border border-slate-900" : ""
               } cursor-pointer rounded-cardRadius `}
             key={index}
           >
             {" "}
             <img
               src={image}
-              className="rounded-cardRadius w-full h-[120px]"
-              alt="tshirt"
+              className="rounded-cardRadius max-w-20 "
+              alt={`image${index}`}
               loading="lazy"
               onClick={() => setActive(index)}
             />{" "}

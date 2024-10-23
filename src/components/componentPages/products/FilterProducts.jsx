@@ -1,57 +1,18 @@
-import React, { useEffect } from 'react'
-import { MdArrowRight } from 'react-icons/md'
+import React, {  useState } from 'react'
 import PriceSlider from './PriceSlider'
 import AccordionUI from '../../ui/AccordionUI'
 import Color from '../../ui/Color'
 import MainSize from '../../ui/MainSize'
-import { useDispatch, useSelector } from 'react-redux'
-import { clearSelectedCategory, setSelectedCategory } from "../../../redux/features/productsSlice";
-import { fetchCategories } from '../../../redux/features/categorySlice';
+import { useGetCategoriesQuery} from '../../../redux/RTK/categoriesApi'
 
-
-
-
-const FilterProducts = ({ className, onFilterClick }) => {
-    // const dispatch = useDispatch();
-    // // const selectedSize = useSelector((state) => state.categories.selectedSize);
-    // // const selectedPrice = useSelector((state) => state.categories.selectedPriceRange);
-    // const {selectedSize, selectedPriceRange, category} = useSelector((state)=> state.categories) 
-
-    // const [searchParams, setSearchParams] = useSearchParams();
-    // // useEffect(() => {
-    // //     console.log(searchParams);
-    // // })
-    // const handleFilterClick = () => {
-    //     const queryParams = {};
-    //     if (selectedSize) queryParams.size = selectedSize;
-    //     if (selectedPriceRange !== null) {
-    //         queryParams.minPrice = selectedPriceRange[0];
-    //         queryParams.maxPrice = selectedPriceRange[1];
-    //     }
-    //     // Dispatch the getProducts action with the selected filters
-    //     dispatch(fetchCategory(queryParams));
-
-    //     // Update the URL with the selected filters using setSearchParams
-    //     setSearchParams(queryParams);
-    //     if (isFilterOpen) {
-    //         setIsFilterOpen(false);
-    //     } else {
-    //         return
-    //     }
-    // }
-    const { categories } = useSelector(store => store.categories);
-    const selectedCategory = useSelector((state) => state.products.selectedCategory);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchCategories())
-    }, [dispatch])
-
+const FilterProducts = ({ ... props}) => {
+    const {className, onFilterClick , setSelectedCategory, selectedCategory, setSelectedColor, selectedColor, setSelectedSize, selectedSize, selectedPriceRange, setSelectedPriceRange} = props
+    const { data: categories } = useGetCategoriesQuery();
     const handleCategoryClick = (id) => {
         if (id === selectedCategory) {
-            dispatch(clearSelectedCategory());
+           setSelectedCategory(null)
         } else {
-            dispatch(setSelectedCategory(id));
+            setSelectedCategory(id)
         }
     };
 
@@ -68,7 +29,7 @@ const FilterProducts = ({ className, onFilterClick }) => {
             <hr className='text-slate-400/30 my-6' />
             <div>
                 {
-                    categories.map((category) => {
+                    categories?.map((category) => {
                         return (
                             <>
                                 <div key={category._id} className={`flex justify-between py-3 font-semibold text-xl px-4 cursor-pointer hover:bg-[#f0eeed] rounded-md ${selectedCategory === category._id && "bg-[#f0eeed] rounded-md"}`}
@@ -82,14 +43,25 @@ const FilterProducts = ({ className, onFilterClick }) => {
                 }
             </div>
             {/* price slider value */}
-            <PriceSlider />
+            <PriceSlider
+                selectedPriceRange={selectedPriceRange}
+                setSelectedPriceRange={setSelectedPriceRange}
+            />
             {/* product colors */}
             <AccordionUI title={'Colors'} >
-                <Color colors={['red', 'green', 'black', 'gold', 'blue', 'navy']} />
+                <Color
+                    colors={['red', 'green', 'black', 'gold', 'blue', 'navy']}
+                    selectedColor={selectedColor}
+                    setSelectedColor={setSelectedColor}
+                />
             </AccordionUI>
             {/* product sizes */}
             <AccordionUI title={'Size'} >
-                <MainSize sizes={["XX-Small", "X-Small", "Small", "Medium", "Large", "X-large", "XX-Large"]} />
+                <MainSize
+                    sizes={["XX-Small", "X-Small", "Small", "Medium", "Large", "X-large", "XX-Large"]}
+                    selectedSize={selectedSize}
+                    setSelectedSize={setSelectedSize}
+                />
             </AccordionUI>
             {/* <AccordionUI title={'Dress Style'} >
                 <div>

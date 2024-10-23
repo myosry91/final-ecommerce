@@ -1,17 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setSelectedSize, clearSelectedSize } from "../../redux/features/productsSlice";
+import { useState } from "react";
 
-const MainSize = ({ sizes, className }) => {
-  const dispatch = useDispatch();
-  const selectedSize = useSelector((state) => state.products.selectedSize);
+const MainSize = ({ sizes, className, selectedSize,setSelectedSize }) => {
 
   const handleSizeClick = (size) => {
     if (size === selectedSize) {
       // If the selected size is clicked again, clear the selection
-      dispatch(clearSelectedSize());
+      setSelectedSize(null)
     } else {
       // Otherwise, set the new size
-      dispatch(setSelectedSize(size));
+      setSelectedSize(size)
     }
   };
 

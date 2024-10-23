@@ -4,7 +4,7 @@ import { FaChevronRight } from 'react-icons/fa'
 
 const DashboardSidebar = () => {
   return (
-    <div className='mr-5'>
+    <div className='mx-auto'>
         <div className=" w-[295px] h-auto  p-4 shadow border rounded-xl mt-5">
             <h2 className='font-bold text-xl border-b pb-4 mb-4'> Dashboard</h2>
             <ul className="space-y-4 mt-2">

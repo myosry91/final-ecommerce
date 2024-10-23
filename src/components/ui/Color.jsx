@@ -1,24 +1,21 @@
 import React, { useState } from 'react'
 import { MdCheck } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux';
-import { clearSelectedColor, setSelectedColor } from '../../redux/features/productsSlice';
 
-const Color = ({ colors }) => {
+const Color = ({ colors, selectedColor, setSelectedColor }) => {
     const [check, setCheck] = useState(-1);
-    const dispatch = useDispatch();
 
-    const selectedColor = useSelector((state) => state.products.selectedColor);
     const handleColorClick = (color, index) => {
         if (color === selectedColor) {
             // If the selected size is clicked again, clear the selection
-            dispatch(clearSelectedColor());
+            setSelectedColor(null)
             setCheck(-1)
         } else {
             // Otherwise, set the new size
-            dispatch(setSelectedColor(color));
+           setSelectedColor(color)
             setCheck(index)
         }
     };
+
     return (
         <div className="flex gap-2 flex-wrap ">
             {colors?.map((color, index) => (

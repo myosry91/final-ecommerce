@@ -5,8 +5,7 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import RegisterPage from "./pages/RegisterPage";
-import { Provider, useSelector } from "react-redux";
-import { store } from "./redux/store";
+import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import LoginPage from "./pages/LoginPage";
 import UserOrders from "./pages/UserOrders";
@@ -15,9 +14,9 @@ import BestOffers from "./pages/BestOffers";
 import ProtectedRouting from "./authorization/ProtectedRouting";
 import DetailsPage from "./pages/DetailsPage";
 import CategoryPage from "./pages/CategoryPage";
+import { store } from "./redux/apiStore";
 
 function App() {
-  const role = useSelector((store) => store.login);
 
   return (
     <>
@@ -32,9 +31,7 @@ function App() {
               <Route
                 path="/products"
                 element={
-                  <ProtectedRouting>
                     <ProductsPage />
-                  </ProtectedRouting>
                 }
               />
               <Route path="/products/:id" element={<DetailsPage />} />
@@ -69,9 +66,7 @@ function App() {
               <Route
                 path="/offer"
                 element={
-                  <ProtectedRouting>
                     <BestOffers />
-                  </ProtectedRouting>
                 }
               />
             </Route>

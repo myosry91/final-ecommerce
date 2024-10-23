@@ -9,43 +9,31 @@ import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../ui/Button";
 import { LuLogIn } from "react-icons/lu";
-import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { handleLogout } from "../../redux/features/logoutSlice";
-import { useDispatch } from "react-redux";
-import { getLoggedUser } from "../../redux/features/loginSlice";
-
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useGetUserQuery } from "../../redux/RTK/loginApi";
+import { useCountOrdersQuery } from "../../redux/RTK/adminDashboardApi";
+import { useLogoutMutation } from "../../redux/RTK/logoutApi";
+import { ToastSuccess } from "../ui/Toast";
 
 function Navbar() {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const dropdownRef = useRef(null);
-
   const [loginDropdownStatus, setLoginDropdownStatus] = useState(false);
   const loginDropdownRef = useRef(null);
-
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef(null);
-
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
-
-
-  const { user, role, users, isLoading, isSubmitted } = useSelector(store => store.login)
-  const isLogged = !!localStorage.getItem("role") 
-
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
-  console.log(user)
-
-  useEffect(() => {
-    if(isSubmitted)  dispatch(getLoggedUser())
-  },[isSubmitted])
+  const isLogged = !!localStorage.getItem("role") 
+  const { data: user } = useGetUserQuery()
+  const { data: total } = useCountOrdersQuery({
+    skip: false,
+    refetchOnMountOrArgChange: true
+  })
+  const [logout] = useLogoutMutation()
   
-  const handleLogoutUser = () => {
-    dispatch(handleLogout())
-  }
   const handleDropdown = () => {
     setDropdownStatus((prev) => !prev);
   };
@@ -83,6 +71,17 @@ function Navbar() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap()
+      localStorage.removeItem("role")
+      ToastSuccess("You've logged out successfully! ")
+      navigate("/login")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   useEffect(() => {
     window.addEventListener("mousedown", handleClickOutside);
@@ -117,7 +116,7 @@ function Navbar() {
           </li>
           <li><NavLink to="/products">Products</NavLink></li>
           <li><NavLink to="/offer">Best Offers</NavLink></li>
-          {role === "admin" && <li><NavLink to="/admin">Dasboard</NavLink></li>}
+          {user?.role === "admin" && <li><NavLink to="/admin">Dasboard</NavLink></li>}
           {/* <li><NavLink to="/">Brands</NavLink></li> */}
         </ul>
         {/* End Links */}
@@ -138,7 +137,7 @@ function Navbar() {
             <Link to="/cart">
               <FiShoppingCart className="text-[22px]" />
             </Link>
-            <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">10</span>
+            <span className="absolute top-[-15px] left-[10px] w-[20px] h-[20px] flex justify-center items-center text-sm p-3 text-white rounded-full bg-red-700">{total?.orderCount}</span>
           </span>
           {
             isLogged ? <span className="cursor-pointer relative" onClick={handleLoginDropdown} ref={loginDropdownRef}>
@@ -147,12 +146,12 @@ function Navbar() {
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300"><Link to="/">Account</Link></li>
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300"><Link to="/orders">Orders</Link></li>
                 <li className="px-2 py-2  hover:bg-headerBackground duration-300 border-b border-headerBackground"><Link to="/">Address</Link></li>
-                <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor" onClick={handleLogoutUser}>logout</li>
+                <li className="px-2 py-2 hover:bg-headerBackground duration-300 text-discountColor" onClick={()=> handleLogout()} >logout</li>
               </ul>
             </span> :
               <span >
                 {
-                  <LuLogIn className="lg:hidden text-[22px] cursor-pointer" />
+                  <LuLogIn className="lg:hidden text-[22px] cursor-pointer" onClick={()=> navigate("/login")} />
                 }
                 <Button click={() => navigate("/login")} children={"Login"} className="py-[10px] px-[40px] hidden lg:block" />
               </span>

@@ -1,21 +1,18 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchCategory } from "../redux/features/categorySlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useGetCategoryMutation } from "../redux/RTK/categoriesApi";
 
 function CategoryPage() {
-  const params = useParams();
-  const dispatch = useDispatch();
-  const { category } = useSelector((state) => state.categories);
-  // const [category, setCategory] = useState([]);
-  console.log("category", category);
+  const {id} = useParams();
+  const [setCategory, { data: category }] = useGetCategoryMutation();
+
   useEffect(() => {
-    dispatch(fetchCategory(params?.id));
-  }, []);
-  console.log("params", params);
+    setCategory(id)
+  },[id])
+
   return (
     <div className="flex flex-col space-y-10 justify-center items-center w-full">
-      <h1 className="mt-10 text-[28px] font-semibold">{category.name}</h1>
+      <h1 className="mt-10 text-[28px] font-semibold">{category?.name}</h1>
       <div>
         <img src={category?.image} className="lg:w-[500px]" />
       </div>

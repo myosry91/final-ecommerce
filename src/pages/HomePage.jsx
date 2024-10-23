@@ -7,22 +7,18 @@ import useWindowWidth from "../customHooks/useWindowWidth";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "swiper/css"
 import "swiper/css/navigation"
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import CustomerReviews from "../components/componentPages/home/CustomerReviews";
 import Category from "../components/componentPages/home/Category";
 import TopSellingCards from "../components/componentPages/home/TopSellingCards";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBrands } from "../redux/features/brandsSlice";
-import { getProducts } from "../redux/features/productsSlice";
+import { useGetBrandsQuery } from "../redux/RTK/brandsApi";
+import { useGetProductsQuery } from "../redux/RTK/productsApi";
+import { useGetCategoriesQuery } from "../redux/RTK/categoriesApi";
 
 const HomePage = () => {
-
-  const dispatch = useDispatch()
-  const { brands } = useSelector((store) => store.brands)
-  const { products } = useSelector((store) => store.products)
-  const { isLoading } = useSelector((store) => store.login)
-
-
+  const { data : brands } = useGetBrandsQuery();
+  const { data: products } = useGetProductsQuery()
+  
   const containerRef = useRef()
   const windowWidth = useWindowWidth()
 
@@ -33,13 +29,10 @@ const HomePage = () => {
     }
   }
 
-  useEffect(() => {
-    dispatch(fetchBrands())
-    dispatch(getProducts())
-  }, [])
 
   return (
     <>
+      
       <section className=" bg-headerBackground px-5">
         <div className="container">
           <header className="grid lg:grid-cols-2 grid-cols-1 gap-10 pt-5">
@@ -114,7 +107,7 @@ const HomePage = () => {
         {/* brands section */}
         <div className="bg-forground text-forgroundColor p-6 ">
           <Marquee pauseOnHover={true} speed={50}>
-            {brands.map((brand) => (
+            {brands?.map((brand) => (
               < img src={`${brand.logo}`} alt={brand.name} key={brand._id} className="mx-12" />
             ))}
           </Marquee>
@@ -127,7 +120,7 @@ const HomePage = () => {
 
       {/* Top Selling section */}
       <section className="mt-10">
-        <TopSellingCards />
+        <TopSellingCards products={products} />
       </section >
 
       {/* Category section */}
@@ -149,7 +142,6 @@ const HomePage = () => {
         <CustomerReviews containerRef={containerRef} />
       </section >
     </>
-
   );
 };
 

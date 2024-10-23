@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import CurrentPath from '../components/ui/CurrentPath'
 import AllProducts from '../components/componentPages/products/AllProducts'
-import { fetchCategory } from '../redux/features/categorySlice'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { getProducts } from '../redux/features/productsSlice'
+import { useGetProductsQuery } from '../redux/RTK/productsApi'
 
 const ProductsPage = () => {
-    const dispatch = useDispatch()
     const { id } = useParams()
-    const { category } = useSelector((state) => state.categories)
-    const { selectedPriceRange, selectedSize, selectedColor, products, selectedCategory } = useSelector((state) => state.products)
+    const [selectedColor, setSelectedColor] = useState('')
+    const [selectedSize, setSelectedSize] = useState('')
+    const [selectedPriceRange, setSelectedPriceRange] = useState(0)
+    const [selectedCategory, setSelectedCategory] = useState('')
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
-    const queryParams = {};
+    const [shouldFetch, setShouldFetch] = useState(false)
 
+    const queryParams = {
+        size: selectedSize,
+        color: selectedColor,
+        category: selectedCategory,
+        minPrice: selectedPriceRange ? selectedPriceRange[0] : undefined,
+        maxPrice: selectedPriceRange ? selectedPriceRange[1] : undefined,
+    };
+    
+    const { data: products, isSuccess , isLoading} = useGetProductsQuery(queryParams, {
+        skip: !shouldFetch,
+        refetchOnMountOrArgChange: true
+    })
+  
     const handleFilterClick = () => {
+        setShouldFetch(true)
         if (selectedSize) queryParams.size = selectedSize;
         if (selectedColor) queryParams.color = selectedColor;
         if (selectedCategory) queryParams.category = selectedCategory;
@@ -24,33 +36,45 @@ const ProductsPage = () => {
             queryParams.minPrice = selectedPriceRange[0];
             queryParams.maxPrice = selectedPriceRange[1];
         }
-        // Dispatch the getProducts action with the selected filters
-        dispatch(getProducts(queryParams));
 
         // Update the URL with the selected filters using setSearchParams
         setSearchParams(queryParams);
+        // return products
         if (isFilterOpen) {
             setIsFilterOpen(false);
         } else {
             return
         }
+        
     }
 
     useEffect(() => {
-        dispatch(fetchCategory(id))
-        dispatch(getProducts(queryParams))
+        setShouldFetch(true)
     }, [])
+    
+    useEffect(() => {
+        if (isSuccess) setShouldFetch(false)
+    },[isSuccess])
 
     return (
         <section>
             <div className="container">
-                <CurrentPath
-                    currentPath={[category.name]} />
+                <CurrentPath currentPath={['products']} />
                 <AllProducts
                     isFilterOpen={isFilterOpen}
                     setIsFilterOpen={setIsFilterOpen}
                     onFilterClick={handleFilterClick}
-                    category={products} />
+                    products={products}
+                    isLoading={isLoading}
+                    setSelectedColor={setSelectedColor}
+                    setSelectedSize={setSelectedSize}
+                    setSelectedPriceRange={setSelectedPriceRange}
+                    selectedPriceRange={selectedPriceRange}
+                    setSelectedCategory={setSelectedCategory}
+                    selectedCategory={selectedCategory}
+                    selectedColor={selectedColor}
+                    selectedSize={selectedSize}
+                />
             </div>
         </section>
     )
