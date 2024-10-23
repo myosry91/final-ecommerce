@@ -1,6 +1,6 @@
 import { MdStarRate } from "react-icons/md";
 import MainReviews from "./MainReviews";
-import { lazy, memo } from "react";
+import { memo } from "react";
 // API gives a product object that contains data
 function Card({ imageSrc, imageAlt, cardTitle,price, priceAfterDiscount, className, rate }) {
   return (

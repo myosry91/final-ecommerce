@@ -2,7 +2,7 @@ import React from 'react'
 import {ThreeDots} from "react-loader-spinner"
 const LoaderSpinner = () => {
     return (
-        <div>
+        <div className="flex justify-center items-center">
             <ThreeDots
                 visible={true}
                 height="40"

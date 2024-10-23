@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { MdVisibility, MdVisibilityOff } from "react-icons/md"
 import * as Yup from "yup"
 import { useFormik } from "formik"
-import { Link } from 'react-router-dom'
-import { handleRegister } from '../redux/features/RegisterSlice'
-import { useDispatch } from 'react-redux'
-import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from '../components/ui/Input'
 import Button from '../components/ui/Button'
-// import { useSelector } from 'react-redux'
-
+import { useRegisterMutation } from '../redux/RTK/registerApi'
+import { ToastError, ToastSuccess } from '../components/ui/Toast'
+import LoaderSpinner from '../components/ui/LoaderSpinner'
 
 const RegisterPage = () => {
-  const dispatch = useDispatch()
-  // const {user} = useSelector((store)=> store.register)
+  const [register, { data, isSuccess, isLoading }] = useRegisterMutation()
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+
   const validateSchema = Yup.object({
     firstname: Yup.string().required("Required Field"),
     lastname: Yup.string().required("Required Field"),
@@ -24,8 +23,16 @@ const RegisterPage = () => {
     passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
   })
 
-  const handleForm = () => {
-    dispatch(handleRegister(formik.values))
+  const handleForm = async (data) => {
+    try {
+      await register({ data }).unwrap()
+      ToastSuccess("User added successfully")
+      navigate('/login')
+    } catch (error) {
+      ToastError(error?.errors[0].msg)
+    }
+     
+
   }
 
   const formik = useFormik({
@@ -40,7 +47,7 @@ const RegisterPage = () => {
     validateOnChange: true,
     validateOnBlur: true,
     validationSchema: validateSchema,
-    onSubmit: handleForm
+    onSubmit: (values) => handleForm(values)
   })
 
   useEffect(() => {
@@ -97,7 +104,7 @@ const RegisterPage = () => {
               <div className="text-red-700 font-inter text-[15px]">{formik.errors.passwordConfirm}</div>
             ) : null}
           </div>
-          <Button children={"Sign Up"} className="block py-[10px] mx-auto rounded-lg" />
+          <Button children={ isLoading ? <LoaderSpinner/> : "Sign Up" }  type={'submit'} className="block py-[10px] mx-auto rounded-lg" />
           <span className="flex justify-center gap-2 mt-3 text-center text-[15px]">
             <span className='text-placeholderColor'>Already have an account?</span>
             <Link className="underline decoration-2 text-bold text-[16px]" to={"/login"}>Sign In</Link>

@@ -60,3 +60,27 @@
 .active{
     font-weight: bold;
 }
+
+#modal > div {
+    width: 50vw;
+    height: 20vh ;
+    padding: 10px;    
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.toast_Success{
+    background-color: green !important;
+    color: white !important;
+}
+
+.toast_Error {
+    background-color: red !important;
+    color: white !important;
+}

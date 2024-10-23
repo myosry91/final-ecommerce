@@ -1,4 +1,3 @@
-import ImageOne from "../../../assets/images/image-7.png";
 import Card from "../../ui/Card";
 import { useState } from "react";
 import useWindowWidth from "../../../customHooks/useWindowWidth";
@@ -6,14 +5,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useGetProductsQuery } from "../../../redux/RTK/productsApi";
 
 function Cards() {
 
-  const { products } = useSelector((store) => store.products)
+  const { data: products, isLoading } = useGetProductsQuery()
   const [viewAll, setViewAll] = useState(false);
   const windowWidth = useWindowWidth();
+  const newProducts = products?.filter(product => new Date(product.updatedAt).getMonth() - 1 >= new Date(product.createdAt).getMonth() <= new Date(product.createdAt).getMonth() + 1)
 
   const handleViewAll = () => {
     setViewAll(true);
@@ -25,15 +25,15 @@ function Cards() {
 
   return (
     <>
-      {windowWidth > 768 ? (
+      {isLoading && windowWidth > 768 ? (
         <div className="cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-x-5 gap-y-10 justify-center">
-          {products.length > 4 && !viewAll
-            ? products.slice(0, 4).map((card) => (
+          {newProducts?.length > 4 && !viewAll
+            ? newProducts?.slice(0, 4).map((card) => (
               <div key={card.id} className="card">
                 <Link to={`/products/${card._id}`}>
                   <Card
                     imageSrc={card.imgCover}
-                    imageAlt={card.name}
+                    imageAlt={card.title}
                     cardTitle={card.title}
                     price={card.price}
                     priceAfterDiscount={card.priceAfterDiscount}
@@ -43,7 +43,7 @@ function Cards() {
                 </Link>
               </div>
             ))
-            : products.map((card) => (
+            : newProducts?.map((card) => (
               <div key={card.id} className="card">
                 <Link to={`/products/${card._id}`}>
                   <Card
@@ -78,7 +78,7 @@ function Cards() {
             },
           }}
         >
-          {products.map((card) => (
+          {products?.map((card) => (
             <SwiperSlide key={card.id}>
               <Link to={`/products/${card._id}`}>
                 <Card
@@ -95,7 +95,7 @@ function Cards() {
           ))}
         </Swiper>
       )}
-      {windowWidth > 768 && products.length > 4 && !viewAll && (
+      {windowWidth > 768 && newProducts?.length > 4 && !viewAll && (
         <div className="flex justify-center pb-3 pt-10">
           <button
             className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius"
@@ -105,7 +105,7 @@ function Cards() {
           </button>
         </div>
       )}
-      {windowWidth > 768 && products.length > 4 && viewAll && (
+      {windowWidth > 768 && newProducts?.length > 4 && viewAll && (
         <div className="flex justify-center pb-3 pt-10">
           <button
             className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius"

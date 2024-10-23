@@ -34,14 +34,14 @@ const OrderSummaryBox = ({ type, count, label }) => {
   );
 };
 
-const OrderStatusSummary = ({ completed, canceled, processing }) => {
+const OrderStatusSummary = ({orderStatus }) => {
  
     
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8">
-      <OrderSummaryBox type="completed" count={completed} label="Completed orders" />
-      <OrderSummaryBox type="canceled" count={canceled} label="Canceled orders" />
-      <OrderSummaryBox type="processing" count={processing} label="Processing orders" />
+      <OrderSummaryBox type="completed" count={orderStatus.completed} label="Completed orders" />
+      <OrderSummaryBox type="canceled" count={orderStatus.canceled} label="Canceled orders" />
+      <OrderSummaryBox type="pending" count={orderStatus.pending} label="pending orders" />
     </div>
   );
 };

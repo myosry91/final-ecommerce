@@ -6,32 +6,28 @@ import Carousel from "../components/componentPages/details/Carousel";
 import ProductDetails from "../components/componentPages/details/ProductDetails";
 import RelatedProducts from "../components/componentPages/details/RelatedProducts";
 import CurrentPath from "../components/ui/CurrentPath";
-import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "../redux/features/oneProductSlice";
+import { useDispatch } from "react-redux";
+import { useGetProductMutation } from "../redux/RTK/productsApi";
 
 const DetailsPage = () => {
   const [check, setCheck] = useState(0);
   const [viewAll, setViewAll] = useState(false)
   const { id } = useParams()
-  const dispatch = useDispatch()
-  const { product } = useSelector((store) => store.product)
-
+  const [setProduct, { data: product }] = useGetProductMutation();
+  
   useEffect(() => {
-    if (id) {
-      dispatch(getProduct(id));
-    }
-  }, [id, dispatch]);
-
+    setProduct(id)
+  },[id])
 
   return (
     <section>
       <div className="container">
         {/* product path */}
-        <CurrentPath currentPath={["shop", "Men", product.title]} />
+        <CurrentPath currentPath={["shop", product?.title]} />
         {/* product details */}
         <div className="p-3 grid md:grid-cols-2 lg:grid-col-2 grid-cols-1 gap-10">
           {/* left side */}
-          <Carousel images={product.images} />
+          <Carousel images={product?.images} />
           {/* right side */}
           <div>
             <ProductDetails
