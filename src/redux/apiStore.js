@@ -8,6 +8,7 @@ import { registerApi } from "./RTK/registerApi";
 import { logoutApi } from "./RTK/logoutApi";
 import { ordersApi } from "./RTK/adminDashboardApi";
 import { addToCartApi } from "./RTK/cartApi";
+import themeReducer from "./themeSlice";
 
 export const store = configureStore({
     reducer: {
@@ -18,7 +19,8 @@ export const store = configureStore({
         [registerApi.reducerPath]: registerApi.reducer,
         [logoutApi.reducerPath]: logoutApi.reducer,
         [ordersApi.reducerPath]: ordersApi.reducer,
-        [addToCartApi.reducerPath]: addToCartApi.reducer
+        [addToCartApi.reducerPath]: addToCartApi.reducer,
+        theme: themeReducer
     },
 
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
@@ -36,3 +38,5 @@ export const store = configureStore({
 })
 
 setupListeners(store.dispatch)
+
+export default store

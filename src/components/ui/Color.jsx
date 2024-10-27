@@ -25,7 +25,7 @@ const Color = ({ colors, selectedColor, setSelectedColor }) => {
                     style={{ backgroundColor: color }}
                     onClick={() => handleColorClick(color, index)}
                 >
-                    {check === index && <MdCheck className={` ${color === "#FFFFFF" ? "text-slate-400/30" : "text-white"} `} />}
+                    {selectedColor === color && <MdCheck className={` ${color === "#FFFFFF" ? "text-slate-400/30" : "text-white"} `} />}
                 </div>
             ))}
         </div>

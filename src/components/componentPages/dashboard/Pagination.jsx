@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           >Previous</button>
           {pages.map((page) => (
               <button
-                  className={` ${currentPage === page ? "bg-slate-300" : 'text-slate-300'} w-10 rounded `}
+                  className={` ${currentPage === page ? "bg-slate-300" : 'text-slate-300'} w-10 rounded dark:text-black`}
                   key={page}
                   onClick={()=>onPageChange(page)}
               > {page} </button>

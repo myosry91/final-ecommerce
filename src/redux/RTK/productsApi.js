@@ -20,7 +20,7 @@ export const getProductsApi = createApi({
             
             transformResponse: (response, meta, arg) => response.data,
             transformErrorResponse: (response, meta, arg) => response.data,
-            keepUnusedDataFor: 500000
+            keepUnusedDataFor: Infinity
         }),
 
         getProduct: builder.mutation({
@@ -30,7 +30,7 @@ export const getProductsApi = createApi({
             }),
             transformResponse: (response, meta, arg) => response.data,
             transformErrorResponse: (response, meta, arg) => response.status,
-            keepUnusedDataFor: 500000
+            keepUnusedDataFor: Infinity
         })
     }),
 })

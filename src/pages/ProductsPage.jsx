@@ -12,21 +12,21 @@ const ProductsPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('')
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [shouldFetch, setShouldFetch] = useState(false)
+    const [shouldFetch, setShouldFetch] = useState(true)
 
-    const queryParams = {
+    const queryParams  = {
         size: selectedSize,
         color: selectedColor,
         category: selectedCategory,
-        minPrice: selectedPriceRange ? selectedPriceRange[0] : undefined,
-        maxPrice: selectedPriceRange ? selectedPriceRange[1] : undefined,
+        minPrice: selectedPriceRange ? selectedPriceRange[0] : '',
+        maxPrice: selectedPriceRange ? selectedPriceRange[1] : '',
     };
     
     const { data: products, isSuccess , isLoading} = useGetProductsQuery(queryParams, {
         skip: !shouldFetch,
         refetchOnMountOrArgChange: true
     })
-  
+
     const handleFilterClick = () => {
         setShouldFetch(true)
         if (selectedSize) queryParams.size = selectedSize;
@@ -38,21 +38,20 @@ const ProductsPage = () => {
         }
 
         // Update the URL with the selected filters using setSearchParams
-        setSearchParams(queryParams);
-        // return products
+        setSearchParams(queryParams)
         if (isFilterOpen) {
             setIsFilterOpen(false);
         } else {
             return
         }
-        
     }
-
+    
     useEffect(() => {
         setShouldFetch(true)
     }, [])
     
     useEffect(() => {
+        // controle of filtering data 
         if (isSuccess) setShouldFetch(false)
     },[isSuccess])
 

@@ -20,11 +20,12 @@ const AdminDashboard = () => {
 
     const { data: total } = useCountOrdersQuery()
     const [setStatus, { data }] = useChangeOrderStatusMutation()
-    const { data: orders, refetch, isLoading } = useGetOrdersQuery(queryParams, {
-        skip: !shouldFetch,
-        refetchOnMountOrArgChange: true
+    const { data: orders, refetch, isLoading, isSuccess } = useGetOrdersQuery(queryParams, {
+        // skip: !shouldFetch,
+        refetchOnMountOrArgChange: true,
+        refetchOnFocus: true
     })
-    const [updatedOrders, setUpdatedOrders] = useState(orders)
+    const [updatedOrders, setUpdatedOrders] = useState([])
     const [deleteOrder] = useDeleteOrderMutation()
 
     const totalPages = Math.ceil(total?.orderCount / 5)
@@ -58,8 +59,8 @@ const AdminDashboard = () => {
     }, [orders, updatedOrders])
 
     useEffect(() => {
-        setUpdatedOrders(updatedOrders)
-    },[])
+        if(isSuccess) setUpdatedOrders(orders)
+    },[isSuccess, orders])
     
     const handleChangeOrderStatus = async (id, status) => {
         let newStatus = { status: status }

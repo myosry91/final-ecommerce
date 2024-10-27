@@ -8,9 +8,12 @@ import {  useState } from "react";
 import { useLoginMutation } from "../redux/RTK/loginApi";
 import { toast } from "react-toastify";
 import { ToastSuccess } from "../components/ui/Toast";
+import { useSelector } from "react-redux";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const { theme } = useSelector((state) => state.theme)
   const navigate = useNavigate();
   const [login, {isLoading , isSuccess}] = useLoginMutation()
 
@@ -51,10 +54,10 @@ function LoginPage() {
 
 
   return (
-    <div className="bg-inputBackground py-16">
+    <div className="bg-inputBackground dark:bg-dark py-16">
       <div className="container flex items-center justify-center">
         <form className="w-[95%] max-w-[480px] md:w-[480px] bg-white shadow-xl mx-auto px-6 pb-10 pt-5 rounded-lg" onSubmit={formik.handleSubmit}>
-          <h2 className="mb-3 text-[30px] text-center font-cairo">Login</h2>
+          <h2 className="mb-3 text-[30px] text-center font-cairo dark:text-black ">Login</h2>
           <div className="mb-5">
             <Input type="email" placeholder="Enter Email Address" inputLabel={"Username"} inputLabelId={"user-name"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.email} inputName={"email"} />
             {formik.touched.email && formik.errors.email ? (
@@ -65,18 +68,18 @@ function LoginPage() {
             <Input type={showPassword ? "text" : "password"} placeholder="Enter Your Password" inputLabel={"Password"} inputLabelId={"password"} styles={"w-[100%]"} change={formik.handleChange} blur={formik.handleBlur} value={formik.values.password} inputName={"password"} />
             <div onClick={handleClickShowPassword}
               className='relative'>
-              {showPassword ? <MdVisibilityOff size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" }} /> : <MdVisibility size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" }} />}
+              {showPassword ? <MdVisibilityOff size={18} style={{ position: 'absolute', right: '5px', bottom: "15px" ,  color: theme === "dark" ? 'black' : 'white' }} /> : <MdVisibility size={18} style={{ position: 'absolute', right: '5px', bottom: "15px",  color: theme === "dark" ? 'black' : 'white'  }} />}
             </div>
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-700 font-inter text-[15px]">{formik.errors.password}</div>
             ) : null}
           </div>
-          <Button children={"Login"} isLoading={isLoading} className="block py-[10px] mx-auto rounded-lg" type={'sumbit'} />
+          <Button children={"Login"} isLoading={isLoading} className="block py-[10px] mx-auto rounded-lg dark:hover:text-black" type={'sumbit'} />
           <span className="flex justify-center gap-2 mt-3 text-center text-[15px]">
             <span className="text-placeholderColor">Create Your Account</span>
             <button
               onClick={() => navigate("/register")}
-              className="cursor-pointer underline decoration-2 text-bold text-[16px]"
+              className="cursor-pointer underline decoration-2 text-bold text-[16px] dark:text-black "
               >Sign Up</button>
           </span>
         </form>

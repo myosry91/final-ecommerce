@@ -66,7 +66,6 @@ function AllProducts({ ...props }) {
     navigate(`/products/${id}`)
   }
 
-  console.log(isFilterOpen)
   return (
     <>
       <div className="my-5 grid lg:grid-cols-[275px,1fr] md:grid-cols-[275px,1fr] grid-cols-1 gap-5 realtive">
@@ -99,7 +98,7 @@ function AllProducts({ ...props }) {
         }
         <div className="lg:mb-12">
           <div className="flex items-center justify-between mb-3 px-2 gap-6">
-            <h2 className="lg:text-[32px] text-[24px] font-bold">{ category?.name }</h2>
+            {/* <h2 className="lg:text-[32px] text-[24px] font-bold">{ category?.name }</h2> */}
             {/* <p className="text-placeholderColor">Showing 1-10 of 100 Products sort by: Most Popular</p> */}
             <img src={FilterImage} alt="filter-icon" className={"cursor-pointer md:hidden"} onClick={()=> setIsFilterOpen(!isFilterOpen)} width="32" height="32" />
           </div>
@@ -110,7 +109,13 @@ function AllProducts({ ...props }) {
                 products?.slice(numOfPage[0], numOfPage[1]).map((card) => {
                   return (
                     <div key={card._id} onClick={() => { onCardClick(card._id) }} className="cursor-pointer">
-                      <Card imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} rate={card.ratingsAverage} />
+                      <Card
+                        imageSrc={card.imgCover}
+                        imageAlt={card.title}
+                        cardTitle={card.title}
+                        priceAfterDiscount={card.priceAfterDiscount}
+                        price={card.price}
+                        rate={card.ratingsAverage} />
                     </div>
                     // <Card key={card.id} imageSrc={card.imgCover} imageAlt={card.title} cardTitle={card.title} cardPrice={card.priceAfterDiscount} discount={"$20"} oldPrice={card.price} />
                   )
@@ -127,7 +132,7 @@ function AllProducts({ ...props }) {
             <div className="pages-nums flex items-center flex-wrap justify-center">
               {pageNums.map((pageNum) => {
                 return (
-                  <button key={pageNum} className={`rounded-[8px] text-[14px] px-3 py-2 ${activePageNumber === pageNum && "bg-inputBackground"}`} onClick={() => {
+                  <button key={pageNum} className={`rounded-[8px] text-[14px] px-3 py-2  ${activePageNumber === pageNum && "bg-inputBackground dark:text-black"}`} onClick={() => {
                     setActivePageNumber(pageNum);
                   }}>{pageNum}</button>
                 )
