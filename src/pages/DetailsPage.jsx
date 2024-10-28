@@ -13,7 +13,7 @@ const DetailsPage = () => {
   const [check, setCheck] = useState(0);
   const [viewAll, setViewAll] = useState(false)
   const { id } = useParams()
-  const [setProduct, { data: product }] = useGetProductMutation();
+  const [setProduct, { data: product , isLoading}] = useGetProductMutation();
   
   useEffect(() => {
     setProduct(id)
@@ -25,9 +25,9 @@ const DetailsPage = () => {
         {/* product path */}
         <CurrentPath currentPath={["shop", product?.title]} />
         {/* product details */}
-        <div className="p-3 grid md:grid-cols-2 lg:grid-col-2 grid-cols-1 gap-10">
+        <div className="p-3 grid md:grid-cols-[1fr_2fr] lg:grid-col-[1fr_2fr] grid-cols-1">
           {/* left side */}
-          <Carousel images={product?.images} />
+          <Carousel images={product?.images} isLoading={isLoading} />
           {/* right side */}
           <div>
             <ProductDetails
@@ -54,16 +54,16 @@ const DetailsPage = () => {
         {/* list testmonials */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {viewAll ? (
-            Array.from({ length: 5 }).map((_, index) => (
+            Array.from({ length: 4 }).map((_, index) => (
               <ReviewCard key={index} comment="I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt" postDate="Posted on August 14, 2023" name="Samantha Co." />
             ))
           ) : (
-            Array.from({ length: 5 }).slice(2).map((_, index) => (
+            Array.from({ length: 5 }).slice(3).map((_, index) => (
               <ReviewCard key={index} comment="I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt" postDate="Posted on August 14, 2023" name="Samantha Co." />
             ))
           )}
         </div>
-        <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4 font-bold" onClick={() => setViewAll(!viewAll)} >{!viewAll ? "Load more reviews" : "Load less reviews"}</button>
+        <button className="bg-white p-buttonPadding border border-solid border-whiteBtnBorderColor rounded-buttonRadius mx-auto block my-4 font-bold dark:text-black " onClick={() => setViewAll(!viewAll)} >{!viewAll ? "Load more reviews" : "Load less reviews"}</button>
       </div>
       {/* related products */}
       <div>

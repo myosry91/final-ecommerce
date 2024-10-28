@@ -12,7 +12,7 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
       <input
         type="text"
         placeholder="Search by order number or seller or status "
-        className="border border-gray-300 rounded p-2 mb-4 w-full"
+        className="border border-gray-300 rounded p-2 mb-4 w-full dark:text-black"
         onChange={(e) => onSearchOrder(e)}
       />
       {searchResult?.length == 0 && isDirty == true && <p className='text-red-600 absolute end-3 top-3 font-bold text-xs ' >not exist</p>}
@@ -44,7 +44,7 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
                   type="checkbox"
                   checked={order.status === "complete"}
                   disabled={order.status === 'canceled'}
-                  className="h-5 w-5 border-2 border-gray-500 rounded"
+                  className="h-5 w-5 border-2 border-gray-500 rounded dark:text-black"
                   onClick={() => onChangeOrderStatus(order.id, "complete")}
                   readOnly
                 />
@@ -62,7 +62,7 @@ const OrderTable = ({ orders, completed, searchResult, onChangeOrderStatus, onSe
                   </div>
                 }
               </td>
-              <td className="px-10 py-6 flex gap-1 ">
+              <td className="px-10 py-6 flex gap-1 justify-center items-center">
                 <FaRegEye className='text-green-500 ' />
                 {order.status === "pending" || order.status === 'canceled' || order.status === 'complete' ? "" : <TiDelete color='red' className='cursor-pointer' onClick={() => onDeleteOrder(order.id)} />}
               </td>

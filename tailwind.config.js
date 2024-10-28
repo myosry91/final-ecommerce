@@ -1,11 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
-      // gridTemplateColumns: {
-      //   'auto-fill': 'repeat(auto-fill, minmax(230px, 1fr))',
-      // },
+      
       container: {
         padding: '1.5rem',
         center: true,
@@ -19,6 +18,10 @@ export default {
       },
       clipPath: {
         'custom-star': 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
+      },
+
+      backgroundColor: {
+        dark: "#121212"
       },
       
       colors: {

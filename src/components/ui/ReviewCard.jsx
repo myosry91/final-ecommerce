@@ -10,14 +10,14 @@ const ReviewCard = ({name, comment, postDate, className}) => {
         <MainReviews rate={5.5} />
         <BsThreeDots />
       </div>
-      <div className="my-4 flex items-center gap-1">
-        <p className="font-inter text-lg font-bold">{ name}</p>
+      <div className="my-4 flex items-center gap-1 ">
+        <p className="font-inter  text-lg font-bold">{ name}</p>
         <MdVerified className="text-iconVerifiedBackground" />
       </div>
-      <p className="text-descriptionColor">
+      <p className="text-descriptionColor dark:text-slate-300">
         {comment}
       </p>
-      <p className="text-descriptionColor mt-6">{ postDate}</p>
+      <p className="text-descriptionColor mt-6 dark:text-white ">{ postDate}</p>
     </div>
   );
 };

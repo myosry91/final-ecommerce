@@ -11,7 +11,7 @@ export const getCategoriesApi = createApi({
             query: () => "categories",
             transformResponse: (response) => response.data,
             transformErrorResponse: (response) => response.status,
-            keepUnusedDataFor: 500000
+            keepUnusedDataFor: Infinity
         }),
 
         getCategory: builder.mutation({
@@ -21,7 +21,7 @@ export const getCategoriesApi = createApi({
             }),
             transformResponse: (response) => response.data,
             transformErrorResponse: (response) => response.status,
-            keepUnusedDataFor: 500000
+            keepUnusedDataFor: Infinity
         })
     })
 })

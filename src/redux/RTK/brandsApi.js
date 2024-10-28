@@ -9,7 +9,7 @@ export const getBrandsApi = createApi({
             query: () => "brands",
             transformResponse: (response, meta, arg) => response.data, // ensure the response has this structure
             transformErrorResponse: (response, meta, arg) => response.status,
-            keepUnusedDataFor: 500000
+            keepUnusedDataFor: Infinity
         }),
     }),
 })

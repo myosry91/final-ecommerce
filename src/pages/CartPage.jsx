@@ -4,27 +4,52 @@ import CartItems from '../components/componentPages/cart/CartItems';
 import OrderSummary from '../components/componentPages/cart/OrderSummary';
 import { Link } from 'react-router-dom';
 import { AiFillCaretRight } from "react-icons/ai";
-import { useCountOrdersQuery, useGetOrdersQuery } from '../redux/RTK/adminDashboardApi';
+import { useCountOrdersQuery, useDeleteOrderMutation, useGetOrderMutation, useGetOrdersQuery } from '../redux/RTK/adminDashboardApi';
 
 const CartPage = () => {
-  const [shouldFetch, setShouldFetch] = useState(false)
-  const { data: total } = useCountOrdersQuery({
-    skip: false,
-    refetchOnMountOrArgChange: true
-  });
-  const queryParams = {page: 1, limit:total?.orderCount}
-  const { data: orders , isLoading, isSuccess} = useGetOrdersQuery(queryParams, {
-    skip: false,
-    refetchOnMountOrArgChange: true
-  });
+  const { data: total, refetch:refetchCount } = useCountOrdersQuery();
+  const queryParams = { page: 1, limit: total?.orderCount }
 
-  const [updatedOrder, setUpdatedOrders] = useState(orders)
+  const { data: orders, isLoading, isSuccess, refetch } = useGetOrdersQuery(queryParams, {
+    refetchOnFocus: true
+  });
+  
+  const [getOrder, {data: currentOrder}] = useGetOrderMutation({
+    fixedCacheKey: "getOrder",
+  })
+
+  const [deleteOrder] = useDeleteOrderMutation()
+  const [showModal, setShowModal] = useState(false)
+  const [updatedOrder, setUpdatedOrders] = useState([])
+  
+  
+
+  const handleDeleteOrder = async (id) => {
+    const newOrders = orders?.filter((order) => order.id !== id)
+    setUpdatedOrders(newOrders)
+    try {
+      await deleteOrder(id).unwrap()
+      setShowModal(false)
+      refetch()
+      refetchCount()
+    } catch (error) {
+      console.log("Error occurred", error)
+    }
+  }
+
+  
+  const handleFetchOrder = (id) => {
+    setShowModal(true)
+    getOrder(id).unwrap()
+  }
 
   useEffect(() => {
-    setShouldFetch(true)
-    setUpdatedOrders(orders)
-    console.log(isSuccess)
+    refetch()
   }, [])
+
+  useEffect(() => {
+   if(isSuccess) setUpdatedOrders(orders)
+  },[isSuccess, orders])
   
 
   return (
@@ -40,8 +65,11 @@ const CartPage = () => {
           <CartItems
             isLoading={isLoading}
             updatedOrder={updatedOrder}
-            setUpdatedOrders={setUpdatedOrders}
-            orders={orders}
+            onFetchOrder={handleFetchOrder}
+            onDeleteOrder={handleDeleteOrder}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            currentOrder={currentOrder}
           />
           <OrderSummary
              updatedOrder={updatedOrder}

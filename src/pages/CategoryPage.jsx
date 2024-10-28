@@ -1,27 +1,41 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetCategoryMutation } from "../redux/RTK/categoriesApi";
+import { useGetProductsQuery } from "../redux/RTK/productsApi";
+import CurrentPath from "../components/ui/CurrentPath";
+import Card from "../components/ui/Card";
+import LoaderSpinner from "../components/ui/LoaderSpinner";
 
 function CategoryPage() {
   const {id} = useParams();
-  const [setCategory, { data: category }] = useGetCategoryMutation();
+  const [setCategory, { data: cat }] = useGetCategoryMutation();
+  const { data: products, isLoading } = useGetProductsQuery()
+  const data = products?.filter((product)=> product.category.name === cat?.name) ?? []
+  console.log(data)
 
   useEffect(() => {
     setCategory(id)
   },[id])
 
   return (
-    <div className="flex flex-col space-y-10 justify-center items-center w-full">
-      <h1 className="mt-10 text-[28px] font-semibold">{category?.name}</h1>
-      <div>
-        <img src={category?.image} className="lg:w-[500px]" />
+    <div className=" container mb-40">
+      <CurrentPath currentPath={[cat?.name]}  />
+      <h1 className="mt-10 text-[28px] font-semibold">{cat?.name}</h1>
+        {isLoading ? <LoaderSpinner/> : 
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-7 mt-5 ">
+          {data.map((prod) => (
+            <Card
+              imageSrc={prod.imgCover}
+              imageAlt={prod.title}
+              cardTitle={prod.title}
+              price={prod.price}
+              priceAfterDiscount={prod.priceAfterDiscount}
+              key={prod._id}
+              rate={prod.ratingsAverage}
+            />
+          ))}
       </div>
-      <p className="max-w-[800px] mx-auto px-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-        ratione quis ex eius corrupti minima aliquid, sed aut natus odit iusto
-        eos laboriosam fuga nihil officia veniam dolore voluptatum quia!
-      </p>
-      <div className="lg:h-5" />
+        }
     </div>
   );
 }

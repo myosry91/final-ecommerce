@@ -24,12 +24,12 @@ function TopSellingCards({ products }) {
 
   return (
     <div className="container">
-      <Title title={"Top Selling"} className={"text-center"} />
+      <Title title={"Top Selling"} className={"text-center "} />
       {windowWidth > 768 ? (
         <div className="cards grid lg:grid-cols-4 md:grid-cols-3 gap-x-5 gap-y-10 justify-self-center ">
           {productsWithHigherRate?.length <= 3 && !viewAll ?
-            productsWithHigherRate.map((prod) => (
-              <div key={prod.id} className="card">
+            productsWithHigherRate.map((prod, index) => (
+              <div key={`${prod.id}-${index}`} className="card">
                 <Link to={`/products/${prod._id}`}>
                   <Card
                     imageSrc={prod.imgCover}
@@ -37,6 +37,7 @@ function TopSellingCards({ products }) {
                     cardTitle={prod.title}
                     price={prod.price}
                     priceAfterDiscount={prod.priceAfterDiscount}
+                    rate={prod.ratingsAverage}
                   />
                 </Link>
               </div>
@@ -50,6 +51,7 @@ function TopSellingCards({ products }) {
                     cardTitle={prod.title}
                     price={prod.price}
                     priceAfterDiscount={prod.priceAfterDiscount}
+                    rate={prod.ratingsAverage}
                   />
                 </Link>
               </div>
@@ -57,8 +59,8 @@ function TopSellingCards({ products }) {
           }
         </div>
       ) : (
-        <Swiper
-          navigation={true}
+          <Swiper
+          navigation={false}
           modules={[Navigation]}
           className="mySwiper"
           spaceBetween={10}
@@ -75,14 +77,15 @@ function TopSellingCards({ products }) {
             },
           }}
         >
-          {products?.map((card) => (
-            <SwiperSlide key={card.id}>
+          {products?.map((card, index) => (
+            <SwiperSlide key={`${card.id}-${index}`}>
               <Card
                 imageSrc={card.imgCover}
                 imageAlt={card.title}
                 cardTitle={card.title}
                 price={card.price}
                 priceAfterDiscount={card.priceAfterDiscount}
+                rate={card.ratingsAverage}
               />
             </SwiperSlide>
           ))}

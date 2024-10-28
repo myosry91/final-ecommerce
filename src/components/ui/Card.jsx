@@ -21,9 +21,9 @@ function Card({ imageSrc, imageAlt, cardTitle,price, priceAfterDiscount, classNa
           <MainReviews rate={rate} />
         </span>
         <span className=" text-cardPrice pt-2 font-bold flex gap-3 items-center">
-          <p className="font-bold lg:text-2xl text-lg ">{priceAfterDiscount}</p>
-          <p className="line-through text-descriptionColor font-bold lg:text-2xl text-lg" >{price}</p>
-          {priceAfterDiscount > 0 && <p className="bg-discountBackground text-discountColor rounded-cardRadius text-base p-discountSm">{ Math.ceil(((price - priceAfterDiscount) / price) *100)}% </p> }
+          <p className="font-bold lg:text-2xl text-lg ">{priceAfterDiscount}$</p>
+          <p className="line-through text-descriptionColor font-bold lg:text-2xl text-lg dark:text-slate-300 " >{price}$</p>
+          {priceAfterDiscount > 0 && <small className="bg-discountBackground text-discountColor rounded-cardRadius text-base p-1">{ Math.ceil(((price - priceAfterDiscount) / price) *100)}% </small> }
         </span>
       </div>
     </div>
